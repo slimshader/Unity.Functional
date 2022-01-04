@@ -1,0 +1,18 @@
+{
+    "name": "UnityFunctional.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f24e56635959d59408515dd55659d6b4"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

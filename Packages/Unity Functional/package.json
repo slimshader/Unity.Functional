@@ -1,0 +1,13 @@
+{
+  "name": "pl.bravasoft.unity.functional",
+  "version": "0.2.0",
+  "displayName": "Unity Functional",
+  "description": "Efficient implemetation of Option and Result Monads dedicated for Unity.",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "keywords": [],
+  "author": {
+    "name": "Bravasoft"
+  }
+}
