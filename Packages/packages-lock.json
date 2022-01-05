@@ -81,7 +81,7 @@
       }
     },
     "pl.bravasoft.unity.functional": {
-      "version": "file:Unity Functional",
+      "version": "file:UnityFunctional",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
