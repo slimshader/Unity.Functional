@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace Bravasoft.Tests
+namespace UnityFunctional.Tests
 {
     public class OptionTests
     {

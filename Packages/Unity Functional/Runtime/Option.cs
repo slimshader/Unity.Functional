@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bravasoft
+namespace UnityFunctional
 {
     public static class Option
     {

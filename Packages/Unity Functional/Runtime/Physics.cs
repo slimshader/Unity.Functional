@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 
-namespace Bravasoft
+namespace UnityFunctional
 {
-    namespace Unity
+    public static class Physics
     {
-        public static class Physics
-        {
-            public static Option<RaycastHit> Raycast(in Ray ray) =>
-                UnityEngine.Physics.Raycast(ray, out RaycastHit hit) ? Option.Some(hit) : Option.None;
-        }
+        public static Option<RaycastHit> Raycast(in Ray ray) =>
+            UnityEngine.Physics.Raycast(ray, out RaycastHit hit) ? Option.Some(hit) : Option.None;
     }
+
 }

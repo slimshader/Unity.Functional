@@ -1,22 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
+using System.Linq;
 using UnityEngine.TestTools.Constraints;
 using Is = NUnit.Framework.Is;
 using UnityIs = UnityEngine.TestTools.Constraints.Is;
 
-namespace Bravasoft
-{
-
-    public static class IndexedExtensions
-    {
-        public static IndexedEnumerator<T> Indexed<T>(this IEnumerable<T> ts) =>
-            new IndexedEnumerator<T>(ts.GetEnumerator());
-    }
-}
-
-namespace Bravasoft.Tests
+namespace UnityFunctional.Tests
 {
     public class IndexedTests
     {

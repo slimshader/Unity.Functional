@@ -1,6 +1,6 @@
 using System;
 
-namespace Bravasoft
+namespace UnityFunctional
 {
     public readonly struct Result<TValue, TError>
     {

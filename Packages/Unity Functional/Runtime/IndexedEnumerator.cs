@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bravasoft
+namespace UnityFunctional
 {
     public struct IndexedEnumerator<T>
     {
@@ -33,5 +33,11 @@ namespace Bravasoft
         }
 
         public IndexedEnumerator<T> GetEnumerator() => this;
+    }
+
+    public static class IndexedLinqExtensions
+    {
+        public static IndexedEnumerator<T> Indexed<T>(this IEnumerable<T> ts) =>
+            new IndexedEnumerator<T>(ts.GetEnumerator());
     }
 }

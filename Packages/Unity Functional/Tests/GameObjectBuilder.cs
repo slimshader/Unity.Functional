@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Bravasoft.Tests
+namespace UnityFunctional
 {
     internal sealed class GameObjectBuilder
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bravasoft
+namespace UnityFunctional
 {
     public static class UnityOptionExtensions
     {
