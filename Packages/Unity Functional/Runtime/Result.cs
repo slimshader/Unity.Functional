@@ -13,6 +13,8 @@ namespace Bravasoft
 
         public bool IsOk => _isOk;
 
+        public TError Error => _isOk ? throw new InvalidOperationException() : _error;
+
         public Result<UValue, TError> Map<UValue>(Func<TValue, UValue> map) =>
             _isOk ? (Result<UValue, TError>) Result.Ok(map(_value)) : Result.Fail(_error);
 
