@@ -13,8 +13,6 @@ namespace Bravasoft
 
         public bool IsOk => _isOk;
 
-        public TError Error => !_isOk ? _error : throw new InvalidOperationException();
-
         public Result<UValue, TError> Map<UValue>(Func<TValue, UValue> map) =>
             _isOk ? (Result<UValue, TError>) Result.Ok(map(_value)) : Result.Fail(_error);
 
@@ -26,7 +24,9 @@ namespace Bravasoft
         public Option<TValue> ToOption() => _isOk ? Option<TValue>.Some(_value) : Option<TValue>.None;
 
         public static explicit operator TValue(in Result<TValue, TError> result) =>
-            result.IsOk ? result._value : throw new InvalidCastException();
+            result.IsOk ? result._value : throw new ResultFailException<TError>(result._error);
+
+        public override string ToString() => _isOk ? $"Ok({_value})" : $"Fail({_error})";
 
         public static implicit operator Result<TValue, TError>(in Result.ResultOk<TValue> ok) => Ok(ok.Value);
         public static implicit operator Result<TValue, TError>(in Result.ResultFail<TError> fail) => Fail(fail.Error);
