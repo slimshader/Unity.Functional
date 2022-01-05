@@ -1,5 +1,7 @@
 Unity Functional
 
+Disclaimer: Usable but under heavy development, more functionality and tests coming
+
 #Option
 
 #Result
