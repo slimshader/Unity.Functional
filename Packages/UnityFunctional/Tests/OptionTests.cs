@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace UnityFunctional.Tests
+namespace Bravasoft.UnityFunctional.Tests
 {
     public class OptionTests
     {
@@ -43,7 +43,7 @@ namespace UnityFunctional.Tests
             var option = go.TryGetComponent<Collider>();
 
             Assert.That(option.IsSome, Is.True);
-            Assert.That(option.MatchSome(x => x.GetType()), Is.EqualTo(typeof(BoxCollider)));
+            Assert.That(option.Match(x => x.GetType(), null), Is.EqualTo(typeof(BoxCollider)));
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace UnityFunctional.Tests
             var option = go.TryGetComponentInParent<Collider>();
 
             Assert.That(option.IsSome, Is.True);
-            Assert.That(option.MatchSome(x => x.GetType()), Is.EqualTo(typeof(BoxCollider)));
+            Assert.That(option.Match(x => x.GetType(), null), Is.EqualTo(typeof(BoxCollider)));
         }
 
         [Test]
