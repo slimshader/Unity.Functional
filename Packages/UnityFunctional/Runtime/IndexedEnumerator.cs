@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UnityFunctional
+namespace Bravasoft.UnityFunctional
 {
     public struct IndexedEnumerator<T>
     {

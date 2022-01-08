@@ -1,41 +1,49 @@
 using System;
 
-namespace UnityFunctional
+namespace Bravasoft.UnityFunctional
 {
     public readonly struct Result<TValue, TError>
     {
         private readonly TValue _value;
         private readonly TError _error;
-        private readonly bool _isOk;
+
+        public readonly bool IsOk;
 
         public static Result<TValue, TError> Ok(TValue value) => new Result<TValue, TError>(true, value, default);
         public static Result<TValue, TError> Fail(TError error) => new Result<TValue, TError>(false, default, error);
 
-        public bool IsOk => _isOk;
-
-        public TError Error => _isOk ? throw new InvalidOperationException() : _error;
+        public TError Error => IsOk ? throw new InvalidOperationException() : _error;
 
         public Result<UValue, TError> Map<UValue>(Func<TValue, UValue> map) =>
-            _isOk ? (Result<UValue, TError>) Result.Ok(map(_value)) : Result.Fail(_error);
+            IsOk ? (Result<UValue, TError>) Result.Ok(map(_value)) : Result.Fail(_error);
+
+        public Result<UValue, UError> BiMap<UValue, UError>(Func<TValue, UValue> map, Func<TError, UError> mapError) =>
+            IsOk ? (Result<UValue, UError>) Result.Ok(map(_value)) : Result.Fail(mapError(_error));
 
         public Result<UValue, TError> Bind<UValue>(Func<TValue, Result<UValue, TError>> bind) =>
-            _isOk ? bind(_value) : Result.Fail(_error);
+            IsOk ? bind(_value) : Result.Fail(_error);
 
-        public T Match<T>(Func<TValue, T> ok, Func<TError, T> error) => _isOk ? ok(_value) : error(_error);
+        public T Match<T>(Func<TValue, T> ok, Func<TError, T> error) => IsOk ? ok(_value) : error(_error);
 
-        public Option<TValue> ToOption() => _isOk ? Option<TValue>.Some(_value) : Option<TValue>.None;
+        public Result<TValue, TError> Where(Func<TValue, bool> predicate) => IsOk && predicate(_value) ? this : Fail(_error); 
+
+        public Option<TValue> ToOption() => IsOk ? Option<TValue>.Some(_value) : Option<TValue>.None;
+
+        public (bool IsOk, TValue Value, TError Error) AsTuple() => (IsOk, _value, _error);
+
+        public void Deconstruct(out bool isOk, out TValue value, out TError error) => (isOk, value, error) = AsTuple();
 
         public static explicit operator TValue(in Result<TValue, TError> result) =>
             result.IsOk ? result._value : throw new ResultFailException<TError>(result._error);
 
-        public override string ToString() => _isOk ? $"Ok({_value})" : $"Fail({_error})";
+        public override string ToString() => IsOk ? $"Ok({_value})" : $"Fail({_error})";
 
         public static implicit operator Result<TValue, TError>(in Result.ResultOk<TValue> ok) => Ok(ok.Value);
         public static implicit operator Result<TValue, TError>(in Result.ResultFail<TError> fail) => Fail(fail.Error);
 
         private Result(bool isOk, TValue value, TError error)
         {
-            _isOk = isOk;
+            IsOk = isOk;
             _value = isOk ? (value ?? throw new ArgumentNullException(nameof(value))) : default;
             _error = !isOk ? (error ?? throw new ArgumentNullException(nameof(value))) : default;
         }
@@ -57,16 +65,15 @@ namespace UnityFunctional
 
         public static ResultOk<TValue> Ok<TValue>(TValue value) => new ResultOk<TValue>(value);
         public static ResultFail<TError> Fail<TError>(TError error) => new ResultFail<TError>(error);
-
         public static Option<TValue> ToOption<TValue, TError>(this Result<TValue, TError> result) =>
             result.Match(Option<TValue>.Some, _ => Option<TValue>.None);
 
+        public static Result<TValue, TError> ToResult<TValue, TError>(this in Option<TValue> option, TError error) =>
+            option.Match(Result<TValue, TError>.Ok, () => Result<TValue, TError>.Fail(error));
+
         public static Result<TValue, TError> ToResult<TValue, TError>(this in Option<TValue> option, Func<TError> onError) =>
             option.Match(Result<TValue, TError>.Ok, () => Result<TValue, TError>.Fail(onError()));
-    }
 
-    public static class ResultLinqExtensions
-    {
         public static Result<TResult, TError> Select<TValue, TResult, TError>(this Result<TValue, TError> result, Func<TValue, TResult> selector) =>
             result.Map(selector);
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityFunctional
+namespace Bravasoft.UnityFunctional
 {
     public static class Physics
     {

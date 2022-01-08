@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnityFunctional
+namespace Bravasoft.UnityFunctional
 {
     public static class OptionLinqExtensions
     {
