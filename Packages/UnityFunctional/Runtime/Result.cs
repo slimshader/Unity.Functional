@@ -25,8 +25,6 @@ namespace Bravasoft.UnityFunctional
 
         public T Match<T>(Func<TValue, T> ok, Func<TError, T> error) => IsOk ? ok(_value) : error(_error);
 
-        public Result<TValue, TError> Where(Func<TValue, bool> predicate) => IsOk && predicate(_value) ? this : Fail(_error); 
-
         public Option<TValue> ToOption() => IsOk ? Option<TValue>.Some(_value) : Option<TValue>.None;
 
         public (bool IsOk, TValue Value, TError Error) AsTuple() => (IsOk, _value, _error);
@@ -65,6 +63,14 @@ namespace Bravasoft.UnityFunctional
 
         public static ResultOk<TValue> Ok<TValue>(TValue value) => new ResultOk<TValue>(value);
         public static ResultFail<TError> Fail<TError>(TError error) => new ResultFail<TError>(error);
+
+        public static Result<TValue, TError> Condition<TValue, TError>(Func<bool> cond, TValue value, TError error) =>
+            cond() ? (Result<TValue, TError>)Result.Ok(value) : Result.Fail(error);
+
+        public static Result<TValue, TError> Condition<TValue, TError>(Func<bool> cond, Func<TValue> onValue, Func<TError> onError) =>
+            cond() ? (Result<TValue, TError>)Result.Ok(onValue()) : Result.Fail(onError());
+
+
         public static Option<TValue> ToOption<TValue, TError>(this Result<TValue, TError> result) =>
             result.Match(Option<TValue>.Some, _ => Option<TValue>.None);
 

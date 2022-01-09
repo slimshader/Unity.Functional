@@ -77,5 +77,11 @@ namespace Bravasoft.UnityFunctional
 
         public static Option<T> ToOption<T>(this T t) => Of(t);
         public static Option<T> ToSome<T>(this T t) => Some(t);
+
+        public static Option<TValue> Condition<TValue>(Func<bool> cond, TValue value) =>
+            cond() ? Option.Some(value) : Option.None;
+        public static Option<TValue> Condition<TValue>(Func<bool> cond, Func<TValue> onValue) =>
+            cond() ? Option.Some(onValue()) : Option.None;
+
     }
 }
