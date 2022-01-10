@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bravasoft.UnityFunctional
+namespace Bravasoft.Unity.Functional
 {
     public static class CollectionsGenericExtensions
     {

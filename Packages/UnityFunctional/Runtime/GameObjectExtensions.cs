@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Bravasoft.UnityFunctional
+namespace Bravasoft.Unity.Functional
 {
-    public static class UnityOptionExtensions
+    public static class GameObjectExtensions
     {
         public static Option<T> TryGetComponent<T>(this GameObject go) =>
             go.TryGetComponent(out T c) ? Option.Some(c) : Option.None;

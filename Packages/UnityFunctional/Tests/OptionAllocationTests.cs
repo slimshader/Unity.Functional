@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine.TestTools.Constraints;
 using Is = UnityEngine.TestTools.Constraints.Is;
 
-namespace Bravasoft.UnityFunctional.Tests
+namespace Bravasoft.Unity.Functional.Tests
 {
     public class OptionAllocationTests
     {

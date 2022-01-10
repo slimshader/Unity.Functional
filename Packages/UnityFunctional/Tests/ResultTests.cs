@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Bravasoft.UnityFunctional.Tests
+namespace Bravasoft.Unity.Functional.Tests
 {
     [TestFixture]
     public class ResultTests

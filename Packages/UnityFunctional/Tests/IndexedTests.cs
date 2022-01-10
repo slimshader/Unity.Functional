@@ -4,7 +4,7 @@ using UnityEngine.TestTools.Constraints;
 using Is = NUnit.Framework.Is;
 using UnityIs = UnityEngine.TestTools.Constraints.Is;
 
-namespace Bravasoft.UnityFunctional.Tests
+namespace Bravasoft.Unity.Functional.Tests
 {
     public class IndexedTests
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bravasoft.UnityFunctional
+namespace Bravasoft.Unity.Functional
 {
     public readonly struct Option<T> : IEquatable<Option<T>>
     {
@@ -34,7 +34,7 @@ namespace Bravasoft.UnityFunctional
 
         public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_value) : Option.None;
 
-        public Option<T> Where(Func<T, bool> predicate) => IsSome && predicate(_value) ? Some(_value) : None;
+        public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_value) ? Some(_value) : None;
 
         public (bool IsSome, T Value) AsTuple() => (IsSome, _value);
         public void Deconstruct(out bool isSome, out T value) => (isSome, value) = AsTuple();
@@ -86,5 +86,13 @@ namespace Bravasoft.UnityFunctional
             action();
             return Some(Unit.Default);
         }
+
+        public static Option<U> Select<T, U>(this in Option<T> option, Func<T, U> selector) =>
+            option.Map(selector);
+
+        public static Option<U> SelectMany<T, T1, U>(this in Option<T> option, Func<T, Option<T1>> selector, Func<T, T1, U> resultSelector) =>
+            option.Bind(t => selector(t).Map(t1 => resultSelector(t, t1)));
+
+        public static Option<T> Where<T>(this in Option<T> option, Func<T, bool> predicate) => option.Filter(predicate);
     }
 }

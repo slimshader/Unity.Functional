@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bravasoft.UnityFunctional
+namespace Bravasoft.Unity.Functional
 {
     public sealed class ResultFailException<TError> : Exception
     {

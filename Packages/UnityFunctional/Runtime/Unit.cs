@@ -1,6 +1,6 @@
 using System;
 
-namespace Bravasoft.UnityFunctional
+namespace Bravasoft.Unity.Functional
 {
     public struct Unit : IEquatable<Unit>
     {
