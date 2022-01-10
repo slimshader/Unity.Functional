@@ -64,10 +64,10 @@ namespace Bravasoft.Unity.Functional
         public static ResultOk<TValue> Ok<TValue>(TValue value) => new ResultOk<TValue>(value);
         public static ResultFail<TError> Fail<TError>(TError error) => new ResultFail<TError>(error);
 
-        public static Result<Unit, TError> Condition<TValue, TError>(Func<bool> cond, TError error) =>
+        public static Result<Unit, TError> Condition<TError>(Func<bool> cond, TError error) =>
             cond() ? (Result<Unit, TError>)Ok(Unit.Default) : Fail(error);
 
-        public static Result<Unit, TError> Tee<TValue, TError>(Action action)
+        public static Result<Unit, TError> Tee<TError>(Action action)
         {
             action();
             return Ok(Unit.Default);

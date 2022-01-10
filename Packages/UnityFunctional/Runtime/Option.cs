@@ -78,10 +78,10 @@ namespace Bravasoft.Unity.Functional
         public static Option<T> ToOption<T>(this T t) => Of(t);
         public static Option<T> ToSome<T>(this T t) => Some(t);
 
-        public static Option<Unit> Condition<TValue>(Func<bool> cond) =>
+        public static Option<Unit> Condition(Func<bool> cond) =>
             cond() ? Some(Unit.Default) : None;
 
-        public static Option<Unit> Tee<T>(Action action)
+        public static Option<Unit> Tee(Action action)
         {
             action();
             return Some(Unit.Default);
