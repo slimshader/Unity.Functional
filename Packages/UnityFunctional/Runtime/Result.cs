@@ -64,12 +64,14 @@ namespace Bravasoft.UnityFunctional
         public static ResultOk<TValue> Ok<TValue>(TValue value) => new ResultOk<TValue>(value);
         public static ResultFail<TError> Fail<TError>(TError error) => new ResultFail<TError>(error);
 
-        public static Result<TValue, TError> Condition<TValue, TError>(Func<bool> cond, TValue value, TError error) =>
-            cond() ? (Result<TValue, TError>)Result.Ok(value) : Result.Fail(error);
+        public static Result<Unit, TError> Condition<TValue, TError>(Func<bool> cond, TError error) =>
+            cond() ? (Result<Unit, TError>)Ok(Unit.Default) : Fail(error);
 
-        public static Result<TValue, TError> Condition<TValue, TError>(Func<bool> cond, Func<TValue> onValue, Func<TError> onError) =>
-            cond() ? (Result<TValue, TError>)Result.Ok(onValue()) : Result.Fail(onError());
-
+        public static Result<Unit, TError> Tee<TValue, TError>(Action action)
+        {
+            action();
+            return Ok(Unit.Default);
+        }
 
         public static Option<TValue> ToOption<TValue, TError>(this Result<TValue, TError> result) =>
             result.Match(Option<TValue>.Some, _ => Option<TValue>.None);
