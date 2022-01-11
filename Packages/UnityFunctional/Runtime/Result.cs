@@ -17,13 +17,16 @@ namespace Bravasoft.Unity.Functional
         public Result<UValue> Map<UValue>(Func<TValue, UValue> map) =>
             IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(_error);
 
-        public Result<UValue> BiMap<UValue, UError>(Func<TValue, UValue> map, Func<Error, Error> mapError) =>
-            IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(mapError(_error));
+        public Result<TValue> MapError(Func<Error, Error> errorMap) =>
+            IsOk ? this : Result.Fail(errorMap(_error));
+
+        public Result<UValue> BiMap<UValue>(Func<TValue, UValue> map, Func<Error, Error> errorMap) =>
+            IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(errorMap(_error));
 
         public Result<UValue> Bind<UValue>(Func<TValue, Result<UValue>> bind) =>
             IsOk ? bind(_value) : Result.Fail(_error);
 
-        public T Match<T>(Func<TValue, T> ok, Func<Error, T> error) => IsOk ? ok(_value) : error(_error);
+        public T Match<T>(Func<TValue, T> onOk, Func<Error, T> onError) => IsOk ? onOk(_value) : onError(_error);
 
         public Option<TValue> ToOption() => IsOk ? Option<TValue>.Some(_value) : Option<TValue>.None;
 
