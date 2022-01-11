@@ -73,19 +73,19 @@ namespace Bravasoft.Unity.Functional
             return Ok(Unit.Default);
         }
 
-        public static Option<TValue> ToOption<TValue, TError>(this Result<TValue> result) =>
+        public static Option<TValue> ToOption<TValue>(this Result<TValue> result) =>
             result.Match(Option<TValue>.Some, _ => Option<TValue>.None);
 
-        public static Result<TValue> ToResult<TValue, TError>(this in Option<TValue> option, Error error) =>
+        public static Result<TValue> ToResult<TValue>(this in Option<TValue> option, Error error) =>
             option.Match(Result<TValue>.Ok, () => Result<TValue>.Fail(error));
 
-        public static Result<TValue> ToResult<TValue, TError>(this in Option<TValue> option, Func<Error> onError) =>
+        public static Result<TValue> ToResult<TValue>(this in Option<TValue> option, Func<Error> onError) =>
             option.Match(Result<TValue>.Ok, () => Result<TValue>.Fail(onError()));
 
         public static Result<TResult> Select<TValue, TResult>(this Result<TValue> result, Func<TValue, TResult> selector) =>
             result.Map(selector);
 
-        public static Result<TResult> SelectMany<TValue, UValue, TResult, TError>(this in Result<TValue> result,
+        public static Result<TResult> SelectMany<TValue, UValue, TResult>(this in Result<TValue> result,
             Func<TValue, Result<UValue>> selector,
             Func<TValue, UValue, TResult> resultSelector) =>
             result.Bind(tvalue => selector(tvalue).Bind<TResult>(uvalue => Result.Ok(resultSelector(tvalue, uvalue))));
