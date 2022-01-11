@@ -8,7 +8,7 @@ namespace Bravasoft.Unity.Functional.Tests
         [Test]
         public void FailedIsNotOk()
         {
-            var result = Result<int, string>.Fail(string.Empty);
+            var result = Result<int>.Fail(new Error());
 
             Assert.That(result.IsOk, Is.False);
         }
