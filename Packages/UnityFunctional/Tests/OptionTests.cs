@@ -17,7 +17,7 @@ namespace Bravasoft.Unity.Functional.Tests
         [Test]
         public void NullReferenceOptionalIsNone()
         {
-            var option = Option.Of((object)null);
+            var option = Prelude.Optional((object)null);
 
             Assert.That(option.IsSome, Is.False);
         }
@@ -110,8 +110,8 @@ namespace Bravasoft.Unity.Functional.Tests
         [Test]
         public void LinqSelectManySupport()
         {
-            var oi = from x in 1.ToOption()
-                     from y in 2.ToOption()
+            var oi = from x in 1.ToSome()
+                     from y in 2.ToSome()
                      select x + y;
 
             Assert.That((int)oi, Is.EqualTo(3));
@@ -120,11 +120,11 @@ namespace Bravasoft.Unity.Functional.Tests
         [Test]
         public void LinqWhereSupport()
         {
-            var io1 = from x in 1.ToOption()
+            var io1 = from x in 1.ToSome()
                       where x > 2
                       select x;
 
-            var io2 = from x in 3.ToOption()
+            var io2 = from x in 3.ToSome()
                       where x > 2
                       select x;
 

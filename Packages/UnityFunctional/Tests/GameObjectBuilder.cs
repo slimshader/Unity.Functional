@@ -14,7 +14,7 @@ namespace Bravasoft.Unity.Functional
 
         public GameObjectBuilder(GameObjectBuilder parent = null)
         {
-            _parent = Option.Of(parent);
+            _parent = Prelude.Optional(parent);
         }
 
         public GameObjectBuilder WithName(string name)

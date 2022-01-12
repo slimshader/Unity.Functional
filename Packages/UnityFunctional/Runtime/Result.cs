@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Bravasoft.Unity.Functional
 {
@@ -29,6 +30,11 @@ namespace Bravasoft.Unity.Functional
         public T Match<T>(Func<TValue, T> onOk, Func<Error, T> onError) => IsOk ? onOk(_value) : onError(_error);
 
         public Option<TValue> ToOption() => IsOk ? Option<TValue>.Some(_value) : Option<TValue>.None;
+
+        public IEnumerable<TValue> ToEnumerable()
+        {
+            if (IsOk) yield return _value;
+        }
 
         public (bool IsOk, TValue Value, Error Error) AsTuple() => (IsOk, _value, _error);
 

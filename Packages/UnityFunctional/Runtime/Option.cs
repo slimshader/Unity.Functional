@@ -43,9 +43,14 @@ namespace Bravasoft.Unity.Functional
             (!IsSome && !other.IsSome) ||
             (IsSome && other.IsSome && EqualityComparer<T>.Default.Equals(_value, other._value));
 
-        public static implicit operator Option<T>(T value) => Option.Of(value);
+        public static implicit operator Option<T>(T value) => Some(value);
         public static implicit operator Option<T>(Option.NoneT _) => None;
         public static explicit operator T(Option<T> ot) => ot.IsSome ? ot._value : throw new InvalidOperationException();
+
+        public IEnumerable<T> ToEnumerable()
+        {
+            if (IsSome) yield return _value;
+        }
 
         public override string ToString() => IsSome ? $"Some({_value})" : "None";
 
@@ -67,25 +72,14 @@ namespace Bravasoft.Unity.Functional
 
     public static class Option
     {
-        public static Option<T> Of<T>(T value) =>        
-            value == null ? Option<T>.None : Option<T>.Some(value);
-
         public static Option<T> Some<T>(T value) => Option<T>.Some(value);
 
         public readonly struct NoneT { }
         public static readonly NoneT None = new NoneT();
-
-        public static Option<T> ToOption<T>(this T t) => Of(t);
         public static Option<T> ToSome<T>(this T t) => Some(t);
 
         public static Option<Unit> Condition(Func<bool> cond) =>
             cond() ? Some(Unit.Default) : None;
-
-        public static Option<Unit> Tee(Action action)
-        {
-            action();
-            return Some(Unit.Default);
-        }
 
         public static Option<U> Select<T, U>(this in Option<T> option, Func<T, U> selector) =>
             option.Map(selector);

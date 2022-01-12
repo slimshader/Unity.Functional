@@ -8,10 +8,10 @@ namespace Bravasoft.Unity.Functional
             go.TryGetComponent(out T c) ? Option.Some(c) : Option.None;
 
         public static Option<T> TryGetComponentInParent<T>(this GameObject go) =>
-            Option.Of(go.GetComponentInParent<T>());
+            Prelude.Optional(go.GetComponentInParent<T>());
 
         public static Option<T> TryGetComponentInChildren<T>(this GameObject go) =>
-            Option.Of(go.GetComponentInChildren<T>());
+            Prelude.Optional(go.GetComponentInChildren<T>());
     }
 
 }
