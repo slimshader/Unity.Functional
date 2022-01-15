@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bravasoft.Unity.Functional
 {
@@ -44,7 +45,7 @@ namespace Bravasoft.Unity.Functional
             (IsSome && other.IsSome && EqualityComparer<T>.Default.Equals(_value, other._value));
 
         public static implicit operator Option<T>(T value) => Some(value);
-        public static implicit operator Option<T>(Option.NoneT _) => None;
+        public static implicit operator Option<T>(Option.OptionNone _) => None;
         public static explicit operator T(Option<T> ot) => ot.IsSome ? ot._value : throw new InvalidOperationException();
 
         public IEnumerable<T> ToEnumerable()
@@ -74,8 +75,8 @@ namespace Bravasoft.Unity.Functional
     {
         public static Option<T> Some<T>(T value) => Option<T>.Some(value);
 
-        public readonly struct NoneT { }
-        public static readonly NoneT None = new NoneT();
+        public readonly struct OptionNone{ }
+        public static readonly OptionNone None = new OptionNone();
         public static Option<T> ToSome<T>(this T t) => Some(t);
 
         public static Option<Unit> Condition(Func<bool> cond) =>
@@ -88,5 +89,13 @@ namespace Bravasoft.Unity.Functional
             option.Bind(t => selector(t).Map(t1 => resultSelector(t, t1)));
 
         public static Option<T> Where<T>(this in Option<T> option, Func<T, bool> predicate) => option.Filter(predicate);
+
+        public static Option<IEnumerable<UValue>> Traverse<TValue, UValue>(this IEnumerable<TValue> values, Func<TValue, Option<UValue>> f)
+        {
+            var seed = Option<IEnumerable<UValue>>.Some(Enumerable.Empty<UValue>());
+            return values.Aggregate(seed: seed, (acc, r) => from x in f(r)
+                                                            from acc1 in acc
+                                                            select acc1.Append(x));
+        }
     }
 }
