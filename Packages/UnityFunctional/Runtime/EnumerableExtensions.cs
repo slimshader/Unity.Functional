@@ -9,7 +9,19 @@ namespace Bravasoft.Unity.Functional
         public static U Match<T, U>(this IEnumerable<T> ts, Func<T, IEnumerable<T>, U> onAny, Func<U> onNone) =>
             ts.Any() ? onAny(ts.First(), ts.Skip(1)) : onNone();
 
-        public static Option<T> FirstOrNone<T>(this IEnumerable<T> ts)
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> ts, in Option<T> option) =>
+            option.TryGetSome(out var some) ? ts.Append(some) : ts;
+
+        public static IEnumerable<T> Somes<T>(this IEnumerable<Option<T>> options)
+        {
+            foreach (var option in options)
+            {
+                if (option.TryGetSome(out var some))
+                    yield return some;
+            }
+        }
+
+    public static Option<T> FirstOrNone<T>(this IEnumerable<T> ts)
         {
             var enumerator = ts.GetEnumerator();
             if (enumerator.MoveNext())
