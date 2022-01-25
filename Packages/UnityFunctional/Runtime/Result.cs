@@ -100,12 +100,6 @@ namespace Bravasoft.Unity.Functional
             Func<T, U, TResult> resultSelector) =>
             result.Bind(tvalue => selector(tvalue).Bind<TResult>(uvalue => Ok(resultSelector(tvalue, uvalue))));
 
-        public static Result<IEnumerable<U>> Traverse<T, U>(this IEnumerable<T> values, Func<T, Result<U>> f)
-        {
-            var seed = Result<IEnumerable<U>>.Ok(Enumerable.Empty<U>());
-            return values.Aggregate(seed: seed, (acc, r) => from x in f(r)
-                                                            from acc1 in acc
-                                                            select acc1.Append(x));
-        }
+
     }
 }

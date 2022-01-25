@@ -89,13 +89,5 @@ namespace Bravasoft.Unity.Functional
             option.Bind(t => selector(t).Map(t1 => resultSelector(t, t1)));
 
         public static Option<T> Where<T>(this in Option<T> option, Func<T, bool> predicate) => option.Filter(predicate);
-
-        public static Option<IEnumerable<UValue>> Traverse<TValue, UValue>(this IEnumerable<TValue> values, Func<TValue, Option<UValue>> f)
-        {
-            var seed = Option<IEnumerable<UValue>>.Some(Enumerable.Empty<UValue>());
-            return values.Aggregate(seed: seed, (acc, r) => from x in f(r)
-                                                            from acc1 in acc
-                                                            select acc1.Append(x));
-        }
     }
 }
