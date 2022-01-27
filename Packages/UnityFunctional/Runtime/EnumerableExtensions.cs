@@ -10,7 +10,7 @@ namespace Bravasoft.Unity.Functional
             ts.Any() ? onAny(ts.First(), ts.Skip(1)) : onNone();
 
         public static IEnumerable<T> Append<T>(this IEnumerable<T> ts, in Option<T> option) =>
-            option.TryGetSome(out var some) ? ts.Append(some) : ts;
+            option.TryGetSome(out var some) ? Enumerable.Append(ts, some) : ts;
 
         public static Option<T> FirstOrNone<T>(this IEnumerable<T> ts)
         {
