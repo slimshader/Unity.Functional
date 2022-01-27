@@ -166,11 +166,10 @@ namespace Bravasoft.Unity.Functional.Tests
         public void DefaultConversion()
         {
             var dummy = new Dummy();
+
             Option<Dummy> o1 = dummy;
-            Option<Dummy> o2 = null;
 
             Assert.That((Dummy)o1, Is.EqualTo(dummy));
-            Assert.That(o2.IsSome, Is.False);
         }
     }
 }

@@ -19,5 +19,21 @@ namespace Bravasoft.Unity.Functional
 
         public static Option<TValue> TryGetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key) =>
             dict.TryGetValue(key, out var value) ? Option.Some(value) : Option.None;
+
+        public static ValueTuple<T, T> ToTuple2<T>(this IList<T> list)
+        {
+            if (list.Count != 2)
+                throw new ArgumentException(nameof(list));
+
+            return (list[0], list[1]);
+        }
+
+        public static ValueTuple<T, T, T> ToTuple3<T>(this IList<T> list)
+        {
+            if (list.Count != 3)
+                throw new ArgumentException(nameof(list));
+
+            return (list[0], list[1], list[2]);
+        }
     }
 }
