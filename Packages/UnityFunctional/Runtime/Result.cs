@@ -44,10 +44,12 @@ namespace Bravasoft.Unity.Functional
         public static explicit operator T(in Result<T> result) =>
             result.IsOk ? result._value : throw new ResultCastException(result._error);
 
-        public override string ToString() => IsOk ? $"Ok({_value})" : $"Fail({_error})";
 
+        public static implicit operator Result<T>(T value) => Ok(value);
         public static implicit operator Result<T>(in Result.ResultOk<T> ok) => Ok(ok.Value);
         public static implicit operator Result<T>(in Result.ResultFail fail) => Fail(fail.Error);
+
+        public override string ToString() => IsOk ? $"Ok({_value})" : $"Fail({_error})";
 
         private Result(bool isOk, T value, Error error)
         {
