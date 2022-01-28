@@ -81,16 +81,16 @@ namespace Bravasoft.Unity.Functional
 
         public static Option<T> Where<T>(this in Option<T> option, Func<T, bool> predicate) => option.Filter(predicate);
 
-        public static Option<U> MapTuple<T1, T2, U>(this in Option<ValueTuple<T1, T2>> option, Func<T1, T2, U> map) =>
+        public static Option<U> Map<T1, T2, U>(this in Option<ValueTuple<T1, T2>> option, Func<T1, T2, U> map) =>
             option.Map(t => map(t.Item1, t.Item2));
 
-        public static Option<U> MapTuple<T1, T2, T3, U>(this in Option<ValueTuple<T1, T2, T3>> option, Func<T1, T2, T3, U> map) =>
+        public static Option<U> Map<T1, T2, T3, U>(this in Option<ValueTuple<T1, T2, T3>> option, Func<T1, T2, T3, U> map) =>
             option.Map(t => map(t.Item1, t.Item2, t.Item3));
 
-        public static U MatchTuple<T1, T2, U>(this in Option<ValueTuple<T1, T2>> option, Func<T1, T2, U> onSome, Func<U> onNone) =>
+        public static U Match<T1, T2, U>(this in Option<ValueTuple<T1, T2>> option, Func<T1, T2, U> onSome, Func<U> onNone) =>
             option.Match(t => onSome(t.Item1, t.Item2), onNone);
 
-        public static U MatchTuple<T1, T2, T3, U>(this in Option<ValueTuple<T1, T2, T3>> option, Func<T1, T2, T3, U> onSome, Func<U> onNone) =>
+        public static U Match<T1, T2, T3, U>(this in Option<ValueTuple<T1, T2, T3>> option, Func<T1, T2, T3, U> onSome, Func<U> onNone) =>
             option.Match(t => onSome(t.Item1, t.Item2, t.Item3), onNone);
     }
 }
