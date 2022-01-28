@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Bravasoft.Unity.Functional
 {
@@ -54,8 +53,8 @@ namespace Bravasoft.Unity.Functional
         private Result(bool isOk, T value, Error error)
         {
             IsOk = isOk;
-            _value = isOk ? (value ?? throw new ArgumentNullException(nameof(value))) : default;
-            _error = !isOk ? (error ?? throw new ArgumentNullException(nameof(value))) : default;
+            _value = isOk ? Check.AssureNotNull(value, nameof(value)) : default;
+            _error = !isOk ? Check.AssureNotNull(error, nameof(error)) : default;
         }
     }
 

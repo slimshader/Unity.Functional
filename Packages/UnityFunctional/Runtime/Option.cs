@@ -58,16 +58,7 @@ namespace Bravasoft.Unity.Functional
         private Option(bool isSome, T value)
         {
             IsSome = isSome;
-
-            if (IsSome)
-            {
-                if (value is null) throw new ArgumentNullException(nameof(value));
-                _value = value;
-            }
-            else
-            {
-                _value = default;
-            }
+            _value = IsSome ? Check.AssureNotNull(value, nameof(value)) : default;
         }
     }
 
