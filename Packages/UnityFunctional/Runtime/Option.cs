@@ -48,6 +48,8 @@ namespace Bravasoft.Unity.Functional
         public static implicit operator Option<T>(Option.OptionNone _) => None;
         public static explicit operator T(Option<T> ot) => ot.IsSome ? ot._value : throw new InvalidOperationException();
 
+        public static implicit operator bool(in Option<T> result) => result.IsSome;
+
         public IEnumerable<T> ToEnumerable()
         {
             if (IsSome) yield return _value;

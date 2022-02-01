@@ -12,6 +12,12 @@ namespace Bravasoft.Unity.Functional
         public static IEnumerable<T> Append<T>(this IEnumerable<T> ts, in Option<T> option) =>
             option.TryGetSome(out var some) ? Enumerable.Append(ts, some) : ts;
 
+        public static IEnumerable<T> Merge<T>(this IEnumerable<Option<T>> options) =>
+            options.SelectMany(o => o.ToEnumerable());
+
+        public static IEnumerable<T> Merge<T>(this IEnumerable<Result<T>> options) =>
+            options.SelectMany(o => o.ToEnumerable());
+
         public static Option<T> FirstOrNone<T>(this IEnumerable<T> ts)
         {
             var enumerator = ts.GetEnumerator();
