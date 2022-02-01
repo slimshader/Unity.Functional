@@ -32,6 +32,9 @@ namespace Bravasoft.Unity.Functional
             return Option.None;
         }
 
+        public static IEnumerable<(T Value, int Index)> Indexed<T>(this IEnumerable<T> ts) =>
+            new IndexedEnumerator<T>(ts.GetEnumerator());
+
         public static Option<IEnumerable<UValue>> Traverse<TValue, UValue>(this IEnumerable<TValue> values, Func<TValue, Option<UValue>> f)
         {
             var seed = Option<IEnumerable<UValue>>.Some(Enumerable.Empty<UValue>());

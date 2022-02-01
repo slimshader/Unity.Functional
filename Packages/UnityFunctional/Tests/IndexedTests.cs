@@ -35,5 +35,11 @@ namespace Bravasoft.Unity.Functional.Tests
             Assert.That(sum, Is.EqualTo(8));
 
         }
+
+        [Test]
+        public void WorskWithLinqOperators()
+        {
+            var evens =  Enumerable.Range(1, 3).Indexed().Where(x => x.Index % 2 == 0);
+        }
     }
 }

@@ -1,13 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Bravasoft.Unity.Functional
 {
-    public struct IndexedEnumerator<T>
+    public struct IndexedEnumerator<T> : IEnumerable<(T Value, int Index)>, IEnumerator<(T Value, int Index)>
     {
         private IEnumerator<T> _source;
         private int _index;
 
+        public IndexedEnumerator<T> GetEnumerator() => this;
+
+        IEnumerator<(T Value, int Index)> IEnumerable<(T Value, int Index)>.GetEnumerator() => this;
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
         public (T Value, int Index) Current => (_source.Current, _index);
+
+        object IEnumerator.Current => this.Current;
 
         public IndexedEnumerator(IEnumerator<T> source)
         {
@@ -31,13 +40,5 @@ namespace Bravasoft.Unity.Functional
         {
             throw new System.NotImplementedException();
         }
-
-        public IndexedEnumerator<T> GetEnumerator() => this;
-    }
-
-    public static class IndexedLinqExtensions
-    {
-        public static IndexedEnumerator<T> Indexed<T>(this IEnumerable<T> ts) =>
-            new IndexedEnumerator<T>(ts.GetEnumerator());
     }
 }

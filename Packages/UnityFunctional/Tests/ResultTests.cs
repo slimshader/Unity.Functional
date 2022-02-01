@@ -12,5 +12,23 @@ namespace Bravasoft.Unity.Functional.Tests
 
             Assert.That(result.IsOk, Is.False);
         }
+
+        [Test]
+        public void FailedResultConvertsToFalse()
+        {
+            var result = Result<int>.Fail(new Error());
+
+            Assert.That((bool)result, Is.False);
+        }
+
+        class TestError : Error { }
+
+        [Test]
+        public void ErrorDerivativeConvertsToFail()
+        {
+            Result<int> result = new TestError();
+
+            Assert.IsFalse(result.IsOk);
+        }
     }
 }

@@ -13,8 +13,6 @@ namespace Bravasoft.Unity.Functional
         public static Result<T> Ok(T value) => new Result<T>(true, value, default);
         public static Result<T> Fail(Error error) => new Result<T>(false, default, error);
 
-        public Error Error => IsOk ? throw new InvalidOperationException() : _error;
-
         public Result<UValue> Map<UValue>(Func<T, UValue> map) =>
             IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(_error);
 
@@ -30,6 +28,7 @@ namespace Bravasoft.Unity.Functional
         public U Match<U>(Func<T, U> onOk, Func<Error, U> onError) => IsOk ? onOk(_value) : onError(_error);
 
         public Option<T> ToOption() => IsOk ? Option<T>.Some(_value) : Option<T>.None;
+        public Option<Error> ToErrorOption() => IsOk ? Option<Error>.None : _error;
 
         public IEnumerable<T> ToEnumerable()
         {
@@ -43,8 +42,11 @@ namespace Bravasoft.Unity.Functional
         public static explicit operator T(in Result<T> result) =>
             result.IsOk ? result._value : throw new ResultCastException(result._error);
 
+        public static implicit operator bool(in Result<T> result) => result.IsOk;
 
         public static implicit operator Result<T>(T value) => Ok(value);
+        public static implicit operator Result<T>(Error error) => Fail(error);
+
         public static implicit operator Result<T>(in Result.ResultOk<T> ok) => Ok(ok.Value);
         public static implicit operator Result<T>(in Result.ResultFail fail) => Fail(fail.Error);
 
