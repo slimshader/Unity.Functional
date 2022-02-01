@@ -13,6 +13,8 @@ namespace Bravasoft.Unity.Functional
         public static Result<T> Ok(T value) => new Result<T>(true, value, default);
         public static Result<T> Fail(Error error) => new Result<T>(false, default, error);
 
+        public Error Error => IsOk ? throw new InvalidOperationException() : _error;
+
         public Result<UValue> Map<UValue>(Func<T, UValue> map) =>
             IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(_error);
 
