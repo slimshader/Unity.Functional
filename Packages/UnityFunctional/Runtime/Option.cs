@@ -94,7 +94,7 @@ namespace Bravasoft.Unity.Functional
         public static U Match<T1, T2, T3, U>(this in Option<ValueTuple<T1, T2, T3>> option, Func<T1, T2, T3, U> onSome, Func<U> onNone) =>
             option.Match(t => onSome(t.Item1, t.Item2, t.Item3), onNone);
 
-        public static Unit Iter<T>(in Option<T> option, Action<T> onSome)
+        public static Unit Iter<T>(this in Option<T> option, Action<T> onSome)
         {
             if (option.TryGetSome(out var v))
                 onSome(v);

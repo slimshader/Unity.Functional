@@ -113,7 +113,7 @@ namespace Bravasoft.Unity.Functional
             Func<T, U, TResult> resultSelector) =>
             result.Bind(tvalue => selector(tvalue).Bind<TResult>(uvalue => Ok(resultSelector(tvalue, uvalue))));
 
-        public static Unit Iter<T>(in Result<T> option, Action<T> onOk)
+        public static Unit Iter<T>(this in Result<T> option, Action<T> onOk)
         {
             if (option.TryGetOk(out var v))
                 onOk(v);
