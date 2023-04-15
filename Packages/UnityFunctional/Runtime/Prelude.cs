@@ -13,20 +13,16 @@ namespace Bravasoft.Unity.Functional
         public static Option<float> ParseFloat(string arg) =>
             float.TryParse(arg, out float value) ? Option.Some(value) : Option.None;
 
-        public static Unit Iter<T>(in Option<T> option, Action<T> onSome)
+        public static Result<T> Try<T>(Func<T> f)
         {
-            if (option.TryGetSome(out var v))
-                onSome(v);
-
-            return default;
-        }
-
-        public static Unit Iter<T>(in Result<T> option, Action<T> onOk)
-        {
-            if (option.TryGetOk(out var v))
-                onOk(v);
-
-            return default;
+            try
+            {
+                return f();
+            }
+            catch (Exception ex)
+            {
+                return Result.Fail(new ExceptionError(ex));
+            }
         }
     }
 }

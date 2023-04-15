@@ -96,12 +96,6 @@ namespace Bravasoft.Unity.Functional
         public static Result<Unit> Condition(Func<bool> cond, Error error) =>
             cond() ? (Result<Unit>)Ok(Unit.Default) : Fail(error);
 
-        public static Result<Unit> Tee(Action action)
-        {
-            action();
-            return Ok(Unit.Default);
-        }
-
         public static Option<T> ToOption<T>(this Result<T> result) =>
             result.Match(Option<T>.Some, _ => Option<T>.None);
 
@@ -119,6 +113,12 @@ namespace Bravasoft.Unity.Functional
             Func<T, U, TResult> resultSelector) =>
             result.Bind(tvalue => selector(tvalue).Bind<TResult>(uvalue => Ok(resultSelector(tvalue, uvalue))));
 
+        public static Unit Iter<T>(in Result<T> option, Action<T> onOk)
+        {
+            if (option.TryGetOk(out var v))
+                onOk(v);
 
+            return default;
+        }
     }
 }
