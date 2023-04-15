@@ -37,7 +37,21 @@ namespace Bravasoft.Unity.Functional
             if (IsOk) yield return _value;
         }
 
+        public bool TryGetOk(out T value)
+        {
+            value = IsOk ? _value : default;
+            return IsOk;
+        }
+
+        public bool TryGetError(out Error error)
+        {
+            error = !IsOk ? _error : default;
+            return !IsOk;
+        }
+
         public (bool IsOk, T Value, Error Error) AsTuple() => (IsOk, _value, _error);
+        public (bool IsOk, T Value) AsOkTuple() => (IsOk, _value);
+        public (bool IsError, Error Error) AsErrorTuple() => (!IsOk, _error);
 
         public void Deconstruct(out bool isOk, out T value, out Error error) => (isOk, value, error) = AsTuple();
 

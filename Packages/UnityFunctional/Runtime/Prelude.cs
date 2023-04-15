@@ -1,4 +1,6 @@
-﻿namespace Bravasoft.Unity.Functional
+﻿using System;
+
+namespace Bravasoft.Unity.Functional
 {
     public static class Prelude
     {
@@ -10,5 +12,21 @@
         
         public static Option<float> ParseFloat(string arg) =>
             float.TryParse(arg, out float value) ? Option.Some(value) : Option.None;
+
+        public static Unit Iter<T>(in Option<T> option, Action<T> onSome)
+        {
+            if (option.TryGetSome(out var v))
+                onSome(v);
+
+            return default;
+        }
+
+        public static Unit Iter<T>(in Result<T> option, Action<T> onOk)
+        {
+            if (option.TryGetOk(out var v))
+                onOk(v);
+
+            return default;
+        }
     }
 }
