@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Bravasoft.Functional
@@ -12,7 +11,7 @@ namespace Bravasoft.Functional
         public static Option<TValue> TryGetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key) =>
             dict.TryGetValue(key, out var value) ? Option.Some(value) : Option.None;
 
-        public static Option<IEnumerable<T>> TryNotNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        public static Option<IEnumerable<T>> OptionalNonEmpty<T>(this IEnumerable<T> enumerable)
         {
             if (enumerable == null)
             {
@@ -29,13 +28,13 @@ namespace Bravasoft.Functional
             return !enumerable.Any() ? Option.None : Option.Some(enumerable);
         }
 
-        public static Option<ICollection<T>> IsNullOrEmpty<T>(this ICollection<T> collection) =>
+        public static Option<ICollection<T>> OptionalNonEmpty<T>(this ICollection<T> collection) =>
             collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
 
-        public static Option<IReadOnlyList<T>> IsNullOrEmpty<T>(this IReadOnlyList<T> collection) =>
+        public static Option<IReadOnlyList<T>> OptionalNonEmpty<T>(this IReadOnlyList<T> collection) =>
             collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
 
-        public static Option<IReadOnlyCollection<T>> IsNullOrEmpty<T>(this IReadOnlyCollection<T> collection) =>
+        public static Option<IReadOnlyCollection<T>> OptionalNonEmpty<T>(this IReadOnlyCollection<T> collection) =>
             collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
     }
 }
