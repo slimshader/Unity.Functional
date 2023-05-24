@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bravasoft.Functional
 {
@@ -11,5 +13,10 @@ namespace Bravasoft.Functional
         
         public static Option<float> ParseFloat(string arg) =>
             float.TryParse(arg, out float value) ? Option.Some(value) : Option.None;
+
+        public static Option<string> TryNotNullOrEmpty(this string value) =>
+            string.IsNullOrEmpty(value) ? Option.None : Option.Some(value);
+
+
     }
 }
