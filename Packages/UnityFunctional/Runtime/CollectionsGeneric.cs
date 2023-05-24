@@ -28,12 +28,14 @@ namespace Bravasoft.Functional
             return !enumerable.Any() ? Option.None : Option.Some(enumerable);
         }
 
+        public static Option<List<T>> OptionalNonEmpty<T>(this List<T> collection) =>
+            collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
+        public static Option<IList<T>> OptionalNonEmpty<T>(this IList<T> collection) =>
+            collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
         public static Option<ICollection<T>> OptionalNonEmpty<T>(this ICollection<T> collection) =>
             collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
-
         public static Option<IReadOnlyList<T>> OptionalNonEmpty<T>(this IReadOnlyList<T> collection) =>
             collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
-
         public static Option<IReadOnlyCollection<T>> OptionalNonEmpty<T>(this IReadOnlyCollection<T> collection) =>
             collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
     }
