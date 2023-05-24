@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bravasoft.Unity.Functional
+namespace Bravasoft.Functional
 {
     public readonly struct Option<T> : IEquatable<Option<T>>
     {

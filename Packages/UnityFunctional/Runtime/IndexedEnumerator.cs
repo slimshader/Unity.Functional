@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Bravasoft.Unity.Functional
+namespace Bravasoft.Functional
 {
     public struct IndexedEnumerator<T> : IEnumerable<(T Value, int Index)>, IEnumerator<(T Value, int Index)>
     {

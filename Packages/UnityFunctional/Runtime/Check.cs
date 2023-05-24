@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bravasoft.Unity.Functional
+namespace Bravasoft.Functional
 {
     public static class Check
     {

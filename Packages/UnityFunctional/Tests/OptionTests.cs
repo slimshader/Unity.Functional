@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using Bravasoft.Functional.Unity;
 
-namespace Bravasoft.Unity.Functional.Tests
+namespace Bravasoft.Functional.Tests
 {
     public class OptionTests
     {

@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Bravasoft.Functional;
+using NUnit.Framework;
 
-namespace Bravasoft.Unity.Functional.Tests
+namespace Bravasoft.Functional.Tests
 {
     public class CheckTests
     {

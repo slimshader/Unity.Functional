@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Bravasoft.Unity.Functional
+namespace Bravasoft.Functional.Unity
 {
     public static class GameObjectExtensions
     {

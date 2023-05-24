@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace Bravasoft.Unity.Functional
+namespace Bravasoft.Functional
 {
     public static class Prelude
     {
-        public static SingleValue<T> ToTuple<T>(this T value) => new SingleValue<T>(value);
         public static Option<T> Optional<T>(T value) =>
             value == null ? Option<T>.None : Option<T>.Some(value);
         public static Option<int> ParseInt(string arg) =>
@@ -12,17 +11,5 @@ namespace Bravasoft.Unity.Functional
         
         public static Option<float> ParseFloat(string arg) =>
             float.TryParse(arg, out float value) ? Option.Some(value) : Option.None;
-
-        public static Result<T> Try<T>(Func<T> f)
-        {
-            try
-            {
-                return f();
-            }
-            catch (Exception ex)
-            {
-                return Result.Fail(new ExceptionError(ex));
-            }
-        }
     }
 }

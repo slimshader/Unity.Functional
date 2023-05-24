@@ -4,7 +4,7 @@ using NUnit.Framework;
 using UnityEngine.TestTools.Constraints;
 using Is = UnityEngine.TestTools.Constraints.Is;
 
-namespace Bravasoft.Unity.Functional.Tests
+namespace Bravasoft.Functional.Tests
 {
     public class OptionAllocationTests
     {
@@ -19,7 +19,7 @@ namespace Bravasoft.Unity.Functional.Tests
 
             TestDelegate block = () =>
             {
-                o = list.FirstOrNone(predicate);
+                o = list.TryFirst(predicate);
             };
 
             Assert.That(block, Is.Not.AllocatingGCMemory());

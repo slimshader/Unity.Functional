@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bravasoft.Unity.Functional
+namespace Bravasoft.Functional
 {
-    public static class ValueTupleExtensions
+    public static class ValueTuple
     {
         public static ValueTuple<T1, T2> Append<T1, T2>(this in SingleValue<T1> single, T2 value) =>
             (single.Value, value);

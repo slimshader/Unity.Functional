@@ -1,4 +1,4 @@
-﻿namespace Bravasoft.Unity.Functional
+﻿namespace Bravasoft.Functional
 {
     public class Error
     {
