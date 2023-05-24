@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Bravasoft.Functional
 {
@@ -6,9 +7,9 @@ namespace Bravasoft.Functional
     {
         public static Option<T> Optional<T>(T value) =>
             value == null ? Option<T>.None : Option<T>.Some(value);
-
         public static Option<T> AsOption<T>(this T value) => Optional(value);
-        
+        public static Option<U> BindOptional<T, U>(this in Option<T> option, Func<T, U> binderOptional) =>
+            option.Bind(x => Optional(binderOptional(x)));
         public static Option<string> OptionalNonEmpty(this string value) =>
             string.IsNullOrEmpty(value) ? Option.None : Option.Some(value);
 
