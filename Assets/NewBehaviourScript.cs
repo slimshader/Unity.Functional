@@ -1,14 +1,10 @@
 using Bravasoft.Functional;
-using System;
+using Bravasoft.Functional.Unity;
 using UnityEngine;
-
-[Serializable]
-public class SerializedStringOption : SerializedOption<string>
-{ }
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public SerializedOption<string> _maybeString;
+    public SerializableOption<string> _maybeString;
     
     // Start is called before the first frame update
     void Start()
