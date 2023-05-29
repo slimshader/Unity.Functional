@@ -12,8 +12,7 @@ namespace Bravasoft.Functional
 
         public static Result<T> Ok(T value) => new Result<T>(true, value, default);
         public static Result<T> Fail(Error error) => new Result<T>(false, default, error);
-
-        public Error Error => IsOk ? throw new InvalidOperationException() : _error;
+        public static Result<T> Fail(Exception exception) => new Result<T>(false, default, new ExceptionError(exception));
 
         public Result<UValue> Map<UValue>(Func<T, UValue> map) =>
             IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(_error);
@@ -37,7 +36,7 @@ namespace Bravasoft.Functional
             if (IsOk) yield return _value;
         }
 
-        public bool TryGetOk(out T value)
+        public bool TryGetValue(out T value)
         {
             value = IsOk ? _value : default;
             return IsOk;
@@ -50,8 +49,6 @@ namespace Bravasoft.Functional
         }
 
         public (bool IsOk, T Value, Error Error) AsTuple() => (IsOk, _value, _error);
-        public (bool IsOk, T Value) AsOkTuple() => (IsOk, _value);
-        public (bool IsError, Error Error) AsErrorTuple() => (!IsOk, _error);
 
         public void Deconstruct(out bool isOk, out T value, out Error error) => (isOk, value, error) = AsTuple();
 
@@ -62,6 +59,7 @@ namespace Bravasoft.Functional
 
         public static implicit operator Result<T>(T value) => Ok(value);
         public static implicit operator Result<T>(Error error) => Fail(error);
+        public static implicit operator Result<T>(Exception exception) => Fail(exception);
 
         public static implicit operator Result<T>(in Result.ResultOk<T> ok) => Ok(ok.Value);
         public static implicit operator Result<T>(in Result.ResultFail fail) => Fail(fail.Error);
@@ -92,6 +90,7 @@ namespace Bravasoft.Functional
 
         public static ResultOk<T> Ok<T>(T value) => new ResultOk<T>(value);
         public static ResultFail Fail(Error error) => new ResultFail(error);
+        public static ResultFail Fail(Exception exception) => new ResultFail(new ExceptionError(exception));
 
         public static Result<Unit> Condition(Func<bool> cond, Error error) =>
             cond() ? (Result<Unit>)Ok(Unit.Default) : Fail(error);
@@ -115,7 +114,7 @@ namespace Bravasoft.Functional
 
         public static Unit Iter<T>(this in Result<T> option, Action<T> onOk)
         {
-            if (option.TryGetOk(out var v))
+            if (option.TryGetValue(out var v))
                 onOk(v);
 
             return default;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Bravasoft.Functional
@@ -20,7 +21,7 @@ namespace Bravasoft.Functional
 
         public IndexedEnumerator(IEnumerator<T> source)
         {
-            _source = source;
+            _source = source ?? throw new ArgumentNullException(nameof(source));
             _index = -1;
         }
 
@@ -38,7 +39,8 @@ namespace Bravasoft.Functional
 
         public void Reset()
         {
-            throw new System.NotImplementedException();
+            _source.Reset();
+            _index = -1;
         }
     }
 }

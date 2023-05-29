@@ -12,7 +12,7 @@ namespace Bravasoft.Functional
         public static readonly Option<T> None = default;
         public static Option<T> Some(T value) => new Option<T>(true, value);
 
-        public bool TryGetSome(out T value)
+        public bool TryGetValue(out T value)
         {
             if (IsSome)
             {
@@ -26,25 +26,19 @@ namespace Bravasoft.Functional
 
         public T IfNone(T v) => IsSome ? _value : v;
         public T IfNone(Func<T> fv) => IsSome ? _value : fv();
-
         public U Match<U>(Func<T, U> onSome, Func<U> onNone) =>
             IsSome ? onSome(_value) : onNone();
-
         public Option<U> Map<U>(Func<T, U> map) => IsSome ? Option.Some(map(_value)) : Option.None;
-
         public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_value) : Option.None;
-
         public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_value) ? Some(_value) : None;
-
         public (bool IsSome, T Value) AsTuple() => (IsSome, _value);
         public void Deconstruct(out bool isSome, out T value) => (isSome, value) = AsTuple();
-
         public bool Equals(Option<T> other) =>
             (!IsSome && !other.IsSome) ||
             (IsSome && other.IsSome && EqualityComparer<T>.Default.Equals(_value, other._value));
 
         public static implicit operator Option<T>(T value) => Some(value);
-        public static implicit operator Option<T>(Option.OptionNone _) => None;
+        public static implicit operator Option<T>(Option.NoneType _) => None;
         public static explicit operator T(Option<T> ot) => ot.IsSome ? ot._value : throw new InvalidOperationException();
 
         public static implicit operator bool(in Option<T> result) => result.IsSome;
@@ -67,8 +61,8 @@ namespace Bravasoft.Functional
     {
         public static Option<T> Some<T>(T value) => Option<T>.Some(value);
 
-        public readonly struct OptionNone{ }
-        public static readonly OptionNone None = new OptionNone();
+        public readonly struct NoneType{ }
+        public static readonly NoneType None = new NoneType();
         public static Option<T> ToSome<T>(this T t) => Some(t);
 
         public static Option<Unit> Condition(Func<bool> cond) =>
@@ -96,7 +90,7 @@ namespace Bravasoft.Functional
 
         public static Unit Iter<T>(this in Option<T> option, Action<T> onSome)
         {
-            if (option.TryGetSome(out var v))
+            if (option.TryGetValue(out var v))
                 onSome(v);
 
             return default;

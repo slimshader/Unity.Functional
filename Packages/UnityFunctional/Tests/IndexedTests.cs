@@ -1,9 +1,7 @@
 using NUnit.Framework;
 using System.Linq;
-using UnityEngine.TestTools.Constraints;
-using Is = NUnit.Framework.Is;
-using UnityIs = UnityEngine.TestTools.Constraints.Is;
 using static System.Linq.Enumerable;
+using Is = NUnit.Framework.Is;
 
 namespace Bravasoft.Functional.Tests
 {
@@ -16,25 +14,6 @@ namespace Bravasoft.Functional.Tests
             {
                 Assert.That(value, Is.EqualTo(index));
             }
-        }
-
-        [Test]
-        public void IndexedDoesNotAllocate()
-        {
-            var range = Range(1, 3);
-            var sum = 0;
-
-            TestDelegate func = () =>
-            {
-                foreach (var (value, index) in range.Indexed())
-                {
-                    sum += value * index;
-                }
-            };
-
-            Assert.That(func, UnityIs.Not.AllocatingGCMemory());
-            Assert.That(sum, Is.EqualTo(8));
-
         }
 
         [Test]

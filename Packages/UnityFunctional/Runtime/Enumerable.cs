@@ -10,7 +10,7 @@ namespace Bravasoft.Functional
             ts.Any() ? onAny(ts.First(), ts.Skip(1)) : onNone();
 
         public static IEnumerable<T> Append<T>(this IEnumerable<T> ts, in Option<T> option) =>
-            option.TryGetSome(out var some) ? System.Linq.Enumerable.Append(ts, some) : ts;
+            option.TryGetValue(out var some) ? System.Linq.Enumerable.Append(ts, some) : ts;
 
         public static IEnumerable<T> Merge<T>(this IEnumerable<Option<T>> options) =>
             options.SelectMany(o => o.ToEnumerable());

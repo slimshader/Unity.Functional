@@ -10,5 +10,7 @@ namespace Bravasoft.Functional
         }
 
         public Exception Exception { get; }
+
+        public override bool IsException => true;
     }
 }

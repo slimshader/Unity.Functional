@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace Bravasoft.Functional
 {
-
     public static class CollectionsGeneric
     {
         public static Option<TValue> TryGetValue<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dict, TKey key) =>

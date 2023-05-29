@@ -8,5 +8,7 @@
         }
 
         public string Message { get; }
+
+        public virtual bool IsException => false;
     }
 }
