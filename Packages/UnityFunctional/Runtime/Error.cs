@@ -7,8 +7,11 @@
             Message = message;
         }
 
-        public string Message { get; }
+        public virtual string Message { get; }
 
         public virtual bool IsException => false;
+
+        public override string ToString() =>
+            $"Error: {GetType().Name}" + (string.IsNullOrWhiteSpace(Message) ? string.Empty : $" ({Message})");
     }
 }

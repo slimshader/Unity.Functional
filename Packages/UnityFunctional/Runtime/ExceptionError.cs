@@ -11,6 +11,10 @@ namespace Bravasoft.Functional
 
         public Exception Exception { get; }
 
+        public override string Message => Exception.Message;
+
         public override bool IsException => true;
+
+        public override string ToString() => Exception.ToString();
     }
 }

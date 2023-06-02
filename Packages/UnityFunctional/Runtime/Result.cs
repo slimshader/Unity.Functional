@@ -48,6 +48,29 @@ namespace Bravasoft.Functional
             return !IsOk;
         }
 
+        public Unit Iter(Action<T> onOk)
+        {
+            if (IsOk)
+            {
+                onOk(_value);
+            }
+            return default;
+        }
+
+        public Unit BiIter(Action<T> onOk, Action<Error> onError)
+        {
+            if (IsOk)
+            {
+                onOk(_value);
+            }
+            else
+            {
+                onError(_error);
+            }
+
+            return default;
+        }
+
         public (bool IsOk, T Value, Error Error) AsTuple() => (IsOk, _value, _error);
 
         public void Deconstruct(out bool isOk, out T value, out Error error) => (isOk, value, error) = AsTuple();
@@ -95,6 +118,9 @@ namespace Bravasoft.Functional
         public static Result<Unit> Condition(Func<bool> cond, Error error) =>
             cond() ? (Result<Unit>)Ok(Unit.Default) : Fail(error);
 
+        public static Result<Unit> Condition(Func<bool> cond, Func<Error> onError) =>
+            cond() ? (Result<Unit>)Ok(Unit.Default) : Fail(onError());
+
         public static Option<T> ToOption<T>(this Result<T> result) =>
             result.Match(Option<T>.Some, _ => Option<T>.None);
 
@@ -112,12 +138,28 @@ namespace Bravasoft.Functional
             Func<T, U, TResult> resultSelector) =>
             result.Bind(tvalue => selector(tvalue).Bind<TResult>(uvalue => Ok(resultSelector(tvalue, uvalue))));
 
-        public static Unit Iter<T>(this in Result<T> option, Action<T> onOk)
+        public static Result<T> Try<T>(Func<T> f)
         {
-            if (option.TryGetValue(out var v))
-                onOk(v);
+            try
+            {
+                return Ok(f());
+            }
+            catch (Exception e)
+            {
+                return Fail(e);
+            }
+        }
 
-            return default;
+        public static Result<T> Try<T>(Func<Result<T>> f)
+        {
+            try
+            {
+                return f();
+            }
+            catch (Exception e)
+            {
+                return Fail(e);
+            }
         }
     }
 }

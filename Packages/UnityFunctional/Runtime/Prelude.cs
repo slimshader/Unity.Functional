@@ -16,30 +16,5 @@ namespace Bravasoft.Functional
         public static Option<string> TryNonEmpty(this string value) => OptionalNonEmpty(value);
         public static Option<IList<T>> TryNonEmpty<T>(this IList<T> value) => CollectionsGeneric.OptionalNonEmpty(value);
         public static Option<List<T>> TryNonEmpty<T>(this List<T> value) => List.OptionalNonEmpty(value);
-
-        public static Result<T> TryRun<T>(Func<T> f)
-        {
-            try
-            {
-                return Result.Ok(f());
-            }
-            catch (Exception e)
-            {
-                return Result.Fail(e);
-            }
-        }
-
-        public static Option<T> TryRunOptional<T>(Func<T> f)
-        {
-            try
-            {
-                return Option.Some(f());
-            }
-            catch (Exception)
-            {
-                return Option.None;
-            }
-        }
-
     }
 }
