@@ -14,6 +14,14 @@ namespace Bravasoft.Functional
         public static Result<T> Fail(Error error) => new Result<T>(false, default, error);
         public static Result<T> Fail(Exception exception) => new Result<T>(false, default, new ExceptionError(exception));
 
+        public bool IsError<TError>() where TError : Error =>
+            _error is Error;
+
+        public bool IsException<TException>() where TException : System.Exception =>
+            _error is ExceptionError ee && ee.Exception is TException;
+
+        public T IfError<U>(Func<Error, T> onError) => IsOk ? _value : onError(_error);
+
         public Result<UValue> Map<UValue>(Func<T, UValue> map) =>
             IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(_error);
 
@@ -112,6 +120,8 @@ namespace Bravasoft.Functional
         }
 
         public static ResultOk<T> Ok<T>(T value) => new ResultOk<T>(value);
+
+        public static ResultFail Fail() => new ResultFail(Error.Default);
         public static ResultFail Fail(Error error) => new ResultFail(error);
         public static ResultFail Fail(Exception exception) => new ResultFail(new ExceptionError(exception));
 
@@ -138,19 +148,7 @@ namespace Bravasoft.Functional
             Func<T, U, TResult> resultSelector) =>
             result.Bind(tvalue => selector(tvalue).Bind<TResult>(uvalue => Ok(resultSelector(tvalue, uvalue))));
 
-        public static Result<T> Try<T>(Func<T> f)
-        {
-            try
-            {
-                return Ok(f());
-            }
-            catch (Exception e)
-            {
-                return Fail(e);
-            }
-        }
-
-        public static Result<T> Try<T>(Func<Result<T>> f)
+        public static Func<Result<T>> ToResult<T>(this Func<T> f) => () =>
         {
             try
             {
@@ -160,6 +158,6 @@ namespace Bravasoft.Functional
             {
                 return Fail(e);
             }
-        }
+        };
     }
 }

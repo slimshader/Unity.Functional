@@ -30,5 +30,22 @@ namespace Bravasoft.Functional.Tests
 
             Assert.IsFalse(result.IsOk);
         }
+
+        [Test]
+        public void ExceptionDerivativeConvertsToFail()
+        {
+            Result<int> result = new System.Exception();
+
+            Assert.IsFalse(result.IsOk);
+        }
+
+
+        [Test]
+        public void CanCheckExceptionType()
+        {
+            Result<int> result = new System.Exception();
+
+            Assert.IsTrue(result.IsException<System.Exception>());
+        }
     }
 }

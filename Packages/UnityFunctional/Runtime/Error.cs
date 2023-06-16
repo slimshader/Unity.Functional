@@ -2,6 +2,8 @@
 {
     public class Error
     {
+        public static readonly Error Default = new Error("Unknown");
+
         public Error(string message = default)
         {
             Message = message;

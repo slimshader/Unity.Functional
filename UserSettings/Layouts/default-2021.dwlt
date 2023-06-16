@@ -34,21 +34,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: TestRunnerWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 837
+    x: 591
     y: 0
-    width: 629
-    height: 435
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+    width: 875
+    height: 494
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 14}
   m_Panes:
-  - {fileID: 19}
-  m_Selected: 0
+  - {fileID: 20}
+  - {fileID: 14}
+  m_Selected: 1
   m_LastSelected: 0
 --- !u!114 &3
 MonoBehaviour:
@@ -68,13 +69,13 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 632
+    y: 573
     width: 1466
-    height: 435
+    height: 494
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 96
+  controlID: 29
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -99,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 83
+  controlID: 101
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -121,9 +122,9 @@ MonoBehaviour:
     height: 1067
   m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 15}
+  m_ActualView: {fileID: 16}
   m_Panes:
-  - {fileID: 15}
+  - {fileID: 16}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &6
@@ -144,12 +145,12 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 363
-    height: 632
+    height: 573
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 16}
+  m_ActualView: {fileID: 17}
   m_Panes:
-  - {fileID: 16}
+  - {fileID: 17}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &7
@@ -169,13 +170,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 837
-    height: 435
+    width: 591
+    height: 494
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 14}
+  m_ActualView: {fileID: 15}
   m_Panes:
-  - {fileID: 14}
+  - {fileID: 15}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &8
@@ -273,7 +274,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 84
+  controlID: 102
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -294,11 +295,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1466
-    height: 632
+    height: 573
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 85
+  controlID: 103
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,16 +318,809 @@ MonoBehaviour:
     x: 363
     y: 0
     width: 1103
-    height: 632
+    height: 573
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 17}
+  m_ActualView: {fileID: 18}
   m_Panes:
-  - {fileID: 17}
   - {fileID: 18}
+  - {fileID: 19}
   m_Selected: 0
   m_LastSelected: 1
 --- !u!114 &14
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13401, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Test Runner
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 2511
+    y: 646
+    width: 873
+    height: 473
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+    m_OverlaysVisible: 1
+  m_Spl:
+    ID: 181
+    splitterInitialOffset: 279
+    currentActiveSplitter: -1
+    realSizes:
+    - 212
+    - 191
+    relativeSizes:
+    - 0.52605456
+    - 0.47394544
+    minSizes:
+    - 32
+    - 32
+    maxSizes:
+    - 0
+    - 0
+    lastTotalSize: 403
+    splitSize: 6
+    xOffset: 0
+    m_Version: 1
+    oldRealSizes: 
+    oldMinSizes: 
+    oldMaxSizes: 
+    oldSplitSize: 0
+  m_TestTypeToolbarIndex: 1
+  m_PlayModeTestListGUI:
+    m_Window: {fileID: 0}
+    m_NewResultList: []
+    m_ResultText: 
+    m_ResultStacktrace: 
+    m_TestListState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories: []
+    m_SelectedOption: 0
+  m_EditModeTestListGUI:
+    m_Window: {fileID: 14}
+    m_NewResultList:
+    - id: 1000
+      uniqueId: '[Bsoft Option][suite]'
+      name: Bsoft Option
+      fullName: Bsoft Option
+      resultStatus: 1
+      duration: 1.2432733
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1033
+      uniqueId: '[UnityFunctional.Tests.dll][suite]'
+      name: UnityFunctional.Tests.dll
+      fullName: D:/Projects/Unity.Functional/Library/ScriptAssemblies/UnityFunctional.Tests.dll
+      resultStatus: 1
+      duration: 1.2104073
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[Bsoft Option][suite]'
+    - id: 1034
+      uniqueId: UnityFunctional.Tests.dll/[Bravasoft][suite]
+      name: Bravasoft
+      fullName: Bravasoft
+      resultStatus: 1
+      duration: 1.2063162
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1033
+      parentUniqueId: '[UnityFunctional.Tests.dll][suite]'
+    - id: 1035
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/[Functional][suite]
+      name: Functional
+      fullName: Bravasoft.Functional
+      resultStatus: 1
+      duration: 1.2052747
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1034
+      parentUniqueId: UnityFunctional.Tests.dll/[Bravasoft][suite]
+    - id: 1036
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/[UnityFunctional.Tests][Bravasoft.Functional.Tests][suite]
+      name: Tests
+      fullName: Bravasoft.Functional.Tests
+      resultStatus: 1
+      duration: 1.2041183
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1035
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/[Functional][suite]
+    - id: 1003
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests][suite]
+      name: AsyncTests
+      fullName: Bravasoft.Functional.Tests.AsyncTests
+      resultStatus: 1
+      duration: 1.1298714
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1036
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/[UnityFunctional.Tests][Bravasoft.Functional.Tests][suite]
+    - id: 1006
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/AsyncTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests.CanRetry]
+      name: CanRetry
+      fullName: Bravasoft.Functional.Tests.AsyncTests.CanRetry
+      resultStatus: 1
+      duration: 0.4596078
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1003
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests][suite]
+    - id: 1007
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/AsyncTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests.CanRetryResult]
+      name: CanRetryResult
+      fullName: Bravasoft.Functional.Tests.AsyncTests.CanRetryResult
+      resultStatus: 1
+      duration: 0.4286314
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1003
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests][suite]
+    - id: 1005
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/AsyncTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests.ResultHasErrorWhenTaskIsFaulted]
+      name: ResultHasErrorWhenTaskIsFaulted
+      fullName: Bravasoft.Functional.Tests.AsyncTests.ResultHasErrorWhenTaskIsFaulted
+      resultStatus: 1
+      duration: 0.1106751
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1003
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests][suite]
+    - id: 1004
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/AsyncTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests.ResultHasValueWhenTaskIsSuccessful]
+      name: ResultHasValueWhenTaskIsSuccessful
+      fullName: Bravasoft.Functional.Tests.AsyncTests.ResultHasValueWhenTaskIsSuccessful
+      resultStatus: 1
+      duration: 0.1130406
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1003
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.AsyncTests][suite]
+    - id: 1005
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.CheckTests][suite]
+      name: CheckTests
+      fullName: Bravasoft.Functional.Tests.CheckTests
+      resultStatus: 1
+      duration: 0.014615
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1036
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/[UnityFunctional.Tests][Bravasoft.Functional.Tests][suite]
+    - id: 1006
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/CheckTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.CheckTests.IsNullForIntIsFalse]
+      name: IsNullForIntIsFalse
+      fullName: Bravasoft.Functional.Tests.CheckTests.IsNullForIntIsFalse
+      resultStatus: 1
+      duration: 0.001824
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.CheckTests][suite]
+    - id: 1008
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/CheckTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.CheckTests.IsNullForReferencesChecksForActuallNull]
+      name: IsNullForReferencesChecksForActuallNull
+      fullName: Bravasoft.Functional.Tests.CheckTests.IsNullForReferencesChecksForActuallNull
+      resultStatus: 1
+      duration: 0.0002221
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.CheckTests][suite]
+    - id: 1007
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/CheckTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.CheckTests.IsNullForStructIsFalse]
+      name: IsNullForStructIsFalse
+      fullName: Bravasoft.Functional.Tests.CheckTests.IsNullForStructIsFalse
+      resultStatus: 1
+      duration: 0.0002773
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1005
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.CheckTests][suite]
+    - id: 1009
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.EnumerableExtensionsTests][suite]
+      name: EnumerableExtensionsTests
+      fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests
+      resultStatus: 1
+      duration: 0.008039
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1036
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/[UnityFunctional.Tests][Bravasoft.Functional.Tests][suite]
+    - id: 1010
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/EnumerableExtensionsTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.EnumerableExtensionsTests.CanAppendSomeOptionToEmptyEnumerable]
+      name: CanAppendSomeOptionToEmptyEnumerable
+      fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests.CanAppendSomeOptionToEmptyEnumerable
+      resultStatus: 1
+      duration: 0.0017476
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1009
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.EnumerableExtensionsTests][suite]
+    - id: 1011
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.IndexedTests][suite]
+      name: IndexedTests
+      fullName: Bravasoft.Functional.Tests.IndexedTests
+      resultStatus: 1
+      duration: 0.0082839
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1036
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/[UnityFunctional.Tests][Bravasoft.Functional.Tests][suite]
+    - id: 1012
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/IndexedTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.IndexedTests.CanIndexEnumerableOfIntegers]
+      name: CanIndexEnumerableOfIntegers
+      fullName: Bravasoft.Functional.Tests.IndexedTests.CanIndexEnumerableOfIntegers
+      resultStatus: 1
+      duration: 0.0011304
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1011
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.IndexedTests][suite]
+    - id: 1013
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/IndexedTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.IndexedTests.WorskWithLinqOperators]
+      name: WorskWithLinqOperators
+      fullName: Bravasoft.Functional.Tests.IndexedTests.WorskWithLinqOperators
+      resultStatus: 1
+      duration: 0.0007922
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1011
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.IndexedTests][suite]
+    - id: 1014
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+      name: OptionTests
+      fullName: Bravasoft.Functional.Tests.OptionTests
+      resultStatus: 1
+      duration: 0.0207537
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1036
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/[UnityFunctional.Tests][Bravasoft.Functional.Tests][suite]
+    - id: 1028
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.DefaultConversion]
+      name: DefaultConversion
+      fullName: Bravasoft.Functional.Tests.OptionTests.DefaultConversion
+      resultStatus: 1
+      duration: 0.0009039
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1026
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.DictionarySupport]
+      name: DictionarySupport
+      fullName: Bravasoft.Functional.Tests.OptionTests.DictionarySupport
+      resultStatus: 1
+      duration: 0.0006563
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1027
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.Equality]
+      name: Equality
+      fullName: Bravasoft.Functional.Tests.OptionTests.Equality
+      resultStatus: 1
+      duration: 0.0032673
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1015
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.IsNoneByDefaut]
+      name: IsNoneByDefaut
+      fullName: Bravasoft.Functional.Tests.OptionTests.IsNoneByDefaut
+      resultStatus: 1
+      duration: 0.0001448
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1017
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.IsNoneWhenGettingMissingComponent]
+      name: IsNoneWhenGettingMissingComponent
+      fullName: Bravasoft.Functional.Tests.OptionTests.IsNoneWhenGettingMissingComponent
+      resultStatus: 1
+      duration: 0.0014637
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1021
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.IsNoneWhenGettingMissingComponentInChildren]
+      name: IsNoneWhenGettingMissingComponentInChildren
+      fullName: Bravasoft.Functional.Tests.OptionTests.IsNoneWhenGettingMissingComponentInChildren
+      resultStatus: 1
+      duration: 0.0007096
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1019
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.IsNoneWhenGettingMissingComponentInParent]
+      name: IsNoneWhenGettingMissingComponentInParent
+      fullName: Bravasoft.Functional.Tests.OptionTests.IsNoneWhenGettingMissingComponentInParent
+      resultStatus: 1
+      duration: 0.0005965
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1018
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponent]
+      name: IsSomeWhenGettingComponent
+      fullName: Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponent
+      resultStatus: 1
+      duration: 0.0010794
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1022
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponentInChildren]
+      name: IsSomeWhenGettingComponentInChildren
+      fullName: Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponentInChildren
+      resultStatus: 1
+      duration: 0.0002519
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1020
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponentInParent]
+      name: IsSomeWhenGettingComponentInParent
+      fullName: Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponentInParent
+      resultStatus: 1
+      duration: 0.0003325
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1024
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.LinqSelectManySupport]
+      name: LinqSelectManySupport
+      fullName: Bravasoft.Functional.Tests.OptionTests.LinqSelectManySupport
+      resultStatus: 1
+      duration: 0.0009942
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1023
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.LinqSelectSupport]
+      name: LinqSelectSupport
+      fullName: Bravasoft.Functional.Tests.OptionTests.LinqSelectSupport
+      resultStatus: 1
+      duration: 0.0002885
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1025
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.LinqWhereSupport]
+      name: LinqWhereSupport
+      fullName: Bravasoft.Functional.Tests.OptionTests.LinqWhereSupport
+      resultStatus: 1
+      duration: 0.0004731
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1016
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/OptionTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests.NullReferenceOptionalIsNone]
+      name: NullReferenceOptionalIsNone
+      fullName: Bravasoft.Functional.Tests.OptionTests.NullReferenceOptionalIsNone
+      resultStatus: 1
+      duration: 0.000177
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1014
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.OptionTests][suite]
+    - id: 1029
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests][suite]
+      name: ResultTests
+      fullName: Bravasoft.Functional.Tests.ResultTests
+      resultStatus: 1
+      duration: 0.0145639
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1036
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/[UnityFunctional.Tests][Bravasoft.Functional.Tests][suite]
+    - id: 1035
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/ResultTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests.CanCheckExceptionType]
+      name: CanCheckExceptionType
+      fullName: Bravasoft.Functional.Tests.ResultTests.CanCheckExceptionType
+      resultStatus: 1
+      duration: 0.0002837
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1030
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests][suite]
+    - id: 1032
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/ResultTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests.ErrorDerivativeConvertsToFail]
+      name: ErrorDerivativeConvertsToFail
+      fullName: Bravasoft.Functional.Tests.ResultTests.ErrorDerivativeConvertsToFail
+      resultStatus: 1
+      duration: 0.0003258
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1029
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests][suite]
+    - id: 1034
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/ResultTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests.ExceptionDerivativeConvertsToFail]
+      name: ExceptionDerivativeConvertsToFail
+      fullName: Bravasoft.Functional.Tests.ResultTests.ExceptionDerivativeConvertsToFail
+      resultStatus: 1
+      duration: 0.0001445
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1030
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests][suite]
+    - id: 1030
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/ResultTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests.FailedIsNotOk]
+      name: FailedIsNotOk
+      fullName: Bravasoft.Functional.Tests.ResultTests.FailedIsNotOk
+      resultStatus: 1
+      duration: 0.0001788
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1029
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests][suite]
+    - id: 1031
+      uniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/ResultTests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests.FailedResultConvertsToFalse]
+      name: FailedResultConvertsToFalse
+      fullName: Bravasoft.Functional.Tests.ResultTests.FailedResultConvertsToFalse
+      resultStatus: 1
+      duration: 0.000163
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1029
+      parentUniqueId: UnityFunctional.Tests.dll/Bravasoft/Functional/Tests/[UnityFunctional.Tests][Bravasoft.Functional.Tests.ResultTests][suite]
+    m_ResultText: CanRetryResult (0,429s)
+    m_ResultStacktrace: 
+    m_TestListState:
+      scrollPos: {x: 0, y: 432}
+      m_SelectedIDs: 54f3bd60
+      m_LastClickedID: 1623061332
+      m_ExpandedIDs: ee3dd5850876a1b92d1958d94e9aa7da4a4e21ec4e30eaf0adaf78070b8c5508b3cc6914e71ef5684075dd77ffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - Uncategorized
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,9 +1141,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1920
-    y: 705
-    width: 836
-    height: 414
+    y: 646
+    width: 590
+    height: 473
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -368,22 +1162,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Packages/pl.bravasoft.unity.functional
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets
+  - Packages/pl.bravasoft.unity.functional
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Projects\Unity.Functional
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 0c460000
-    m_LastClickedID: 17932
-    m_ExpandedIDs: 000000000a4600000c46000000ca9a3b
+    m_SelectedIDs: 50470000
+    m_LastClickedID: 18256
+    m_ExpandedIDs: 00000000504700005247000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -399,7 +1193,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 7}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -411,7 +1205,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000a4600000c460000
+    m_ExpandedIDs: 000000005047000052470000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -438,7 +1232,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -466,8 +1260,8 @@ MonoBehaviour:
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
-  m_DirectoriesAreaWidth: 207
---- !u!114 &15
+  m_DirectoriesAreaWidth: 292
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -509,7 +1303,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &16
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -532,7 +1326,7 @@ MonoBehaviour:
     x: 1920
     y: 73
     width: 362
-    height: 611
+    height: 552
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -541,9 +1335,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: cc450000
-      m_LastClickedID: 17868
-      m_ExpandedIDs: 36fbffff
+      m_SelectedIDs: c24a0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: c2b3ffffb6c0ffffd8cbfffffccdffff18d0ffffded2ffff92d9ffff26dcfffff4deffff3ce1ffff7ee2ffffaae3ffff8ae5ffff16e8ffff58eaffff4cecffff9cefffffe0f2ffff20f5ffff40f7ffff70f9ffff36fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -567,7 +1361,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 4c969a2b90040154d917609493e03593
---- !u!114 &17
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -590,7 +1384,7 @@ MonoBehaviour:
     x: 2283
     y: 73
     width: 1101
-    height: 611
+    height: 552
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -906,7 +1700,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &18
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -999,7 +1793,7 @@ MonoBehaviour:
   m_LowResolutionForAspectRatios: 01000000000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &19
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1019,10 +1813,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2757
-    y: 705
-    width: 627
-    height: 414
+    x: 2511
+    y: 646
+    width: 873
+    height: 473
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
