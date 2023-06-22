@@ -6,6 +6,24 @@ namespace Bravasoft.Functional.Tests
     public class ResultTests
     {
         [Test]
+        public void TwoOkResultsAreWhenSameValueEqual()
+        {
+            var r1 = Result.Ok("str");
+            var r2 = Result.Ok("str");
+
+            Assert.AreEqual(r1, r2);
+        }
+
+        [Test]
+        public void TwoOkResultsAreNotEqualWhenDifferent()
+        {
+            var r1 = Result.Ok("str1");
+            var r2 = Result.Ok("str2");
+
+            Assert.AreNotEqual(r1, r2);
+        }
+
+        [Test]
         public void FailedIsNotOk()
         {
             var result = Result<int>.Fail(new Error());

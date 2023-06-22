@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Bravasoft.Functional
 {
-    public readonly struct Option<T> : IEquatable<Option<T>>
+    public readonly struct Option<T> : IEquatable<Option<T>>, IEquatable<T>
     {
         private readonly T _value;
 
@@ -29,19 +29,42 @@ namespace Bravasoft.Functional
         public U Match<U>(Func<T, U> onSome, Func<U> onNone) =>
             IsSome ? onSome(_value) : onNone();
         public Option<U> Map<U>(Func<T, U> map) => IsSome ? Option.Some(map(_value)) : Option.None;
+        public Option<U> MapOptional<U>(Func<T, U> map) => IsSome ? (map(_value) ?? Option<U>.None) : Option.None;
         public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_value) : Option.None;
         public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_value) ? Some(_value) : None;
         public (bool IsSome, T Value) AsTuple() => (IsSome, _value);
         public void Deconstruct(out bool isSome, out T value) => (isSome, value) = AsTuple();
+        
         public bool Equals(Option<T> other) =>
             (!IsSome && !other.IsSome) ||
             (IsSome && other.IsSome && EqualityComparer<T>.Default.Equals(_value, other._value));
 
-        public static implicit operator Option<T>(T value) => Some(value);
+        public bool Equals(T value) => IsSome && EqualityComparer<T>.Default.Equals(_value, value);
+
+        public static implicit operator Option<T>(in T value) => Some(value);
         public static implicit operator Option<T>(Option.NoneType _) => None;
-        public static explicit operator T(Option<T> ot) => ot.IsSome ? ot._value : throw new InvalidOperationException();
+        public static explicit operator T(in Option<T> ot) => ot.IsSome ? ot._value : throw new InvalidOperationException();
 
         public static implicit operator bool(in Option<T> result) => result.IsSome;
+
+        public static bool operator ==(in Option<T> option, in Option<T> other) => option.Equals(other);
+        public static bool operator !=(in Option<T> option, in Option<T> other) => !option.Equals(other);
+
+        public static bool operator ==(in Option<T> option, in T value) => option.Equals(value);
+        public static bool operator !=(in Option<T> option, in T value) => !option.Equals(value);
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Option<T> other)
+                return Equals(other);
+
+            if (obj is T value)
+                return Equals(value);
+
+            return false;
+        }
+
+        public override int GetHashCode() => (IsSome, _value).GetHashCode();
 
         public IEnumerable<T> ToEnumerable()
         {

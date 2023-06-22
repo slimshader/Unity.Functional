@@ -172,5 +172,36 @@ namespace Bravasoft.Functional.Tests
 
             Assert.That((Dummy)o1, Is.EqualTo(dummy));
         }
+
+        [Test]
+        public void ComparisonToSameSomeValueYielcsTrue()
+        {
+            var opt5 = Option.Some(5);
+
+            Assert.IsTrue(opt5 == 5);
+        }
+
+        [Test]
+        public void ComparisonToDifferentSomeValueYielcsTrue()
+        {
+            var opt5 = Option.Some(5);
+
+            Assert.IsFalse(opt5 == 4);
+        }
+
+        class MyClass
+        {
+            public string Prop { get; set; }
+        }
+
+        [Test]
+        public void CanMapOptionallyNullProperty()
+        {
+            var c = Option.Some(new MyClass());
+
+            var p = c.MapOptional(x => x.Prop);
+
+            Assert.That(!p.IsSome);
+        }
     }
 }
