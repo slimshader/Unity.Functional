@@ -5,8 +5,8 @@ namespace Bravasoft.Functional
 {
     public static class List
     {
-        public static Option<List<T>> OptionalNonEmpty<T>(this List<T> collection) =>
-            collection == null || collection.Count < 1 ? Option.None : Option.Some(collection);
+        public static Option<List<T>> OptionalNonEmpty<T>(this List<T> list) =>
+            list == null || list.Count < 1 ? Option.None : Option.Some(list);
 
         public static Option<T> TryFind<T>(this List<T> list, Func<T, bool> predicate)
         {

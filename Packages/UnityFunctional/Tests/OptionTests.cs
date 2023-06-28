@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
 using Bravasoft.Functional.Unity;
+using NUnit.Framework;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Bravasoft.Functional.Tests
 {

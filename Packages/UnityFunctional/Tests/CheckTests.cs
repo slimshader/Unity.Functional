@@ -1,5 +1,4 @@
-﻿using Bravasoft.Functional;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Bravasoft.Functional.Tests
 {

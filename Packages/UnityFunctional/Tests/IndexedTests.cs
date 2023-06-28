@@ -19,7 +19,7 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void WorskWithLinqOperators()
         {
-            var evens =  Range(1, 3).Indexed().Where(x => x.Index % 2 == 0);
+            var evens = Range(1, 3).Indexed().Where(x => x.Index % 2 == 0);
         }
     }
 }

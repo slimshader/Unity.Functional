@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public SerializableOption<string> _maybeString;
+    public UniOption<string> _maybeString;
     public Transform _handle;
 
     [Range(0f, 1f)]

@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Bravasoft.Functional.Unity.Editor
 {
-    [CustomPropertyDrawer(typeof(SerializableOption<>))]
+    [CustomPropertyDrawer(typeof(UniOption<>))]
     public class SerializedOptionDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

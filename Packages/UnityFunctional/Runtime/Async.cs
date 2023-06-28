@@ -51,7 +51,7 @@ namespace Bravasoft.Functional
                 return await task;
             }
             catch (Exception _) { }
-            
+
             return await onFailed();
         }
 
@@ -77,7 +77,7 @@ namespace Bravasoft.Functional
             : factory().IfFailed(async () =>
             {
                 await UniTask.Delay(delay);
-                return await Retry(factory, retries - 1, (int) (delay * 1.5f));
+                return await Retry(factory, retries - 1, (int)(delay * 1.5f));
             });
 
         public static UniTask<Result<T>> Retry<T>(this Func<UniTask<Result<T>>> factory, int retries, int delay) =>

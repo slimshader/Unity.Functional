@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Bravasoft.Functional
 {
-    public readonly struct Result<T>
+    public readonly struct Result<T> : IEquatable<Result<T>>
     {
         private readonly T _value;
         private readonly Error _error;
@@ -23,13 +23,13 @@ namespace Bravasoft.Functional
         public T IfError<U>(Func<Error, T> onError) => IsOk ? _value : onError(_error);
 
         public Result<UValue> Map<UValue>(Func<T, UValue> map) =>
-            IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(_error);
+            IsOk ? (Result<UValue>)Result.Ok(map(_value)) : Result.Fail(_error);
 
         public Result<T> MapError(Func<Error, Error> errorMap) =>
             IsOk ? this : Result.Fail(errorMap(_error));
 
         public Result<UValue> BiMap<UValue>(Func<T, UValue> map, Func<Error, Error> errorMap) =>
-            IsOk ? (Result<UValue>) Result.Ok(map(_value)) : Result.Fail(errorMap(_error));
+            IsOk ? (Result<UValue>)Result.Ok(map(_value)) : Result.Fail(errorMap(_error));
 
         public Result<UValue> Bind<UValue>(Func<T, Result<UValue>> bind) =>
             IsOk ? bind(_value) : Result.Fail(_error);
@@ -96,6 +96,8 @@ namespace Bravasoft.Functional
         public static implicit operator Result<T>(in Result.ResultFail fail) => Fail(fail.Error);
 
         public override string ToString() => IsOk ? $"Ok({_value})" : $"Fail({_error})";
+
+        public bool Equals(Result<T> other) => (IsOk, _value, _error).Equals((other.IsOk, other._value, other._error));
 
         private Result(bool isOk, T value, Error error)
         {

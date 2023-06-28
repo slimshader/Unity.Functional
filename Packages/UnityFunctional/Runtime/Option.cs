@@ -34,7 +34,7 @@ namespace Bravasoft.Functional
         public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_value) ? Some(_value) : None;
         public (bool IsSome, T Value) AsTuple() => (IsSome, _value);
         public void Deconstruct(out bool isSome, out T value) => (isSome, value) = AsTuple();
-        
+
         public bool Equals(Option<T> other) =>
             (!IsSome && !other.IsSome) ||
             (IsSome && other.IsSome && EqualityComparer<T>.Default.Equals(_value, other._value));
@@ -43,7 +43,7 @@ namespace Bravasoft.Functional
 
         public static implicit operator Option<T>(in T value) => Some(value);
         public static implicit operator Option<T>(Option.NoneType _) => None;
-        public static explicit operator T(in Option<T> ot) => ot.IsSome ? ot._value : throw new InvalidOperationException();
+        public static explicit operator T(in Option<T> ot) => ot.IsSome ? ot._value : throw new OptionCastEception();
 
         public static implicit operator bool(in Option<T> result) => result.IsSome;
 
@@ -84,7 +84,7 @@ namespace Bravasoft.Functional
     {
         public static Option<T> Some<T>(T value) => Option<T>.Some(value);
 
-        public readonly struct NoneType{ }
+        public readonly struct NoneType { }
         public static readonly NoneType None = new NoneType();
         public static Option<T> ToSome<T>(this T t) => Some(t);
 

@@ -1,11 +1,10 @@
-﻿using Bravasoft.Functional;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Bravasoft.Functional.Unity
 {
     [Serializable]
-    public class SerializableOption<T>
+    public sealed class UniOption<T>
     {
         [SerializeField]
         private bool _hasValue;
@@ -13,6 +12,6 @@ namespace Bravasoft.Functional.Unity
         private T _value;
         public Option<T> Option => _hasValue ? Prelude.Optional(_value) : Option<T>.None;
 
-        public static implicit operator Option<T>(SerializableOption<T> serializedOption) => serializedOption.Option;
+        public static implicit operator Option<T>(UniOption<T> uniOption) => uniOption.Option;
     }
 }
