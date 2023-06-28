@@ -11,5 +11,4 @@
         public static Option<T> TryGetComponentInChildren<T>(this UnityEngine.GameObject go) =>
             Prelude.Optional(go.GetComponentInChildren<T>());
     }
-
 }
