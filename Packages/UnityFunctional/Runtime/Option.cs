@@ -8,6 +8,7 @@ namespace Bravasoft.Functional
         private readonly T _value;
 
         public readonly bool IsSome;
+        public bool IsNone => !IsSome;
 
         public static readonly Option<T> None = default;
         public static Option<T> Some(T value) => new Option<T>(true, value);
@@ -32,8 +33,9 @@ namespace Bravasoft.Functional
         public Option<U> MapOptional<U>(Func<T, U> map) => IsSome ? (map(_value) ?? Option<U>.None) : Option.None;
         public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_value) : Option.None;
         public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_value) ? Some(_value) : None;
-        public (bool IsSome, T Value) AsTuple() => (IsSome, _value);
-        public void Deconstruct(out bool isSome, out T value) => (isSome, value) = AsTuple();
+        public Option<U> Cast<U>() => IsSome && _value is U u ? u : Option.None;
+
+        public void Deconstruct(out bool isSome, out T value) => (isSome, value) = (IsSome, _value);
 
         public bool Equals(Option<T> other) =>
             (!IsSome && !other.IsSome) ||
@@ -41,7 +43,7 @@ namespace Bravasoft.Functional
 
         public bool Equals(T value) => IsSome && EqualityComparer<T>.Default.Equals(_value, value);
 
-        public static implicit operator Option<T>(in T value) => Some(value);
+        public static implicit operator Option<T>(in T value) => Prelude.Optional(value);
         public static implicit operator Option<T>(Option.NoneType _) => None;
         public static explicit operator T(in Option<T> ot) => ot.IsSome ? ot._value : throw new OptionCastEception();
 
@@ -71,6 +73,8 @@ namespace Bravasoft.Functional
             if (IsSome) yield return _value;
         }
 
+        public OptionEnumerator<T> GetEnumerator() => new OptionEnumerator<T>(this);
+
         public override string ToString() => IsSome ? $"Some({_value})" : "None";
 
         private Option(bool isSome, T value)
@@ -87,9 +91,6 @@ namespace Bravasoft.Functional
         public readonly struct NoneType { }
         public static readonly NoneType None = new NoneType();
         public static Option<T> ToSome<T>(this T t) => Some(t);
-
-        public static Option<Unit> Condition(Func<bool> cond) =>
-            cond() ? Some(Unit.Default) : None;
 
         public static Option<U> Select<T, U>(this in Option<T> option, Func<T, U> selector) =>
             option.Map(selector);

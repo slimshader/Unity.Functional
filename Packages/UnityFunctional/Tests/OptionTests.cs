@@ -203,5 +203,16 @@ namespace Bravasoft.Functional.Tests
 
             Assert.That(!p.IsSome);
         }
+
+        class Base { }
+        class Derived : Base { }
+
+        [Test]
+        public void CanCast()
+        {
+            var d = Option.Some<Base>(new Derived());
+
+            Assert.That(d.Cast<Derived>().IsSome);
+        }
     }
 }

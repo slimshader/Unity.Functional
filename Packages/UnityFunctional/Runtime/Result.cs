@@ -34,6 +34,8 @@ namespace Bravasoft.Functional
         public Result<UValue> Bind<UValue>(Func<T, Result<UValue>> bind) =>
             IsOk ? bind(_value) : Result.Fail(_error);
 
+        public Result<U> Cast<U>() => IsOk && _value is U u ? u : Result.Fail(new InvalidCastException());
+
         public U Match<U>(Func<T, U> onOk, Func<Error, U> onError) => IsOk ? onOk(_value) : onError(_error);
 
         public Option<T> ToOption() => IsOk ? Option<T>.Some(_value) : Option<T>.None;
