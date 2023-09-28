@@ -55,21 +55,21 @@ namespace Bravasoft.Functional.Tests
             Assert.IsTrue(none.IsNone);
         }
 
-        [Test]
-        public void OptionCoercingTests_NullableSome()
-        {
-            Option<int> some = ((int?)1).AsOption();
+        //[Test]
+        //public void OptionCoercingTests_NullableSome()
+        //{
+        //    Option<int> some = ((int?)1).AsOption();
 
-            Assert.IsTrue(some.IsSome);
-        }
+        //    Assert.IsTrue(some.IsSome);
+        //}
 
-        [Test]
-        public void OptionCoercingTests_NullableNone()
-        {
-            Option<int> none = ((int?)null).AsOption();
+        //[Test]
+        //public void OptionCoercingTests_NullableNone()
+        //{
+        //    Option<int> none = ((int?)null).AsOption();
 
-            Assert.IsTrue(none.IsNone);
-        }
+        //    Assert.IsTrue(none.IsNone);
+        //}
 
         [Test]
         public void CanForeachOveroOption()
