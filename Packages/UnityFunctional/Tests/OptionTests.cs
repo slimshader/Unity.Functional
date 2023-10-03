@@ -212,7 +212,7 @@ namespace Bravasoft.Functional.Tests
         {
             var d = Option.Some<Base>(new Derived());
 
-            Assert.That(d.Cast<Derived>().IsSome);
+            Assert.That(d.TryCast<Derived>().IsSome);
         }
     }
 }

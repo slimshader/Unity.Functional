@@ -34,7 +34,7 @@ namespace Bravasoft.Functional
         public Result<UValue> Bind<UValue>(Func<T, Result<UValue>> bind) =>
             IsOk ? bind(_value) : Result.Fail(_error);
 
-        public Result<U> Cast<U>() => IsOk && _value is U u ? u : Result.Fail(new InvalidCastException());
+        public Result<U> TryCast<U>() => IsOk && _value is U u ? u : Result.Fail(new InvalidCastException());
 
         public U Match<U>(Func<T, U> onOk, Func<Error, U> onError) => IsOk ? onOk(_value) : onError(_error);
 
@@ -128,12 +128,6 @@ namespace Bravasoft.Functional
         public static ResultFail Fail() => new ResultFail(Error.Default);
         public static ResultFail Fail(Error error) => new ResultFail(error);
         public static ResultFail Fail(Exception exception) => new ResultFail(new ExceptionError(exception));
-
-        public static Result<Unit> Condition(Func<bool> cond, Error error) =>
-            cond() ? (Result<Unit>)Ok(Unit.Default) : Fail(error);
-
-        public static Result<Unit> Condition(Func<bool> cond, Func<Error> onError) =>
-            cond() ? (Result<Unit>)Ok(Unit.Default) : Fail(onError());
 
         public static Option<T> ToOption<T>(this Result<T> result) =>
             result.Match(Option<T>.Some, _ => Option<T>.None);

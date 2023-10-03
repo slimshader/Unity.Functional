@@ -33,7 +33,7 @@ namespace Bravasoft.Functional
         public Option<U> MapOptional<U>(Func<T, U> map) => IsSome ? (map(_value) ?? Option<U>.None) : Option.None;
         public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_value) : Option.None;
         public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_value) ? Some(_value) : None;
-        public Option<U> Cast<U>() => IsSome && _value is U u ? u : Option.None;
+        public Option<U> TryCast<U>() => IsSome && _value is U u ? u : Option.None;
 
         public void Deconstruct(out bool isSome, out T value) => (isSome, value) = (IsSome, _value);
 
