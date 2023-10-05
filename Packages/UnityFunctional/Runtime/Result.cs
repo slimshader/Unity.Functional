@@ -28,6 +28,9 @@ namespace Bravasoft.Functional
         public Result<T> MapError(Func<Error, Error> errorMap) =>
             IsOk ? this : Result.Fail(errorMap(_error));
 
+        public Result<T> Where(Func<T, bool> predicate) =>
+            IsOk && predicate(_value) ? this : FilterError.Default;
+
         public Result<UValue> BiMap<UValue>(Func<T, UValue> map, Func<Error, Error> errorMap) =>
             IsOk ? (Result<UValue>)Result.Ok(map(_value)) : Result.Fail(errorMap(_error));
 
@@ -39,7 +42,6 @@ namespace Bravasoft.Functional
         public U Match<U>(Func<T, U> onOk, Func<Error, U> onError) => IsOk ? onOk(_value) : onError(_error);
 
         public Option<T> ToOption() => IsOk ? Option<T>.Some(_value) : Option<T>.None;
-        public Option<Error> ToErrorOption() => IsOk ? Option<Error>.None : _error;
 
         public IEnumerable<T> ToEnumerable()
         {
@@ -50,12 +52,6 @@ namespace Bravasoft.Functional
         {
             value = IsOk ? _value : default;
             return IsOk;
-        }
-
-        public bool TryGetError(out Error error)
-        {
-            error = !IsOk ? _error : default;
-            return !IsOk;
         }
 
         public Unit Iter(Action<T> onOk)
@@ -81,9 +77,7 @@ namespace Bravasoft.Functional
             return default;
         }
 
-        public (bool IsOk, T Value, Error Error) AsTuple() => (IsOk, _value, _error);
-
-        public void Deconstruct(out bool isOk, out T value, out Error error) => (isOk, value, error) = AsTuple();
+        public void Deconstruct(out bool isOk, out T value, out Error error) => (isOk, value, error) = (IsOk, _value, _error);
 
         public static explicit operator T(in Result<T> result) =>
             result.IsOk ? result._value : throw new ResultCastException(result._error);
@@ -145,17 +139,11 @@ namespace Bravasoft.Functional
             Func<T, Result<U>> selector,
             Func<T, U, TResult> resultSelector) =>
             result.Bind(tvalue => selector(tvalue).Bind<TResult>(uvalue => Ok(resultSelector(tvalue, uvalue))));
+    }
 
-        public static Func<Result<T>> ToResult<T>(this Func<T> f) => () =>
-        {
-            try
-            {
-                return f();
-            }
-            catch (Exception e)
-            {
-                return Fail(e);
-            }
-        };
+    public static partial class Prelude
+    {
+        public static Result<Unit> When(bool condition, Result<Unit> alternative) => condition ? alternative : Result<Unit>.Ok(default);
+        public static Result<Unit> Unless(bool condition, Result<Unit> alternative) => When(!condition, alternative);
     }
 }

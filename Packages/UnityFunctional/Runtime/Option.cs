@@ -119,5 +119,19 @@ namespace Bravasoft.Functional
 
             return default;
         }
+
+        public static Option<T> Tee<T>(this in Option<T> option, Action<T> onSome)
+        {
+            if (option.TryGetValue(out var v))
+                onSome(v);
+
+            return option;
+        }
+    }
+
+    public static partial class Prelude
+    {
+        public static Option<Unit> When(bool condition, Option<Unit> alternative) => condition ? alternative : Option<Unit>.None;
+        public static Option<Unit> Unless(bool condition, Option<Unit> alternative) => When(!condition, alternative);
     }
 }

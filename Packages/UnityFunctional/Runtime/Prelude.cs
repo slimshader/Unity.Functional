@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Bravasoft.Functional
 {
-    public static class Prelude
+    public static partial class Prelude
     {
         public static Option<T> Optional<T>(T value) =>
             value == null ? Option<T>.None : Option<T>.Some(value);
