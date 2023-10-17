@@ -25,9 +25,6 @@ namespace Bravasoft.Functional
         public Result<UValue> Map<UValue>(Func<T, UValue> map) =>
             IsOk ? (Result<UValue>)Result.Ok(map(_value)) : Result.Fail(_error);
 
-        public Result<T> MapError(Func<Error, Error> errorMap) =>
-            IsOk ? this : Result.Fail(errorMap(_error));
-
         public Result<T> Where(Func<T, bool> predicate) =>
             IsOk && predicate(_value) ? this : FilterError.Default;
 
@@ -40,6 +37,21 @@ namespace Bravasoft.Functional
         public Result<U> TryCast<U>() => IsOk && _value is U u ? u : Result.Fail(new InvalidCastException());
 
         public U Match<U>(Func<T, U> onOk, Func<Error, U> onError) => IsOk ? onOk(_value) : onError(_error);
+
+        public U MatchError<U, TError>(Func<T, U> onOk, Func<TError, U> onError) where TError : Error =>
+            IsOk
+            ? onOk(_value)
+            : _error is TError error
+            ? onError(error)
+            : throw new InvalidOperationException("No excpetion match");
+
+
+        public U MatchException<U, TException>(Func<T, U> onOk, Func<TException, U> onException) where TException : Exception =>
+            IsOk
+            ? onOk(_value)
+            : _error is ExceptionError exe and { Exception: TException tex }
+            ? onException(tex)
+            : throw new InvalidOperationException("No excpetion match");
 
         public Option<T> ToOption() => IsOk ? Option<T>.Some(_value) : Option<T>.None;
 

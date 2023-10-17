@@ -5,6 +5,17 @@ namespace Bravasoft.Functional
 {
     public static class Async
     {
+        public static async UniTask<U> Match<T, U>(this UniTask<T> task, Func<T, U> onValue, Func<Exception, U> onError)
+        {
+            try
+            {
+                return onValue(await task);
+            }
+            catch (Exception ex)
+            {
+                return onError(ex);
+            }
+        }
         public static async UniTask<U> Map<T, U>(this UniTask<T> task, Func<T, U> map) => map(await task);
 
         public static async UniTask<U> Bind<T, U>(this UniTask<T> task, Func<T, UniTask<U>> bind) => await bind(await task);
