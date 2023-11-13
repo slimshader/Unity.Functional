@@ -55,11 +55,6 @@ namespace Bravasoft.Functional
 
         public Option<T> ToOption() => IsOk ? Option<T>.Some(_value) : Option<T>.None;
 
-        public IEnumerable<T> ToEnumerable()
-        {
-            if (IsOk) yield return _value;
-        }
-
         public bool TryGetValue(out T value)
         {
             value = IsOk ? _value : default;

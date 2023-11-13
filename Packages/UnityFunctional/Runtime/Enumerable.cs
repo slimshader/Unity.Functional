@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Bravasoft.Functional
 {
+    using static Core;
     public static class Enumerable
     {
         public static U Match<T, U>(this IEnumerable<T> ts, Func<T, IEnumerable<T>, U> onAny, Func<U> onNone) =>
@@ -12,11 +13,19 @@ namespace Bravasoft.Functional
         public static IEnumerable<T> Append<T>(this IEnumerable<T> ts, in Option<T> option) =>
             option.TryGetValue(out var some) ? System.Linq.Enumerable.Append(ts, some) : ts;
 
-        public static IEnumerable<T> Merge<T>(this IEnumerable<Option<T>> options) =>
-            options.SelectMany(o => o.ToEnumerable());
+        public static IEnumerable<T> Somes<T>(this IEnumerable<Option<T>> options) =>
+            options.Where(o => o.IsSome).Select(o =>
+            {
+                var (isSome, value) = o;
+                return value;
+            });
 
-        public static IEnumerable<T> Merge<T>(this IEnumerable<Result<T>> options) =>
-            options.SelectMany(o => o.ToEnumerable());
+        public static IEnumerable<T> OKs<T>(this IEnumerable<Result<T>> results) =>
+            results.Where(r => r.IsOk).Select(r =>
+            {
+                var (isOk, value, error) = r;
+                return value;
+            });
 
         public static Option<TSource> TrySingle<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
@@ -31,7 +40,7 @@ namespace Bravasoft.Functional
                 {
                     if (foundAny)
                     {
-                        return Option.None;
+                        return Option<TSource>.None;
                     }
                     foundAny = true;
                     ret = item;
@@ -39,7 +48,7 @@ namespace Bravasoft.Functional
             }
             if (!foundAny)
             {
-                return Option.None;
+                return Option<TSource>.None;
             }
             return ret;
         }
@@ -52,12 +61,12 @@ namespace Bravasoft.Functional
             {
                 if (!iterator.MoveNext())
                 {
-                    return Option.None;
+                    return None;
                 }
                 TSource ret = iterator.Current;
                 if (iterator.MoveNext())
                 {
-                    return Option.None;
+                    return None;
                 }
                 return ret;
             }
@@ -69,19 +78,22 @@ namespace Bravasoft.Functional
 
             using (IEnumerator<TSource> iterator = source.GetEnumerator())
             {
-                return iterator.MoveNext() ? Option.Some(iterator.Current) : Option.None;
+                return iterator.MoveNext() ? Prelude.Some(iterator.Current) : Option<TSource>.None;
             }
         }
 
         public static Option<TSource> TryFirst<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
-            foreach (var value in source)
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            
+            var enumerator = source.GetEnumerator();
+
+            if (enumerator.MoveNext())
             {
-                if (predicate(value))
-                    return Option.Some(value);
+                return enumerator.Current;
             }
 
-            return Option.None;
+            return None;
         }
 
         public static IEnumerable<(T Value, int Index)> Indexed<T>(this IEnumerable<T> ts) =>

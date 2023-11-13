@@ -1,7 +1,9 @@
 using Bravasoft.Functional.Unity;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static Bravasoft.Functional.Prelude;
 
 namespace Bravasoft.Functional.Tests
 {
@@ -22,17 +24,6 @@ namespace Bravasoft.Functional.Tests
 
             Assert.That(option.IsSome, Is.False);
         }
-
-        [Test]
-        public void IsNoneWhenGettingMissingComponent()
-        {
-            var go = new GameObjectBuilder().Build();
-
-            var option = go.TryGetComponent<Collider>();
-
-            Assert.That(option.IsSome, Is.False);
-        }
-
 
         [Test]
         public void IsSomeWhenGettingComponent()
@@ -102,7 +93,7 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void LinqSelectSupport()
         {
-            var oi = from x in Option.Some(1)
+            var oi = from x in Some(1)
                      select x + 1;
 
             Assert.That((int)oi, Is.EqualTo(2));
@@ -111,8 +102,8 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void LinqSelectManySupport()
         {
-            var oi = from x in 1.ToSome()
-                     from y in 2.ToSome()
+            var oi = from x in Some(1)
+                     from y in Some(2)
                      select x + y;
 
             Assert.That((int)oi, Is.EqualTo(3));
@@ -121,11 +112,11 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void LinqWhereSupport()
         {
-            var io1 = from x in 1.ToSome()
+            var io1 = from x in Some(1)
                       where x > 2
                       select x;
 
-            var io2 = from x in 3.ToSome()
+            var io2 = from x in Some(3)
                       where x > 2
                       select x;
 
@@ -151,9 +142,9 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void Equality()
         {
-            var o1 = Option.Some(1);
-            var o2 = Option.Some(2);
-            var o11 = Option.Some(1);
+            var o1 = Some(1);
+            var o2 = Some(2);
+            var o11 = Some(1);
             var n = Option<int>.None;
 
             Assert.That(o1, Is.EqualTo(o11));
@@ -176,7 +167,7 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void ComparisonToSameSomeValueYielcsTrue()
         {
-            var opt5 = Option.Some(5);
+            var opt5 = Some(5);
 
             Assert.IsTrue(opt5 == 5);
         }
@@ -184,7 +175,7 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void ComparisonToDifferentSomeValueYielcsTrue()
         {
-            var opt5 = Option.Some(5);
+            var opt5 = Some(5);
 
             Assert.IsFalse(opt5 == 4);
         }
@@ -197,7 +188,7 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void CanMapOptionallyNullProperty()
         {
-            var c = Option.Some(new MyClass());
+            var c = Some(new MyClass());
 
             var p = c.MapOptional(x => x.Prop);
 
@@ -210,9 +201,23 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void CanCast()
         {
-            var d = Option.Some<Base>(new Derived());
+            var d = Some<Base>(new Derived());
 
             Assert.That(d.TryCast<Derived>().IsSome);
+        }
+
+        [Test]
+        public void CanForeach()
+        {
+            var d = Some(1);
+            var count = 0;
+
+            foreach (var i in d)
+            {
+                count++;
+            }
+
+            Assert.That(count, Is.EqualTo(1));
         }
     }
 }

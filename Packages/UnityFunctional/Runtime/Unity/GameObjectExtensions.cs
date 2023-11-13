@@ -3,7 +3,7 @@
     public static class GameObjectExtensions
     {
         public static Option<T> TryGetComponent<T>(this UnityEngine.GameObject go) =>
-            go.TryGetComponent(out T c) ? Option.Some(c) : Option.None;
+            go.TryGetComponent(out T c) ? c : Core.None;
 
         public static Option<T> TryGetComponentInParent<T>(this UnityEngine.GameObject go) =>
             Prelude.Optional(go.GetComponentInParent<T>());

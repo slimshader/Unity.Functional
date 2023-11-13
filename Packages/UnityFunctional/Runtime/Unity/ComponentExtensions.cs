@@ -3,7 +3,7 @@
     public static class ComponentExtensions
     {
         public static Option<T> TryGetComponent<T>(this UnityEngine.Component component) =>
-            component.TryGetComponent(out T c) ? Option.Some(c) : Option.None;
+            component.TryGetComponent(out T c) ? c : Core.None;
 
         public static Option<T> TryGetComponentInParent<T>(this UnityEngine.Component component) =>
             Prelude.Optional(component.GetComponentInParent<T>());

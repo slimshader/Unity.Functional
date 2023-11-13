@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using static Bravasoft.Functional.Core;
 
 namespace Bravasoft.Functional
 {
     public static class List
     {
-        public static Option<List<T>> OptionalNonEmpty<T>(this List<T> list) =>
-            list == null || list.Count < 1 ? Option.None : Option.Some(list);
-
         public static Option<T> TryFind<T>(this List<T> list, Func<T, bool> predicate)
         {
             if (list == null) throw new ArgumentNullException(nameof(list));
@@ -17,17 +15,17 @@ namespace Bravasoft.Functional
             {
                 if (predicate(list[i]))
                 {
-                    return Option.Some(list[i]);
+                    return list[i];
                 }
             }
 
-            return Option.None;
+            return None;
         }
 
         public static Option<int> TryFindIndex<T>(this List<T> list, Predicate<T> predicate)
         {
             var idx = list.FindIndex(predicate);
-            return idx == -1 ? Option.None : Option.Some(idx);
+            return idx == -1 ? None : idx;
         }
     }
 }

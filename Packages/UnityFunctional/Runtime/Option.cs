@@ -5,9 +5,9 @@ namespace Bravasoft.Functional
 {
     public readonly struct Option<T> : IEquatable<Option<T>>, IEquatable<T>
     {
-        private readonly T _value;
+        private readonly (bool IsSome, T Value) _data;
 
-        public readonly bool IsSome;
+        public bool IsSome => _data.IsSome;
         public bool IsNone => !IsSome;
 
         public static readonly Option<T> None = default;
@@ -17,7 +17,7 @@ namespace Bravasoft.Functional
         {
             if (IsSome)
             {
-                value = _value;
+                value = _data.Value;
                 return true;
             }
 
@@ -25,27 +25,28 @@ namespace Bravasoft.Functional
             return false;
         }
 
-        public T IfNone(T v) => IsSome ? _value : v;
-        public T IfNone(Func<T> fv) => IsSome ? _value : fv();
+        public T IfNone(T v) => IsSome ? _data.Value : v;
+        public T IfNone(Func<T> fv) => IsSome ? _data.Value : fv();
+        public T IfNoneDefault() => IsSome ? _data.Value : default;
         public U Match<U>(Func<T, U> onSome, Func<U> onNone) =>
-            IsSome ? onSome(_value) : onNone();
-        public Option<U> Map<U>(Func<T, U> map) => IsSome ? Option.Some(map(_value)) : Option.None;
-        public Option<U> MapOptional<U>(Func<T, U> map) => IsSome ? (map(_value) ?? Option<U>.None) : Option.None;
-        public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_value) : Option.None;
-        public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_value) ? Some(_value) : None;
-        public Option<U> TryCast<U>() => IsSome && _value is U u ? u : Option.None;
+            IsSome ? onSome(_data.Value) : onNone();
+        public Option<U> Map<U>(Func<T, U> map) => IsSome ? Prelude.Some(map(_data.Value)) : Option<U>.None;
+        public Option<U> MapOptional<U>(Func<T, U> map) => IsSome ? (map(_data.Value) ?? Option<U>.None) : Option<U>.None;
+        public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_data.Value) : Option<U>.None;
+        public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_data.Value) ? Some(_data.Value) : None;
+        public Option<U> TryCast<U>() => IsSome && _data.Value is U u ? u : Option<U>.None;
 
-        public void Deconstruct(out bool isSome, out T value) => (isSome, value) = (IsSome, _value);
+        public void Deconstruct(out bool isSome, out T value) => (isSome, value) = _data;
 
         public bool Equals(Option<T> other) =>
-            (!IsSome && !other.IsSome) ||
-            (IsSome && other.IsSome && EqualityComparer<T>.Default.Equals(_value, other._value));
+            (!IsSome && !other.IsSome) || _data.Equals(other._data);
 
-        public bool Equals(T value) => IsSome && EqualityComparer<T>.Default.Equals(_value, value);
+        public bool Equals(T value) => IsSome && EqualityComparer<T>.Default.Equals(_data.Value, value);
 
         public static implicit operator Option<T>(in T value) => Prelude.Optional(value);
-        public static implicit operator Option<T>(Option.NoneType _) => None;
-        public static explicit operator T(in Option<T> ot) => ot.IsSome ? ot._value : throw new OptionCastEception();
+        public static implicit operator Option<T>(Core.NoneType _) => None;
+        public static implicit operator Option<T>(Unit _) => None;
+        public static explicit operator T(in Option<T> ot) => ot.IsSome ? ot._data.Value : throw new OptionCastEception();
 
         public static implicit operator bool(in Option<T> result) => result.IsSome;
 
@@ -66,32 +67,20 @@ namespace Bravasoft.Functional
             return false;
         }
 
-        public override int GetHashCode() => (IsSome, _value).GetHashCode();
-
-        public IEnumerable<T> ToEnumerable()
-        {
-            if (IsSome) yield return _value;
-        }
+        public override int GetHashCode() => _data.GetHashCode();
 
         public OptionEnumerator<T> GetEnumerator() => new OptionEnumerator<T>(this);
 
-        public override string ToString() => IsSome ? $"Some({_value})" : "None";
+        public override string ToString() => IsSome ? $"Some({_data.Value})" : "None";
 
         private Option(bool isSome, T value)
         {
-            IsSome = isSome;
-            _value = IsSome ? Check.AssureNotNull(value, nameof(value)) : default;
+            _data = (isSome, isSome ? Check.AssureNotNull(value, nameof(value)) : default);
         }
     }
 
     public static class Option
     {
-        public static Option<T> Some<T>(T value) => Option<T>.Some(value);
-
-        public readonly struct NoneType { }
-        public static readonly NoneType None = new NoneType();
-        public static Option<T> ToSome<T>(this T t) => Some(t);
-
         public static Option<U> Select<T, U>(this in Option<T> option, Func<T, U> selector) =>
             option.Map(selector);
 
