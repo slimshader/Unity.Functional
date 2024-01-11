@@ -12,25 +12,11 @@
 
         public static Option<T> AsOption<T>(this T value) => Optional(value);
 
-        public static Option<string> NonEmpty(this Option<string> value)
-        {
-            if (value.TryGetValue(out string str))
-            {
-                return string.IsNullOrEmpty(str) ? none : Some(str);
-            }
+        public static Option<string> TryNonEmpty(this string str) =>
+            string.IsNullOrEmpty(str) ? none : Some(str);
 
-            return none;
-        }
-
-        public static Option<string> NonWhiteSpace(this Option<string> value)
-        {
-            if (value.TryGetValue(out string str))
-            {
-                return string.IsNullOrWhiteSpace(str) ? none : Some(str);
-            }
-
-            return none;
-        }
+        public static Option<string> TryNonWhiteSpace(this string str) =>
+            string.IsNullOrWhiteSpace(str) ? none : Some(str);
 
         public static Option<int> TryParseInt(string arg) =>
             int.TryParse(arg, out int value) ? value : none;
