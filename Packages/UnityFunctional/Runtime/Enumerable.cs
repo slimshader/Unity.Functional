@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace Bravasoft.Functional
 {
-    using static Core;
+    using static Prelude;
+
     public static class Enumerable
     {
         public static U Match<T, U>(this IEnumerable<T> ts, Func<T, IEnumerable<T>, U> onAny, Func<U> onNone) =>
@@ -23,7 +24,7 @@ namespace Bravasoft.Functional
         public static IEnumerable<T> OKs<T>(this IEnumerable<Result<T>> results) =>
             results.Where(r => r.IsOk).Select(r =>
             {
-                var (isOk, value, error) = r;
+                var (_, value, _) = r;
                 return value;
             });
 
@@ -61,12 +62,12 @@ namespace Bravasoft.Functional
             {
                 if (!iterator.MoveNext())
                 {
-                    return None;
+                    return none;
                 }
                 TSource ret = iterator.Current;
                 if (iterator.MoveNext())
                 {
-                    return None;
+                    return none;
                 }
                 return ret;
             }
@@ -93,7 +94,20 @@ namespace Bravasoft.Functional
                 return enumerator.Current;
             }
 
-            return None;
+            return none;
+        }
+
+        public static Option<T> TryFind<T>(this IEnumerable<T> es, Func<T, bool> predicate)
+        {
+            foreach (var e in es)
+            {
+                if (predicate(e))
+                {
+                    return Some(e);
+                }
+            }
+
+            return none;
         }
 
         public static IEnumerable<(T Value, int Index)> Indexed<T>(this IEnumerable<T> ts) =>

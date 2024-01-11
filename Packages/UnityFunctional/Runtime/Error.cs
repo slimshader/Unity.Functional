@@ -16,10 +16,4 @@
         public override string ToString() =>
             $"Error: {GetType().Name}" + (string.IsNullOrWhiteSpace(Message) ? string.Empty : $" ({Message})");
     }
-
-    public sealed class FilterError : Error
-    {
-        public static new readonly FilterError Default = new FilterError();
-        public FilterError() : base("Filter error") { }
-    }
 }

@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Bravasoft.Functional.Tests
@@ -8,9 +9,9 @@ namespace Bravasoft.Functional.Tests
         [Test]
         public void OptionCoercingTests_Some()
         {
-            Option<int> some = 1;
+            Option<int> option = 1;
 
-            Assert.IsTrue(some.IsSome);
+            option.IsSome.Should().BeTrue();
         }
 
         [Test]

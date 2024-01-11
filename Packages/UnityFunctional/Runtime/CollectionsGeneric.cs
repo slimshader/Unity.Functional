@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
-using static Bravasoft.Functional.Prelude;
 
 namespace Bravasoft.Functional
 {
+    using static Prelude;
+
     public static class CollectionsGeneric
     {
         public static Option<TValue> TryGetValue<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> dict, TKey key) =>
-            dict.TryGetValue(key, out var value) ? value : None;
+            dict.TryGetValue(key, out var value) ? value : none;
 
         public static Option<TValue> TryGetValue<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key) =>
-            dict.TryGetValue(key, out var value) ? value : None;
+            dict.TryGetValue(key, out var value) ? value : none;
     }
 }

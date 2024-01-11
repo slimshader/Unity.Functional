@@ -56,6 +56,24 @@ namespace Bravasoft.Functional
         public static bool operator ==(in Option<T> option, in T value) => option.Equals(value);
         public static bool operator !=(in Option<T> option, in T value) => !option.Equals(value);
 
+        public static bool operator ==(in T value, in Option<T> option) => option.Equals(value);
+        public static bool operator !=(in T value, in Option<T> option) => !option.Equals(value);
+
+        public static Option<T> operator |(in Option<T> left, in Option<T> right) =>
+            left.IsSome
+            ? left
+            : right.IsSome
+            ? right
+            : None;
+
+        public static Option<U> Zip<T1, U>(in Option<T> option, Option<T1> other, Func<T, T1, U> zip)
+        {
+            if (option.TryGetValue(out var t) && other.TryGetValue(out var t1))
+                return Option<U>.Some(zip(t, t1));
+
+            return Option<U>.None;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is Option<T> other)
@@ -120,6 +138,7 @@ namespace Bravasoft.Functional
 
     public static partial class Prelude
     {
+        public static Option<T> Flatten<T>(this in Option<Option<T>> stackedOption) => stackedOption.Bind(x => x);
         public static Option<Unit> When(bool condition, Option<Unit> alternative) => condition ? alternative : Option<Unit>.None;
         public static Option<Unit> Unless(bool condition, Option<Unit> alternative) => When(!condition, alternative);
     }
