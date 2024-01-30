@@ -1,3 +1,4 @@
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace Bravasoft.Functional.Tests
@@ -5,6 +6,16 @@ namespace Bravasoft.Functional.Tests
     [TestFixture]
     public class ResultTests
     {
+        [Test]
+        public void DefaultResultIsFailed()
+        {
+            var result = default(Result<int>);
+
+            result.IsOk.Should().BeFalse();
+
+            result.TryGetError().IsSome.Should().BeTrue();
+        }
+
         [Test]
         public void TwoOkResultsAreWhenSameValueEqual()
         {

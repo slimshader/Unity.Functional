@@ -27,7 +27,7 @@ namespace Bravasoft.Functional
 
         public T IfNone(T v) => IsSome ? _data.Value : v;
         public T IfNone(Func<T> fv) => IsSome ? _data.Value : fv();
-        public T IfNoneDefault() => IsSome ? _data.Value : default;
+        public T DefaultIfNone => IsSome ? _data.Value : default;
         public U Match<U>(Func<T, U> onSome, Func<U> onNone) =>
             IsSome ? onSome(_data.Value) : onNone();
         public Option<U> Map<U>(Func<T, U> map) => IsSome ? Prelude.Some(map(_data.Value)) : Option<U>.None;
@@ -134,6 +134,14 @@ namespace Bravasoft.Functional
 
             return option;
         }
+
+        public static Option<(TResult First, TResult Second)> PairBind<T, TResult>(this Option<(T First, T Second)> pair, Func<T, Option<TResult>> map) =>
+            from tuple in pair
+            let first = map(tuple.First)
+            let second = map(tuple.Second)
+            from f in first
+            from s in second
+            select (f, s);
     }
 
     public static partial class Prelude

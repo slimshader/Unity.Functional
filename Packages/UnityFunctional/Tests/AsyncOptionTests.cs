@@ -60,7 +60,7 @@ public class AsyncOptionTests : MonoBehaviour
         var bound = await asyncBound;
 
         Assert.That(bound.IsSome, Is.True);
-        Assert.That(bound.IfNoneDefault(), Is.EqualTo(2));
+        Assert.That(bound.DefaultIfNone, Is.EqualTo(2));
     }
 
     [Test]
@@ -83,6 +83,6 @@ public class AsyncOptionTests : MonoBehaviour
         var mapped = await (from x in option select x + 1);
 
         Assert.That(mapped.IsSome, Is.True);
-        Assert.That(mapped.IfNoneDefault(), Is.EqualTo(2));
+        Assert.That(mapped.DefaultIfNone, Is.EqualTo(2));
     }
 }

@@ -1,4 +1,6 @@
+using Bravasoft.Functional.Errors;
 using System;
+using static Bravasoft.Functional.Prelude;
 
 namespace Bravasoft.Functional
 {
@@ -11,16 +13,27 @@ namespace Bravasoft.Functional
 
         public sealed class PredicateFail : Error
         {
-            public static new readonly PredicateFail Default = new PredicateFail();
-            public PredicateFail() : base("Filter error") { }
+            public PredicateFail(Error inner) : base("Filter failed")
+            {
+                Inner = inner;
+            }
+
+            public Error Inner { get; }
+        }
+
+        public sealed class Uninitialized : Error
+        {
+            public static new readonly Uninitialized Default = new Uninitialized();
+            public Uninitialized() : base("Uninitialized") { }
         }
     }
 
     public readonly struct Result<T> : IEquatable<Result<T>>
     {
-        private readonly (bool IsOk, T Value, Error Error) _data;
+        private readonly (Option<T> MaybeValue, Error Error) _data;
 
-        public bool IsOk => _data.IsOk;
+        public bool IsOk => _data.MaybeValue.IsSome;
+        public bool IsFail => !_data.MaybeValue.IsNone;
 
         public static Result<T> Ok(T value) => new Result<T>(value);
         public static Result<T> Fail(Error error) => new Result<T>(error);
@@ -31,100 +44,77 @@ namespace Bravasoft.Functional
         public bool IsException<TException>() where TException : System.Exception =>
             _data.Error is ExceptionError ee && ee.Exception is TException;
 
-        public T IfError<U>(Func<Error, T> onError) =>
-            IsOk
-            ? _data.Value
-            : onError(_data.Error);
-
-        public T IfFailDefault() =>
-            IsOk
-            ? _data.Value
-            : default;
+        public T IfFail(T fallback) => _data.MaybeValue.IfNone(fallback);
+        public T DefaultIfFailed => _data.MaybeValue.DefaultIfNone;
 
         public Result<UValue> Map<UValue>(Func<T, UValue> map) =>
-            IsOk
-            ? (Result<UValue>)Result.Ok(map(_data.Value))
-            : Result.Fail(_data.Error);
+            _data.MaybeValue
+            .Map(map)
+            .ToResult(_data.Error);
 
         public Result<T> Where(Func<T, bool> predicate) =>
-            IsOk && predicate(_data.Value)
-            ? this
-            : Errors.PredicateFail.Default;
+            _data.MaybeValue
+            .Where(predicate)
+            .ToResult(new Errors.PredicateFail(_data.Error));
 
-        public Result<UValue> BiMap<UValue>(Func<T, UValue> map, Func<Error, Error> errorMap) =>
-            IsOk ? (Result<UValue>)Result.Ok(map(_data.Value)) : Result.Fail(_data.Error);
+        public Result<UValue> Bind<UValue>(Func<T, Result<UValue>> bind)
+        {
+            if (_data.MaybeValue.TryGetValue(out var value))
+            {
+                return bind(value);
+            }
 
-        public Result<UValue> Bind<UValue>(Func<T, Result<UValue>> bind) =>
-            IsOk
-            ? bind(_data.Value)
-            : Result.Fail(_data.Error);
+            return Result<UValue>.Fail(_data.Error);
+        }
 
         public Result<U> TryCast<U>() =>
-            IsOk && _data.Value is U u
-            ? u
-            : Result.Fail(new Errors.InvalidCast());
+            _data.MaybeValue.TryCast<U>().ToResult(new Errors.InvalidCast());
 
-        public U Match<U>(Func<T, U> onOk, Func<Error, U> onError) =>
-            IsOk
-            ? onOk(_data.Value)
-            : onError(_data.Error);
-
-        public U MatchError<U, TError>(Func<T, U> onOk, Func<TError, U> onError) where TError : Error =>
-            IsOk
-            ? onOk(_data.Value)
-            : _data.Error is TError error
-            ? onError(error)
-            : throw new InvalidOperationException("No excpetion match");
-
-
-        public U MatchException<U, TException>(Func<T, U> onOk, Func<TException, U> onException) where TException : Exception =>
-            IsOk
-            ? onOk(_data.Value)
-            : _data.Error is ExceptionError and { Exception: TException tex }
-            ? onException(tex)
-            : throw new InvalidOperationException("No excpetion match");
-
-        public Option<T> ToOption() => IsOk ? Option<T>.Some(_data.Value) : Option<T>.None;
-
-        public bool TryGetValue(out T value)
+        public U Match<U>(Func<T, U> onOk, Func<Error, U> onError)
         {
-            value = IsOk ? _data.Value : default;
-            return IsOk;
-        }
-
-        public bool TryGetError(out Error error)
-        {
-            error = !IsOk ? _data.Error : default;
-            return !IsOk;
-        }
-
-        public Unit Iter(Action<T> onOk)
-        {
-            if (IsOk)
+            if (_data.MaybeValue.TryGetValue(out var value))
             {
-                onOk(_data.Value);
+                return onOk(value);
             }
-            return default;
+
+            return onError(_data.Error);
         }
 
-        public Unit BiIter(Action<T> onOk, Action<Error> onError)
+        public Option<T> ToOption() => _data.MaybeValue;
+        public Option<Error> TryGetError() =>
+            IsOk
+            ? none
+            : Some(_data.Error is null ? Uninitialized.Default : _data.Error);
+
+        public bool TryGetValue(out T value) => _data.MaybeValue.TryGetValue(out value);
+
+        public Unit Iter(Action<T> onOk) => _data.MaybeValue.Iter(onOk);
+
+        public Unit ErrorIter(Action<Error> onError)
         {
-            if (IsOk)
-            {
-                onOk(_data.Value);
-            }
-            else
+            if (!IsOk)
             {
                 onError(_data.Error);
             }
-
             return default;
         }
 
-        public void Deconstruct(out bool isOk, out T value, out Error error) => (isOk, value, error) = _data;
+        public void BiIter(Action<T> onOk, Action<Error> onError)
+        {
+            _data.MaybeValue.Iter(onOk);
+            
+            if (!IsOk)
+                onError(_data.Error);
+        }
+
+        public void Deconstruct(out bool isOk, out T value, out Error error)
+        {
+            (isOk, value) = _data.MaybeValue;           
+            error = _data.Error;
+        }
 
         public static explicit operator T(in Result<T> result) =>
-            result.IsOk ? result._data.Value : throw new ResultCastException(result._data.Error);
+            result.IsOk ? (T) result._data.MaybeValue : throw new ResultCastException(result._data.Error);
 
         public static implicit operator bool(in Result<T> result) => result.IsOk;
 
@@ -135,12 +125,20 @@ namespace Bravasoft.Functional
         public static implicit operator Result<T>(in Result.ResultOk<T> ok) => Ok(ok.Value);
         public static implicit operator Result<T>(in Result.ResultFail fail) => Fail(fail.Error);
 
-        public override string ToString() => IsOk ? $"Ok({_data.Value})" : $"Fail({_data.Error})";
+        public override string ToString()
+        {
+            if (_data.MaybeValue.TryGetValue(out var value))
+            {
+                return $"Ok({value})";
+            }
+
+            return $"Fail({_data.Error})";
+        }
 
         public bool Equals(Result<T> other) => _data.Equals(other._data);
 
-        private Result(T value) => _data = (true, Check.AssureNotNull(value, nameof(value)), default);
-        private Result(Error error) => _data = (false, default, Check.AssureNotNull(error, nameof(error)));
+        private Result(T value) => _data = (Check.AssureNotNull(value, nameof(value)), default);
+        private Result(Error error) => _data = (default, Check.AssureNotNull(error, nameof(error)));
     }
 
     public static class Result

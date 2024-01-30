@@ -22,7 +22,7 @@
             return none;
         }
 
-        public static Option<(T First, T Second)> TryFirstPair<T>(this T[] array) =>
-            array.Length >= 2 ? none : Some((array[0], array[1]));
+        public static Option<(T First, T Second)> TryFirstPair<T>(this T[] array, bool strict = false) =>
+            (strict ? array.Length == 2 : array.Length >= 2) ? none : Some((array[0], array[1]));
     }
 }
