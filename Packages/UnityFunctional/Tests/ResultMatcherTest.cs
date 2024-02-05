@@ -4,29 +4,58 @@ using Bravasoft.Functional;
 
 using static Bravasoft.Functional.Prelude;
 using System;
+using System.Collections.Generic;
 
 namespace Bravasoft.Functional
 {
     public sealed class ResultMatcher<T>
     {
-        Action<T> _onOk;
-        Action<Error> _onError;
+        Action<Result<T>> _onOk;
+        List<Func<Result<T>, bool>> _onFails = new();
 
         public ResultMatcher<T> OnOk(Action<T> onOk)
         {
-            _onOk = onOk;
+            _onOk = r => r.Iter(onOk);
             return this;
         }
 
         public ResultMatcher<T> OnError(Action<Error> onError)
         {
-            _onError = onError;
+            _onFails.Add(r => { r.ErrorIter(onError); return true; });
+
+            return this;
+        }
+
+        public ResultMatcher<T> OnError<TError>(Action<TError> onError) where TError : Error
+        {
+            _onFails.Add(r =>
+            {
+                if (r.TryGetError<TError>(out var e))
+                {
+                    onError(e);
+                    return true;
+                }
+                return false;
+            });
+
             return this;
         }
 
         public Unit Match(in Result<T> result)
         {
-            result.BiIter(_onOk, _onError);
+            if (result.IsOk)
+            {
+                _onOk(result);
+            }
+            else
+            {
+                foreach (var fail in _onFails)
+                {
+                    if (fail(result))
+                        break;
+                }
+            }
+
             return default;
         }
     }
@@ -105,5 +134,47 @@ public class ResultMatcherTests
         }).Match();
 
         matchedMessage.Should().Be("error");
+    }
+
+    class CustomError<T> : Error
+    {
+        public CustomError(T data)
+        {
+            Data = data;
+        }
+
+        public T Data { get; }
+    }
+
+    [Test]
+    public void CanMatchSpecificErrorType()
+    {
+        var failed = Result<int>.Fail(new CustomError<int>(1));
+
+        var matchedData = 0;
+
+        failed.Matcher(m =>
+        {
+            m.OnError<CustomError<int>>(e => matchedData = e.Data);
+        }).Match();
+
+        matchedData.Should().Be(1);
+    }
+
+    [Test]
+    public void WillMatchSpecificErrorBeforeGeneral()
+    {
+        var failed = Result<int>.Fail(new CustomError<int>(1));
+
+        var matchedData = 0;
+
+        failed.Matcher(m =>
+        {
+            m.OnError<CustomError<int>>(e => matchedData = e.Data);
+            m.OnError(e => matchedData = 2);
+
+        }).Match();
+
+        matchedData.Should().Be(1);
     }
 }

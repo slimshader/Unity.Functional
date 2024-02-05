@@ -13,7 +13,7 @@ namespace Bravasoft.Functional.Tests
 
             result.IsOk.Should().BeFalse();
 
-            result.TryGetError().IsSome.Should().BeTrue();
+            result.ToErrorOption().IsSome.Should().BeTrue();
         }
 
         [Test]

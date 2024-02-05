@@ -1,4 +1,3 @@
-using Bravasoft.Functional.Errors;
 using System;
 using static Bravasoft.Functional.Prelude;
 
@@ -33,14 +32,13 @@ namespace Bravasoft.Functional
         private readonly (Option<T> MaybeValue, Error Error) _data;
 
         public bool IsOk => _data.MaybeValue.IsSome;
-        public bool IsFail => !_data.MaybeValue.IsNone;
+        public bool IsFail => !IsOk;
 
         public static Result<T> Ok(T value) => new Result<T>(value);
         public static Result<T> Fail(Error error) => new Result<T>(error);
         public static Result<T> Fail(Exception exception) => new Result<T>(new ExceptionError(exception));
 
         public bool IsError<TError>() where TError : Error => _data.Error is TError;
-
         public bool IsException<TException>() where TException : System.Exception =>
             _data.Error is ExceptionError ee && ee.Exception is TException;
 
@@ -81,12 +79,37 @@ namespace Bravasoft.Functional
         }
 
         public Option<T> ToOption() => _data.MaybeValue;
-        public Option<Error> TryGetError() =>
-            IsOk
-            ? none
-            : Some(_data.Error is null ? Uninitialized.Default : _data.Error);
-
+        public Option<Error> ToErrorOption() => TryGetError(out var error) ? Some(error) : none;
         public bool TryGetValue(out T value) => _data.MaybeValue.TryGetValue(out value);
+
+        public bool TryGetError(out Error error)
+        {
+            error = IsFail ? _data.Error is null ? Errors.Uninitialized.Default : null : null;
+            return IsFail;
+        }
+
+        public bool TryGetError<TError>(out TError error) where TError : Error
+        {
+            error =
+                IsFail
+                ? _data.Error is TError terror
+                ? terror
+                : null
+                : null;
+
+            return error is object;
+        }
+
+        public bool TryGetException(out Exception exception)
+        {
+            exception = IsFail
+                ? _data.Error is ExceptionError ee
+                ? ee.Exception
+                : null
+                : null;
+
+            return exception is object;
+        }
 
         public Unit Iter(Action<T> onOk) => _data.MaybeValue.Iter(onOk);
 
