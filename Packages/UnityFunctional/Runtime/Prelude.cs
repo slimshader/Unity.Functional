@@ -5,6 +5,8 @@
         public static Core.NoneType none => Core.None;
         public static Option<T> Some<T>(T value) => Option<T>.Some(value);
         public static Option<T> None<T>() => Option<T>.None;
+
+        public static Result<T> Ok<T>(T value) => Result.Ok(value);
         public static Result<T> Fail<T>(string message) => Result.Fail(new Error(message));
         public static AsyncOption<T> AsyncSome<T>(T value) => AsyncOption<T>.Some(value);
         public static Option<T> Optional<T>(T value) =>
