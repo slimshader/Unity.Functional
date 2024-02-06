@@ -1,7 +1,10 @@
 {
-    "name": "UnityFunctional.Runtime",
+    "name": "UnityFunctionalAsync.Runtime",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:f24e56635959d59408515dd55659d6b4",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

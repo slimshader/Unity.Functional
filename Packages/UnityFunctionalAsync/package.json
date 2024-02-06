@@ -1,8 +1,8 @@
 {
-  "name": "pl.bravasoft.unity.functional",
-  "version": "0.40.0",
-  "displayName": "Unity Functional",
-  "description": "Efficient implemetation of Option and Result Monads dedicated for Unity.",
+  "name": "pl.bravasoft.unity.functional.async",
+  "version": "0.30.0",
+  "displayName": "Unity Functional Async",
+  "description": "Efficient implemetation of Async + Result Monads dedicated for Unity.",
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://example.com/licensing.html",
