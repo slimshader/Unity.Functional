@@ -8,7 +8,7 @@
 
         public static Result<T> Ok<T>(T value) => Result.Ok(value);
         public static Result<T> Fail<T>(string message) => Result.Fail(new Error(message));
-        public static AsyncOption<T> AsyncSome<T>(T value) => AsyncOption<T>.Some(value);
+
         public static Option<T> Optional<T>(T value) =>
             value == null ? Option<T>.None : Option<T>.Some(value);
 
