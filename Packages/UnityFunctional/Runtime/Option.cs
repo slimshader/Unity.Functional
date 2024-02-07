@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Bravasoft.Functional
 {
@@ -25,8 +26,10 @@ namespace Bravasoft.Functional
             return false;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T IfNoneUnsafe(T fallback) => IsSome ? _data.Value : fallback;
-        
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T IfNoneUnsafe(Func<T> onFallback)
         {
             if (onFallback is null)
@@ -35,6 +38,7 @@ namespace Bravasoft.Functional
             return IsSome ? _data.Value : onFallback();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T IfNone(T fallback)
         {
             if (IsSome)
@@ -88,6 +92,22 @@ namespace Bravasoft.Functional
         public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_data.Value) : Option<U>.None;
         public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_data.Value) ? Some(_data.Value) : None;
         public Option<U> TryCast<U>() => IsSome && _data.Value is U u ? u : Option<U>.None;
+
+        public IEnumerable<T> ToEnumerable()
+        {
+            if (IsSome)
+                return new[] { _data.Value };
+
+            return System.Linq.Enumerable.Empty<T>();
+        }
+
+        public T[] ToArray()
+        {
+            if (IsSome)
+                return new[] { _data.Value };
+
+            return System.Array.Empty<T>();
+        }
 
         public void Deconstruct(out bool isSome, out T value) => (isSome, value) = _data;
 
