@@ -42,8 +42,13 @@ namespace Bravasoft.Functional
         public bool IsException<TException>() where TException : System.Exception =>
             _data.Error is ExceptionError ee && ee.Exception is TException;
 
-        public T IfFail(T fallback) => _data.MaybeValue.IfNone(fallback);
-        public T DefaultIfFailed => _data.MaybeValue.DefaultIfNone;
+        public T IfFail(T fallback)
+        {
+            if (Check.IsNull(fallback))
+                throw new ArgumentNullException(nameof(fallback));
+
+            return _data.MaybeValue.IfNone(fallback);
+        }
 
         public Result<UValue> Map<UValue>(Func<T, UValue> map) =>
             _data.MaybeValue

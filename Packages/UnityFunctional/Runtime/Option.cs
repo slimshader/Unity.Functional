@@ -25,11 +25,64 @@ namespace Bravasoft.Functional
             return false;
         }
 
-        public T IfNone(T v) => IsSome ? _data.Value : v;
-        public T IfNone(Func<T> fv) => IsSome ? _data.Value : fv();
-        public T DefaultIfNone => IsSome ? _data.Value : default;
-        public U Match<U>(Func<T, U> onSome, Func<U> onNone) =>
-            IsSome ? onSome(_data.Value) : onNone();
+        public T IfNoneUnsafe(T fallback) => IsSome ? _data.Value : fallback;
+        
+        public T IfNoneUnsafe(Func<T> onFallback)
+        {
+            if (onFallback is null)
+                throw new ArgumentNullException(nameof(onFallback));
+
+            return IsSome ? _data.Value : onFallback();
+        }
+
+        public T IfNone(T fallback)
+        {
+            if (IsSome)
+                return _data.Value;
+
+            if (Check.IsNull(fallback))
+                throw new ArgumentNullException(nameof(fallback));
+
+            return fallback;
+        }
+
+        public T IfNone(Func<T> onFallback)
+        {
+            if (onFallback is null)
+                throw new ArgumentNullException(nameof(onFallback));
+
+            if (IsSome)
+                return _data.Value;
+
+            var fallback = onFallback();
+
+            if (Check.IsNull(fallback))
+                throw new OptionException("Fallback function produced null value");
+
+            return fallback;
+        }
+
+        public U Match<U>(Func<T, U> onSome, Func<U> onNone)
+        {
+            if (IsSome)
+            {
+                var someMatch = onSome(_data.Value);
+
+                if (Check.IsNull(someMatch))
+                    throw new OptionException("Some function produced null value");
+
+                return someMatch;
+            }
+
+            var noneMatch = onNone();
+
+            if (Check.IsNull(noneMatch))
+                throw new OptionException("None function produced null value");
+
+            return noneMatch;
+                
+        }
+
         public Option<U> Map<U>(Func<T, U> map) => IsSome ? Prelude.Some(map(_data.Value)) : Option<U>.None;
         public Option<U> MapOptional<U>(Func<T, U> map) => IsSome ? (map(_data.Value) ?? Option<U>.None) : Option<U>.None;
         public Option<U> Bind<U>(Func<T, Option<U>> bind) => IsSome ? bind(_data.Value) : Option<U>.None;

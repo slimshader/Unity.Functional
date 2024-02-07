@@ -42,6 +42,18 @@ namespace Bravasoft.Functional
             }
         }
 
+        public static async UniTask<U> MatchAsync<T, U>(this UniTask<Result<T>> asyncResult, Func<T, UniTask<U>> onSome, Func<UniTask<U>> onNone)
+        {
+            var (isOk, value, error) = await asyncResult;
+
+            if (isOk)
+            {
+                return await onSome(value);
+            }
+
+            return await onNone();
+        }
+
 
         public static async UniTask<Result<T>> Catch<T>(this UniTask<Result<T>> task)
         {

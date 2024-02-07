@@ -1,6 +1,6 @@
 {
   "name": "pl.bravasoft.unity.functional.async",
-  "version": "0.30.0",
+  "version": "0.32.0",
   "displayName": "Unity Functional Async",
   "description": "Efficient implemetation of Async + Result Monads dedicated for Unity.",
   "documentationUrl": "https://example.com/",
