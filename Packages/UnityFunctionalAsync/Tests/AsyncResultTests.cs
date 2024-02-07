@@ -25,7 +25,7 @@ namespace Bravasoft.Functional.Tests
             var f2 = from i in f1 select i * 2;
 
             (await f2).IsOk.Should().BeTrue();
-            (await f2).DefaultIfFailed.Should().Be(2);
+            (await f2).IfFail(0).Should().Be(2);
         }
     }
 }
