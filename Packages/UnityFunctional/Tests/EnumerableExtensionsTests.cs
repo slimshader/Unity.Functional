@@ -27,21 +27,39 @@ namespace Bravasoft.Functional.Tests
         }
 
         [Test]
-        public void TryFindSuccess()
+        public void TryFirstSuccess()
         {
             var ints = Range(0, 10);
-            var result = ints.TryFind(i => i == 5);
+            var result = ints.TryFirst();
 
-            Assert.That(result, Is.EqualTo(Some(5)));
+            result.Should().Be(0);
         }
 
         [Test]
-        public void TryFindFailure()
+        public void TryFirstFailure()
+        {
+            var ints = Empty<int>();
+            var result = ints.TryFirst();
+
+            result.Should().Be(Option<int>.None);
+        }
+
+        [Test]
+        public void TryFirstWithPredicateSuccess()
         {
             var ints = Range(0, 10);
-            var result = ints.TryFind(i => i == 10);
+            var result = ints.TryFirst(i => i == 5);
 
-            Assert.That(result, Is.EqualTo(None<int>()));
+            result.Should().Be(5);
+        }
+
+        [Test]
+        public void TryFirstWithPredicateFailure()
+        {
+            var ints = Range(0, 10);
+            var result = ints.TryFirst(i => i == 10);
+
+            result.Should().Be(Option<int>.None);
         }
     }
 }

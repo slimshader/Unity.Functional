@@ -1,4 +1,5 @@
 using Bravasoft.Functional.Unity;
+using FluentAssertions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Bravasoft.Functional.Tests
         {
             var option = new Option<int>();
 
-            Assert.That(option.IsSome, Is.False);
+            option.IsSome.Should().BeFalse();
         }
 
         [Test]
@@ -218,6 +219,38 @@ namespace Bravasoft.Functional.Tests
             }
 
             Assert.That(count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CanForeachNone()
+        {
+            var d = Option<int>.None;
+            var count = 0;
+
+            foreach (var i in d)
+            {
+                count++;
+            }
+
+            count.Should().Be(0);
+        }
+
+        [Test]
+        public void CanFoldSome()
+        {
+            var d = Some(1);
+            var result = d.Fold(1, (acc, x) => acc + x);
+
+            result.Should().Be(2);
+        }
+
+        [Test]
+        public void CanFoldNone()
+        {
+            var d = Option<int>.None;
+            var result = d.Fold(1, (acc, x) => acc + x);
+
+            result.Should().Be(1);
         }
     }
 }

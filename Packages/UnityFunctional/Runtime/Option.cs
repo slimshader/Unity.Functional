@@ -93,6 +93,8 @@ namespace Bravasoft.Functional
         public Option<T> Filter(Func<T, bool> predicate) => IsSome && predicate(_data.Value) ? Some(_data.Value) : None;
         public Option<U> TryCast<U>() => IsSome && _data.Value is U u ? u : Option<U>.None;
 
+        public U Fold<U>(U seed, Func<U, T, U> folder) => IsSome ? folder(seed, _data.Value) : seed;
+
         public IEnumerable<T> ToEnumerable()
         {
             if (IsSome)

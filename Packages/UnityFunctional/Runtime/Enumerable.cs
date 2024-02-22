@@ -86,29 +86,18 @@ namespace Bravasoft.Functional
         public static Option<TSource> TryFirst<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
-            
-            var enumerator = source.GetEnumerator();
 
-            if (enumerator.MoveNext())
+            foreach (TSource item in source)
             {
-                return enumerator.Current;
-            }
-
-            return none;
-        }
-
-        public static Option<T> TryFind<T>(this IEnumerable<T> es, Func<T, bool> predicate)
-        {
-            foreach (var e in es)
-            {
-                if (predicate(e))
+                if (predicate(item))
                 {
-                    return Some(e);
+                    return Some(item);
                 }
             }
 
-            return none;
+            return Option<TSource>.None;
         }
+
 
         public static IEnumerable<(T Value, int Index)> Indexed<T>(this IEnumerable<T> ts) =>
             new IndexedEnumerator<T>(ts.GetEnumerator());
