@@ -134,6 +134,9 @@ namespace Bravasoft.Functional
         public static bool operator ==(in T value, in Option<T> option) => option.Equals(value);
         public static bool operator !=(in T value, in Option<T> option) => !option.Equals(value);
 
+        public static bool operator true(in Option<T> option) => option.IsSome;
+        public static bool operator false(in Option<T> option) => option.IsNone;
+
         public static Option<T> operator |(in Option<T> left, in Option<T> right) =>
             left.IsSome
             ? left
@@ -174,6 +177,8 @@ namespace Bravasoft.Functional
 
     public static class Option
     {
+        public static Option<T> Some<T>(T value) => Option<T>.Some(value);
+        public static Option<T> None<T>() => Option<T>.None;
         public static Option<U> Select<T, U>(this in Option<T> option, Func<T, U> selector) =>
             option.Map(selector);
 

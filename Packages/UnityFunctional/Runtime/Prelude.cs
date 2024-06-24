@@ -1,4 +1,6 @@
-﻿namespace Bravasoft.Functional
+﻿using System;
+
+namespace Bravasoft.Functional
 {
     public static partial class Prelude
     {
@@ -9,8 +11,10 @@
         public static Result<T> Ok<T>(T value) => Result.Ok(value);
         public static Result<T> Fail<T>(string message) => Result.Fail(new Error(message));
 
+        public static Try<T> Try<T>(Func<T> func) => new Try<T>(func);
+
         public static Option<T> Optional<T>(T value) =>
-            value == null ? Option<T>.None : Option<T>.Some(value);
+            Check.IsNull(value) ? Option<T>.None : Option<T>.Some(value);
 
         public static Option<T> AsOption<T>(this T value) => Optional(value);
 

@@ -252,5 +252,38 @@ namespace Bravasoft.Functional.Tests
 
             result.Should().Be(1);
         }
+
+        [Test]
+        public void CanUseShortCircuitLogicalOrOperator()
+        {
+            var d1 = Some(1);
+            var d2 = Option<int>.None;
+
+            var result = d1 || d2;
+
+            result.Should().Be(d1);
+        }
+
+        [Test]
+        public void CanUseShortCircuitLogicalOrOperatorWithNone()
+        {
+            var d1 = Option<int>.None;
+            var d2 = Option<int>.None;
+
+            var result = d1 || d2;
+
+            result.Should().Be(d2);
+        }
+
+        [Test]
+        public void CanUseShortCircuitLogicalAndOperator()
+        {
+            var d1 = Option.None<int>();
+            var d2 = Some(2);
+
+            var result = d1 || d2;
+
+            result.Should().Be(2);
+        }
     }
 }
