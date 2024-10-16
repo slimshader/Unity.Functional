@@ -88,11 +88,29 @@ namespace Bravasoft.Functional.Async
                 {
                     onOK(t);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                 }
             });
         }
+
+        public UniTask Iter(Func<T, UniTask> onOK)
+        {
+            return _lazyTask.Task.ContinueWith(t =>
+            {
+                try
+                {
+                    return onOK(t);
+                }
+                catch (Exception)
+                {
+                }
+
+                return UniTask.CompletedTask;
+            });
+        }
+
+
 
         public UniTask BiIter(Action<T> onOk, Action<Error> onError)
         {
