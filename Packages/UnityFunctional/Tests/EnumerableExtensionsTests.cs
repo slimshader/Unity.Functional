@@ -32,7 +32,7 @@ namespace Bravasoft.Functional.Tests
             var ints = Range(0, 10);
             var result = ints.TryFirst();
 
-            result.Should().Be(0);
+            result.Should().Equal(0);
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace Bravasoft.Functional.Tests
             var ints = Empty<int>();
             var result = ints.TryFirst();
 
-            result.Should().Be(Option<int>.None);
+            result.Should().Equal(Option<int>.None);
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace Bravasoft.Functional.Tests
             var ints = Range(0, 10);
             var result = ints.TryFirst(i => i == 5);
 
-            result.Should().Be(5);
+            result.Should().Equal(5);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Bravasoft.Functional.Tests
             var ints = Range(0, 10);
             var result = ints.TryFirst(i => i == 10);
 
-            result.Should().Be(Option<int>.None);
+            result.Should().Equal(Option<int>.None);
         }
     }
 }

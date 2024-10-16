@@ -1,3 +1,4 @@
+using Bravasoft.Functional.Errors;
 using System;
 using static Bravasoft.Functional.Prelude;
 
@@ -5,11 +6,7 @@ namespace Bravasoft.Functional
 {
     namespace Errors
     {
-        sealed class InvalidCast : Error
-        {
-            public InvalidCast() : base("Invalid cast") { }
-        }
-
+        
         public sealed class PredicateFail : Error
         {
             public PredicateFail(Error inner) : base("Filter failed")
@@ -22,7 +19,7 @@ namespace Bravasoft.Functional
 
         public sealed class Uninitialized : Error
         {
-            public static new readonly Uninitialized Default = new Uninitialized();
+            public static readonly Uninitialized Default = new Uninitialized();
             public Uninitialized() : base("Uninitialized") { }
         }
     }
@@ -36,11 +33,11 @@ namespace Bravasoft.Functional
 
         public static Result<T> Ok(T value) => new Result<T>(value);
         public static Result<T> Fail(Error error) => new Result<T>(error);
-        public static Result<T> Fail(Exception exception) => new Result<T>(new ExceptionError(exception));
+        public static Result<T> Fail(Exception exception) => new Result<T>(exception.ToError());
 
         public bool IsError<TError>() where TError : Error => _data.Error is TError;
-        public bool IsException<TException>() where TException : System.Exception =>
-            _data.Error is ExceptionError ee && ee.Exception is TException;
+        //public bool IsException<TException>() where TException : System.Exception =>
+        //    _data.Error is ExceptionError ee && ee.Exception is TException;
 
         public T IfFail(T fallback)
         {
@@ -69,9 +66,6 @@ namespace Bravasoft.Functional
 
             return Result<UValue>.Fail(_data.Error);
         }
-
-        public Result<U> TryCast<U>() =>
-            _data.MaybeValue.TryCast<U>().ToResult(new Errors.InvalidCast());
 
         public U Match<U>(Func<T, U> onOk, Func<Error, U> onError)
         {
@@ -185,7 +179,7 @@ namespace Bravasoft.Functional
 
         public static ResultOk<T> Ok<T>(T value) => new ResultOk<T>(value);
 
-        public static ResultFail Fail() => new ResultFail(Error.Default);
+        //public static ResultFail Fail() => new ResultFail(Error.Default);
         public static ResultFail Fail(Error error) => new ResultFail(error);
         public static ResultFail Fail(Exception exception) => new ResultFail(new ExceptionError(exception));
 

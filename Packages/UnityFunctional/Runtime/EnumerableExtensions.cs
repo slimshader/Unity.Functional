@@ -6,10 +6,12 @@ namespace Bravasoft.Functional
 {
     using static Prelude;
 
-    public static class Enumerable
+    public static class EnumerableExtensions
     {
-        public static U Match<T, U>(this IEnumerable<T> ts, Func<T, IEnumerable<T>, U> onAny, Func<U> onNone) =>
-            ts.Any() ? onAny(ts.First(), ts.Skip(1)) : onNone();
+        public static U MatchFirst<T, U>(this IEnumerable<T> ts, Func<T, U> onFirst, Func<U> onEmpty) =>
+            ts.TryFirst().Match(
+                onSome: onFirst,
+                onNone: onEmpty);
 
         public static IEnumerable<T> Append<T>(this IEnumerable<T> ts, in Option<T> option) =>
             option.TryGetValue(out var some) ? System.Linq.Enumerable.Append(ts, some) : ts;

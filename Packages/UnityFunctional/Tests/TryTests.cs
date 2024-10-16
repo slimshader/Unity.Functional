@@ -1,3 +1,4 @@
+using Bravasoft.Functional.Errors;
 using FluentAssertions;
 using NUnit.Framework;
 using System;

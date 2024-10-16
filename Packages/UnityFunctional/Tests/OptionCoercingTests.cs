@@ -37,7 +37,7 @@ namespace Bravasoft.Functional.Tests
         {
             Option<int> none = Option<int>.None;
 
-            Assert.Throws<OptionCastEception>(() => { var i =  (int)none; });
+            Assert.Throws<OptionCastException>(() => { var i =  (int)none; });
         }
 
         [Test]

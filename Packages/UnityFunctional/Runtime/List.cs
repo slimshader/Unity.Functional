@@ -6,11 +6,11 @@ namespace Bravasoft.Functional
     using static Prelude;
     public static class List
     {
-        public static List<T> Create<T>(T v1) => new List<T> { v1 };
-        public static List<T> Create<T>(T v1, T v2) => new List<T> { v1, v2 };
-        public static List<T> Create<T>(T v1, T v2, T v3) => new List<T> { v1, v2, v3 };
-        public static List<T> Create<T>(T v1, T v2, T v3, T v4) => new List<T> { v1, v2, v3, v4 };
-        public static List<T> Create<T>(T v1, T v2, T v3, T v4, T v5) => new List<T> { v1, v2, v3, v4, v5 };
+        public static IReadOnlyList<T> Create<T>(T v1) => new List<T> { v1 };
+        public static IReadOnlyList<T> Create<T>(T v1, T v2) => new List<T> { v1, v2 };
+        public static IReadOnlyList<T> Create<T>(T v1, T v2, T v3) => new List<T> { v1, v2, v3 };
+        public static IReadOnlyList<T> Create<T>(T v1, T v2, T v3, T v4) => new List<T> { v1, v2, v3, v4 };
+        public static IReadOnlyList<T> Create<T>(T v1, T v2, T v3, T v4, T v5) => new List<T> { v1, v2, v3, v4, v5 };
 
         public static Option<List<T>> TryNonEmpty<T>(this List<T> list) =>
             list.Count > 0 ? Some(list) : none;
@@ -18,7 +18,7 @@ namespace Bravasoft.Functional
         public static Option<IReadOnlyList<T>> TryNonEmpty<T>(this IReadOnlyList<T> list) =>
             list.Count > 0 ? Some(list) : none;
 
-        public static Option<T> TryFist<T>(this IReadOnlyList<T> list) =>
+        public static Option<T> TryFirst<T>(this IReadOnlyList<T> list) =>
             list.Count >= 1 ? none : Some(list[0]);
 
         public static Option<T> TryFirst<T>(this IReadOnlyList<T> list, Func<T, bool> predicate)

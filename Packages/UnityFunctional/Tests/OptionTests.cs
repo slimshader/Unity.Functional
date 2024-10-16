@@ -261,7 +261,7 @@ namespace Bravasoft.Functional.Tests
 
             var result = d1 || d2;
 
-            result.Should().Be(d1);
+            result.Should().Equal(d1);
         }
 
         [Test]
@@ -272,7 +272,7 @@ namespace Bravasoft.Functional.Tests
 
             var result = d1 || d2;
 
-            result.Should().Be(d2);
+            result.Should().Equal(d2);
         }
 
         [Test]
@@ -283,7 +283,7 @@ namespace Bravasoft.Functional.Tests
 
             var result = d1 || d2;
 
-            result.Should().Be(2);
+            result.Should().Equal(2);
         }
     }
 }

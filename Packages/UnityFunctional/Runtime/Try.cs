@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bravasoft.Functional.Errors;
+using System;
 
 namespace Bravasoft.Functional
 {
@@ -64,7 +65,7 @@ namespace Bravasoft.Functional
         // Result and Option conversions
         public static Result<T> ToResult<T>(this Try<T> @try) => @try.Match(
             onValue: x => Result.Ok(x),
-            onException: e => Result<T>.Fail(new ExceptionError(e)));
+            onException: e => Result<T>.Fail(e.ToError()));
 
         public static Option<T> ToOption<T>(this Try<T> @try) => @try.Match(
             onValue: x => Option.Some(x),

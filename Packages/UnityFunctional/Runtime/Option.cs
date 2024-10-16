@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Bravasoft.Functional
 {
-    public readonly struct Option<T> : IEquatable<Option<T>>, IEquatable<T>
+    public readonly struct Option<T> : IEquatable<Option<T>>, IEquatable<T>, IEnumerable<T>
     {
         private readonly (bool IsSome, T Value) _data;
 
@@ -95,22 +96,6 @@ namespace Bravasoft.Functional
 
         public U Fold<U>(U seed, Func<U, T, U> folder) => IsSome ? folder(seed, _data.Value) : seed;
 
-        public IEnumerable<T> ToEnumerable()
-        {
-            if (IsSome)
-                return new[] { _data.Value };
-
-            return System.Linq.Enumerable.Empty<T>();
-        }
-
-        public T[] ToArray()
-        {
-            if (IsSome)
-                return new[] { _data.Value };
-
-            return System.Array.Empty<T>();
-        }
-
         public void Deconstruct(out bool isSome, out T value) => (isSome, value) = _data;
 
         public bool Equals(Option<T> other) =>
@@ -121,7 +106,7 @@ namespace Bravasoft.Functional
         public static implicit operator Option<T>(in T value) => Prelude.Optional(value);
         public static implicit operator Option<T>(Core.NoneType _) => None;
         public static implicit operator Option<T>(Unit _) => None;
-        public static explicit operator T(in Option<T> ot) => ot.IsSome ? ot._data.Value : throw new OptionCastEception();
+        public static explicit operator T(in Option<T> ot) => ot.IsSome ? ot._data.Value : throw new OptionCastException();
 
         public static implicit operator bool(in Option<T> result) => result.IsSome;
 
@@ -165,9 +150,11 @@ namespace Bravasoft.Functional
 
         public override int GetHashCode() => _data.GetHashCode();
 
-        public OptionEnumerator<T> GetEnumerator() => new OptionEnumerator<T>(this);
-
         public override string ToString() => IsSome ? $"Some({_data.Value})" : "None";
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => new OptionEnumerator<T>(this);
+
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<T>)this).GetEnumerator();
 
         private Option(bool isSome, T value)
         {
