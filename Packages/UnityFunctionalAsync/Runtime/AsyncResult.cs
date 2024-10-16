@@ -1,79 +1,136 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Bravasoft.Functional.Errors;
+using Cysharp.Threading.Tasks;
 using System;
 
-namespace Bravasoft.Functional
+namespace Bravasoft.Functional.Async
 {
-    public static partial class AsyncPrelude
+    public sealed class ErrorException : Exception
     {
-        public static UniTask<Result<T>> AsyncOk<T>(T value) => UniTask.FromResult(Result<T>.Ok(value));
-        public static UniTask<Result<T>> AsyncFail<T>(string errorMessage) => UniTask.FromResult(Result<T>.Fail(new Error(errorMessage)));
+        public ErrorException(Error error) : base(error.Message)
+        {
+            Error = error;
+        }
+
+        public Error Error { get; }
     }
-    public static class AsyncResult
+
+    public readonly struct AsyncResult<T>
     {
-        public static async UniTask<Result<U>> Map<T, U>(this UniTask<Result<T>> asyncResult, Func<T, U> map)
+        private readonly AsyncLazy<T> _lazyTask;
+
+        public AsyncResult(UniTask<T> task)
         {
-            try
-            {
-                var t = await asyncResult;
-                return t.Map(map);
-            }
-            catch (Exception ex)
-            {
-                return Result<U>.Fail(ex);
-            }
+            _lazyTask = UniTask.Lazy(() => task);
         }
 
-        public static async UniTask<Result<U>> Bind<T, U>(this UniTask<Result<T>> asyncResult, Func<T, UniTask<Result<U>>> bind)
+        public static AsyncResult<T> Ok(T value)
         {
-            try
-            {
-                var (isOk, value, error) = await asyncResult;
+            Check.AssureNotNull(value, nameof(value));
 
-                if (isOk)
+            return new AsyncResult<T>(UniTask.FromResult(value));
+        }
+
+        public static AsyncResult<T> Fail(Exception exception)
+        {
+            Check.AssureNotNull(exception, nameof(exception));
+
+            return new AsyncResult<T>(UniTask.FromException<T>(exception));
+        }
+
+        public static AsyncResult<T> Fail(Error error)
+        {
+            Check.AssureNotNull(error, nameof(error));
+
+            return new AsyncResult<T>(UniTask.FromException<T>(new ErrorException(error)));
+        }
+
+        public AsyncResult<U> Map<U>(Func<T, U> map)
+        {
+            return Bind(x => AsyncResult<U>.Ok(map(x)));
+        }
+
+        public AsyncResult<U> Bind<U>(Func<T, AsyncResult<U>> bind)
+        {
+            return _lazyTask.Task
+                .ContinueWith(t =>
                 {
-                    return await bind(value);
-                }
-
-                return Result<U>.Fail(error);
-            }
-            catch (Exception ex)
-            {
-                return Result<U>.Fail(ex);
-            }
+                    try
+                    {
+                        return bind(t)._lazyTask.Task;
+                    }
+                    catch (Exception ex)
+                    {
+                        return UniTask.FromException<U>(ex);
+                    }
+                })
+                .ToResultAsync();
         }
 
-        public static async UniTask<U> MatchAsync<T, U>(this UniTask<Result<T>> asyncResult, Func<T, UniTask<U>> onSome, Func<UniTask<U>> onNone)
-        {
-            var (isOk, value, error) = await asyncResult;
-
-            if (isOk)
-            {
-                return await onSome(value);
-            }
-
-            return await onNone();
-        }
-
-
-        public static async UniTask<Result<T>> Catch<T>(this UniTask<Result<T>> task)
+        public async UniTask<U> Match<U>(Func<T, U> onOk, Func<Error, U> onError)
         {
             try
             {
-                return await task;
+                var t = await _lazyTask;
+
+                return onOk(t);
             }
             catch (Exception ex)
             {
-                return Result<T>.Fail(ex);
+                return onError(ex.ToError());
             }
         }
 
-        // LINQ
+        public UniTask Iter(Action<T> onOK)
+        {
+            return _lazyTask.Task.ContinueWith(t =>
+            {
+                try
+                {
+                    onOK(t);
+                }
+                catch (Exception ex)
+                {
+                }
+            });
+        }
 
-        public static UniTask<Result<U>> Select<T, U>(this UniTask<Result<T>> task, Func<T, U> selector) =>
-            task.Map(selector);
+        public UniTask BiIter(Action<T> onOk, Action<Error> onError)
+        {
+            return _lazyTask.Task.ContinueWith(t =>
+            {
+                try
+                {
+                    onOk(t);
+                }
+                catch (Exception ex)
+                {
+                    if (ex is ErrorException errorExcpection)
+                        onError(errorExcpection.Error);
 
+                    onError(ex.ToError());
+                }
+            });
+        }
+    }
 
-        public static UniTask<Result<U>> SelectMany<T, T1, U>(this UniTask<Result<T>> task, Func<T, UniTask<Result<T1>>> selector, Func<T, T1, U> resultSelector) =>
-            task.Bind(t => selector(t).Map(t1 => resultSelector(t, t1)));
+    public static class ResultAsync
+    {
+        public static AsyncResult<T> Ok<T>(T value) => new AsyncResult<T>(UniTask.FromResult(value));
+        //public static ResultAsync<T> Fail<T>(Error error) => new ResultAsync<T>(error);
+
+        public static AsyncResult<T> ToResultAsync<T>(this in UniTask<T> task)
+        {
+            return new AsyncResult<T>(task);
+        }
+
+        public static AsyncResult<T> ToResultAsync<T>(this in Result<T> result)
+        {
+            return result.Match(AsyncResult<T>.Ok, AsyncResult<T>.Fail);
+        }
+
+        public static AsyncResult<T> Unwrap<T>(this AsyncResult<AsyncResult<T>> result)
+        {
+            return result.Bind(x => x);
+        }
     }
 }
