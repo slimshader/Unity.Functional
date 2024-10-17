@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1109
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Test Runner
   m_RootView: {fileID: 8}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -34,7 +34,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: TestRunnerWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -42,15 +42,15 @@ MonoBehaviour:
     x: 761
     y: 0
     width: 736
-    height: 698
+    height: 519
   m_MinSize: {x: 102, y: 121}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 20}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 20}
   - {fileID: 14}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -69,9 +69,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 361
+    y: 540
     width: 1497
-    height: 698
+    height: 519
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 128
+  controlID: 137
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -122,8 +122,8 @@ MonoBehaviour:
     y: 0
     width: 423
     height: 1059
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -147,9 +147,9 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 330
-    height: 361
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+    height: 540
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -173,7 +173,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 761
-    height: 698
+    height: 519
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 15}
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 100
+  controlID: 37
   draggingID: 0
 --- !u!114 &12
 MonoBehaviour:
@@ -298,7 +298,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1497
-    height: 361
+    height: 540
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
     x: 330
     y: 0
     width: 1167
-    height: 361
+    height: 540
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 18}
@@ -352,9 +352,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 2681
-    y: 434
+    y: 613
     width: 734
-    height: 677
+    height: 498
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -366,12 +366,12 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_Spl:
-    ID: 138
+    ID: 313
     splitterInitialOffset: 279
     currentActiveSplitter: -1
     realSizes:
-    - 319
-    - 288
+    - 225
+    - 203
     relativeSizes:
     - 0.52605456
     - 0.47394544
@@ -381,7 +381,7 @@ MonoBehaviour:
     maxSizes:
     - 0
     - 0
-    lastTotalSize: 607
+    lastTotalSize: 428
     splitSize: 6
     xOffset: 0
     m_Version: 1
@@ -449,9 +449,9 @@ MonoBehaviour:
       uniqueId: '[Bsoft Option][suite]'
       name: Bsoft Option
       fullName: Bsoft Option
-      resultStatus: 2
-      duration: 1.3017797
-      messages: One or more child tests had errors
+      resultStatus: 1
+      duration: 0.3085264
+      messages: 
       output: 
       stacktrace: 
       notRunnable: 0
@@ -466,7 +466,7 @@ MonoBehaviour:
       name: UnityFunctional.Tests.dll
       fullName: D:/Projects/Unity.Functional/Library/ScriptAssemblies/UnityFunctional.Tests.dll
       resultStatus: 1
-      duration: 0.19799
+      duration: 0.2187875
       messages: 
       output: 
       stacktrace: 
@@ -482,7 +482,7 @@ MonoBehaviour:
       name: Bravasoft
       fullName: Bravasoft
       resultStatus: 1
-      duration: 0.1466158
+      duration: 0.1666047
       messages: 
       output: 
       stacktrace: 
@@ -498,7 +498,7 @@ MonoBehaviour:
       name: Functional
       fullName: Bravasoft.Functional
       resultStatus: 1
-      duration: 0.1422049
+      duration: 0.1617546
       messages: 
       output: 
       stacktrace: 
@@ -514,7 +514,7 @@ MonoBehaviour:
       name: Tests
       fullName: Bravasoft.Functional.Tests
       resultStatus: 1
-      duration: 0.1371382
+      duration: 0.1568889
       messages: 
       output: 
       stacktrace: 
@@ -530,7 +530,7 @@ MonoBehaviour:
       name: AnyTests
       fullName: Bravasoft.Functional.Tests.AnyTests
       resultStatus: 1
-      duration: 0.0288314
+      duration: 0.0344121
       messages: 
       output: 
       stacktrace: 
@@ -546,7 +546,7 @@ MonoBehaviour:
       name: AppendingTrueAndFalseResultsInTrue
       fullName: Bravasoft.Functional.Tests.AnyTests.AppendingTrueAndFalseResultsInTrue
       resultStatus: 1
-      duration: 0.0154401
+      duration: 0.0196615
       messages: 
       output: 
       stacktrace: 
@@ -563,7 +563,7 @@ MonoBehaviour:
       name: CheckTests
       fullName: Bravasoft.Functional.Tests.CheckTests
       resultStatus: 1
-      duration: 0.0080532
+      duration: 0.0085814
       messages: 
       output: 
       stacktrace: 
@@ -579,7 +579,7 @@ MonoBehaviour:
       name: IsNullForIntIsFalse
       fullName: Bravasoft.Functional.Tests.CheckTests.IsNullForIntIsFalse
       resultStatus: 1
-      duration: 0.0034518
+      duration: 0.0037956
       messages: 
       output: 
       stacktrace: 
@@ -596,7 +596,7 @@ MonoBehaviour:
       name: IsNullForReferencesChecksForActuallNull
       fullName: Bravasoft.Functional.Tests.CheckTests.IsNullForReferencesChecksForActuallNull
       resultStatus: 1
-      duration: 0.0004192
+      duration: 0.0003341
       messages: 
       output: 
       stacktrace: 
@@ -613,7 +613,7 @@ MonoBehaviour:
       name: IsNullForStructIsFalse
       fullName: Bravasoft.Functional.Tests.CheckTests.IsNullForStructIsFalse
       resultStatus: 1
-      duration: 0.0002405
+      duration: 0.0002941
       messages: 
       output: 
       stacktrace: 
@@ -630,7 +630,7 @@ MonoBehaviour:
       name: EnumerableExtensionsTests
       fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests
       resultStatus: 1
-      duration: 0.0185638
+      duration: 0.0195159
       messages: 
       output: 
       stacktrace: 
@@ -646,7 +646,7 @@ MonoBehaviour:
       name: AppendingNone
       fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests.AppendingNone
       resultStatus: 1
-      duration: 0.0043538
+      duration: 0.0050695
       messages: 
       output: 
       stacktrace: 
@@ -663,7 +663,7 @@ MonoBehaviour:
       name: AppendingSome
       fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests.AppendingSome
       resultStatus: 1
-      duration: 0.0022286
+      duration: 0.0019083
       messages: 
       output: 
       stacktrace: 
@@ -680,7 +680,7 @@ MonoBehaviour:
       name: TryFirstFailure
       fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests.TryFirstFailure
       resultStatus: 1
-      duration: 0.0052954
+      duration: 0.0056278
       messages: 
       output: 
       stacktrace: 
@@ -697,7 +697,7 @@ MonoBehaviour:
       name: TryFirstSuccess
       fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests.TryFirstSuccess
       resultStatus: 1
-      duration: 0.0008534
+      duration: 0.0009138
       messages: 
       output: 
       stacktrace: 
@@ -714,7 +714,7 @@ MonoBehaviour:
       name: TryFirstWithPredicateFailure
       fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests.TryFirstWithPredicateFailure
       resultStatus: 1
-      duration: 0.0005322
+      duration: 0.000713
       messages: 
       output: 
       stacktrace: 
@@ -731,7 +731,7 @@ MonoBehaviour:
       name: TryFirstWithPredicateSuccess
       fullName: Bravasoft.Functional.Tests.EnumerableExtensionsTests.TryFirstWithPredicateSuccess
       resultStatus: 1
-      duration: 0.0002251
+      duration: 0.0002557
       messages: 
       output: 
       stacktrace: 
@@ -748,7 +748,7 @@ MonoBehaviour:
       name: IndexedTests
       fullName: Bravasoft.Functional.Tests.IndexedTests
       resultStatus: 1
-      duration: 0.0047142
+      duration: 0.0084382
       messages: 
       output: 
       stacktrace: 
@@ -764,7 +764,7 @@ MonoBehaviour:
       name: CanIndexEnumerableOfIntegers
       fullName: Bravasoft.Functional.Tests.IndexedTests.CanIndexEnumerableOfIntegers
       resultStatus: 1
-      duration: 0.0007264
+      duration: 0.000858
       messages: 
       output: 
       stacktrace: 
@@ -781,7 +781,7 @@ MonoBehaviour:
       name: WorskWithLinqOperators
       fullName: Bravasoft.Functional.Tests.IndexedTests.WorskWithLinqOperators
       resultStatus: 1
-      duration: 0.0006567
+      duration: 0.0007939
       messages: 
       output: 
       stacktrace: 
@@ -798,7 +798,7 @@ MonoBehaviour:
       name: OptionCoercingTests
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests
       resultStatus: 1
-      duration: 0.0094337
+      duration: 0.0102442
       messages: 
       output: 
       stacktrace: 
@@ -814,7 +814,7 @@ MonoBehaviour:
       name: CanForeachOveroOption
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests.CanForeachOveroOption
       resultStatus: 1
-      duration: 0.0004813
+      duration: 0.0004501
       messages: 
       output: 
       stacktrace: 
@@ -831,7 +831,7 @@ MonoBehaviour:
       name: CanForeachOveroOptionNone
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests.CanForeachOveroOptionNone
       resultStatus: 1
-      duration: 0.000209
+      duration: 0.0002337
       messages: 
       output: 
       stacktrace: 
@@ -848,7 +848,7 @@ MonoBehaviour:
       name: OptionCoercingTests_None
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests.OptionCoercingTests_None
       resultStatus: 1
-      duration: 0.0001642
+      duration: 0.0002695
       messages: 
       output: 
       stacktrace: 
@@ -865,7 +865,7 @@ MonoBehaviour:
       name: OptionCoercingTests_NoneToValue
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests.OptionCoercingTests_NoneToValue
       resultStatus: 1
-      duration: 0.0025434
+      duration: 0.0029829
       messages: 
       output: 
       stacktrace: 
@@ -882,7 +882,7 @@ MonoBehaviour:
       name: OptionCoercingTests_Some
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests.OptionCoercingTests_Some
       resultStatus: 1
-      duration: 0.0002909
+      duration: 0.000338
       messages: 
       output: 
       stacktrace: 
@@ -899,7 +899,7 @@ MonoBehaviour:
       name: OptionCoercingTests_SomeToValue
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests.OptionCoercingTests_SomeToValue
       resultStatus: 1
-      duration: 0.0001362
+      duration: 0.0002601
       messages: 
       output: 
       stacktrace: 
@@ -916,7 +916,7 @@ MonoBehaviour:
       name: OptionCoercingTests_ValueToNone
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests.OptionCoercingTests_ValueToNone
       resultStatus: 1
-      duration: 0.0001154
+      duration: 0.0001514
       messages: 
       output: 
       stacktrace: 
@@ -933,7 +933,7 @@ MonoBehaviour:
       name: OptionCoercingTests_ValueToSome
       fullName: Bravasoft.Functional.Tests.OptionCoercingTests.OptionCoercingTests_ValueToSome
       resultStatus: 1
-      duration: 0.0001124
+      duration: 0.0001264
       messages: 
       output: 
       stacktrace: 
@@ -950,7 +950,7 @@ MonoBehaviour:
       name: OptionTests
       fullName: Bravasoft.Functional.Tests.OptionTests
       resultStatus: 1
-      duration: 0.0237741
+      duration: 0.0285843
       messages: 
       output: 
       stacktrace: 
@@ -966,7 +966,7 @@ MonoBehaviour:
       name: CanCast
       fullName: Bravasoft.Functional.Tests.OptionTests.CanCast
       resultStatus: 1
-      duration: 0.0009998
+      duration: 0.0011235
       messages: 
       output: 
       stacktrace: 
@@ -983,7 +983,7 @@ MonoBehaviour:
       name: CanFoldNone
       fullName: Bravasoft.Functional.Tests.OptionTests.CanFoldNone
       resultStatus: 1
-      duration: 0.0004137
+      duration: 0.0004133
       messages: 
       output: 
       stacktrace: 
@@ -1000,7 +1000,7 @@ MonoBehaviour:
       name: CanFoldSome
       fullName: Bravasoft.Functional.Tests.OptionTests.CanFoldSome
       resultStatus: 1
-      duration: 0.0002166
+      duration: 0.0003686
       messages: 
       output: 
       stacktrace: 
@@ -1017,7 +1017,7 @@ MonoBehaviour:
       name: CanForeach
       fullName: Bravasoft.Functional.Tests.OptionTests.CanForeach
       resultStatus: 1
-      duration: 0.0002267
+      duration: 0.0003089
       messages: 
       output: 
       stacktrace: 
@@ -1034,7 +1034,7 @@ MonoBehaviour:
       name: CanForeachNone
       fullName: Bravasoft.Functional.Tests.OptionTests.CanForeachNone
       resultStatus: 1
-      duration: 0.0002448
+      duration: 0.0003126
       messages: 
       output: 
       stacktrace: 
@@ -1051,7 +1051,7 @@ MonoBehaviour:
       name: CanMapOptionallyNullProperty
       fullName: Bravasoft.Functional.Tests.OptionTests.CanMapOptionallyNullProperty
       resultStatus: 1
-      duration: 0.0007268
+      duration: 0.0006633
       messages: 
       output: 
       stacktrace: 
@@ -1068,7 +1068,7 @@ MonoBehaviour:
       name: CanUseShortCircuitLogicalAndOperator
       fullName: Bravasoft.Functional.Tests.OptionTests.CanUseShortCircuitLogicalAndOperator
       resultStatus: 1
-      duration: 0.0004083
+      duration: 0.0004006
       messages: 
       output: 
       stacktrace: 
@@ -1085,7 +1085,7 @@ MonoBehaviour:
       name: CanUseShortCircuitLogicalOrOperator
       fullName: Bravasoft.Functional.Tests.OptionTests.CanUseShortCircuitLogicalOrOperator
       resultStatus: 1
-      duration: 0.000248
+      duration: 0.0002896
       messages: 
       output: 
       stacktrace: 
@@ -1102,7 +1102,7 @@ MonoBehaviour:
       name: CanUseShortCircuitLogicalOrOperatorWithNone
       fullName: Bravasoft.Functional.Tests.OptionTests.CanUseShortCircuitLogicalOrOperatorWithNone
       resultStatus: 1
-      duration: 0.0002279
+      duration: 0.0002255
       messages: 
       output: 
       stacktrace: 
@@ -1119,7 +1119,7 @@ MonoBehaviour:
       name: ComparisonToDifferentSomeValueYielcsTrue
       fullName: Bravasoft.Functional.Tests.OptionTests.ComparisonToDifferentSomeValueYielcsTrue
       resultStatus: 1
-      duration: 0.0002796
+      duration: 0.00025
       messages: 
       output: 
       stacktrace: 
@@ -1136,7 +1136,7 @@ MonoBehaviour:
       name: ComparisonToSameSomeValueYielcsTrue
       fullName: Bravasoft.Functional.Tests.OptionTests.ComparisonToSameSomeValueYielcsTrue
       resultStatus: 1
-      duration: 0.0001318
+      duration: 0.0001218
       messages: 
       output: 
       stacktrace: 
@@ -1153,7 +1153,7 @@ MonoBehaviour:
       name: DefaultConversion
       fullName: Bravasoft.Functional.Tests.OptionTests.DefaultConversion
       resultStatus: 1
-      duration: 0.0004405
+      duration: 0.0004297
       messages: 
       output: 
       stacktrace: 
@@ -1170,7 +1170,7 @@ MonoBehaviour:
       name: DictionarySupport
       fullName: Bravasoft.Functional.Tests.OptionTests.DictionarySupport
       resultStatus: 1
-      duration: 0.0006671
+      duration: 0.0009035
       messages: 
       output: 
       stacktrace: 
@@ -1187,7 +1187,7 @@ MonoBehaviour:
       name: Equality
       fullName: Bravasoft.Functional.Tests.OptionTests.Equality
       resultStatus: 1
-      duration: 0.0033265
+      duration: 0.0034023
       messages: 
       output: 
       stacktrace: 
@@ -1204,7 +1204,7 @@ MonoBehaviour:
       name: IsNoneByDefaut
       fullName: Bravasoft.Functional.Tests.OptionTests.IsNoneByDefaut
       resultStatus: 1
-      duration: 0.0003047
+      duration: 0.0003099
       messages: 
       output: 
       stacktrace: 
@@ -1221,7 +1221,7 @@ MonoBehaviour:
       name: IsNoneWhenGettingMissingComponentInChildren
       fullName: Bravasoft.Functional.Tests.OptionTests.IsNoneWhenGettingMissingComponentInChildren
       resultStatus: 1
-      duration: 0.000927
+      duration: 0.0012198
       messages: 
       output: 
       stacktrace: 
@@ -1238,7 +1238,7 @@ MonoBehaviour:
       name: IsNoneWhenGettingMissingComponentInParent
       fullName: Bravasoft.Functional.Tests.OptionTests.IsNoneWhenGettingMissingComponentInParent
       resultStatus: 1
-      duration: 0.0004746
+      duration: 0.0005129
       messages: 
       output: 
       stacktrace: 
@@ -1255,7 +1255,7 @@ MonoBehaviour:
       name: IsSomeWhenGettingComponent
       fullName: Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponent
       resultStatus: 1
-      duration: 0.0013701
+      duration: 0.0014478
       messages: 
       output: 
       stacktrace: 
@@ -1272,7 +1272,7 @@ MonoBehaviour:
       name: IsSomeWhenGettingComponentInChildren
       fullName: Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponentInChildren
       resultStatus: 1
-      duration: 0.0002814
+      duration: 0.0002536
       messages: 
       output: 
       stacktrace: 
@@ -1289,7 +1289,7 @@ MonoBehaviour:
       name: IsSomeWhenGettingComponentInParent
       fullName: Bravasoft.Functional.Tests.OptionTests.IsSomeWhenGettingComponentInParent
       resultStatus: 1
-      duration: 0.0003371
+      duration: 0.0003562
       messages: 
       output: 
       stacktrace: 
@@ -1306,7 +1306,7 @@ MonoBehaviour:
       name: LinqSelectManySupport
       fullName: Bravasoft.Functional.Tests.OptionTests.LinqSelectManySupport
       resultStatus: 1
-      duration: 0.0010014
+      duration: 0.001135
       messages: 
       output: 
       stacktrace: 
@@ -1323,7 +1323,7 @@ MonoBehaviour:
       name: LinqSelectSupport
       fullName: Bravasoft.Functional.Tests.OptionTests.LinqSelectSupport
       resultStatus: 1
-      duration: 0.0002869
+      duration: 0.0003234
       messages: 
       output: 
       stacktrace: 
@@ -1340,7 +1340,7 @@ MonoBehaviour:
       name: LinqWhereSupport
       fullName: Bravasoft.Functional.Tests.OptionTests.LinqWhereSupport
       resultStatus: 1
-      duration: 0.0004825
+      duration: 0.0005406
       messages: 
       output: 
       stacktrace: 
@@ -1357,7 +1357,7 @@ MonoBehaviour:
       name: NullReferenceOptionalIsNone
       fullName: Bravasoft.Functional.Tests.OptionTests.NullReferenceOptionalIsNone
       resultStatus: 1
-      duration: 0.0001902
+      duration: 0.000268
       messages: 
       output: 
       stacktrace: 
@@ -1374,7 +1374,7 @@ MonoBehaviour:
       name: ResultTests
       fullName: Bravasoft.Functional.Tests.ResultTests
       resultStatus: 1
-      duration: 0.0113741
+      duration: 0.0115044
       messages: 
       output: 
       stacktrace: 
@@ -1390,7 +1390,7 @@ MonoBehaviour:
       name: DefaultResultIsFailed
       fullName: Bravasoft.Functional.Tests.ResultTests.DefaultResultIsFailed
       resultStatus: 1
-      duration: 0.0008922
+      duration: 0.0010985
       messages: 
       output: 
       stacktrace: 
@@ -1407,7 +1407,7 @@ MonoBehaviour:
       name: ErrorDerivativeConvertsToFail
       fullName: Bravasoft.Functional.Tests.ResultTests.ErrorDerivativeConvertsToFail
       resultStatus: 1
-      duration: 0.0003795
+      duration: 0.000428
       messages: 
       output: 
       stacktrace: 
@@ -1424,7 +1424,7 @@ MonoBehaviour:
       name: ExceptionDerivativeConvertsToFail
       fullName: Bravasoft.Functional.Tests.ResultTests.ExceptionDerivativeConvertsToFail
       resultStatus: 1
-      duration: 0.000304
+      duration: 0.0003287
       messages: 
       output: 
       stacktrace: 
@@ -1441,7 +1441,7 @@ MonoBehaviour:
       name: FailedIsNotOk
       fullName: Bravasoft.Functional.Tests.ResultTests.FailedIsNotOk
       resultStatus: 1
-      duration: 0.0001431
+      duration: 0.0001385
       messages: 
       output: 
       stacktrace: 
@@ -1458,7 +1458,7 @@ MonoBehaviour:
       name: FailedResultConvertsToFalse
       fullName: Bravasoft.Functional.Tests.ResultTests.FailedResultConvertsToFalse
       resultStatus: 1
-      duration: 0.0001694
+      duration: 0.0001637
       messages: 
       output: 
       stacktrace: 
@@ -1475,7 +1475,7 @@ MonoBehaviour:
       name: TwoOkResultsAreNotEqualWhenDifferent
       fullName: Bravasoft.Functional.Tests.ResultTests.TwoOkResultsAreNotEqualWhenDifferent
       resultStatus: 1
-      duration: 0.000374
+      duration: 0.0003747
       messages: 
       output: 
       stacktrace: 
@@ -1492,7 +1492,7 @@ MonoBehaviour:
       name: TwoOkResultsAreWhenSameValueEqual
       fullName: Bravasoft.Functional.Tests.ResultTests.TwoOkResultsAreWhenSameValueEqual
       resultStatus: 1
-      duration: 0.000158
+      duration: 0.0001493
       messages: 
       output: 
       stacktrace: 
@@ -1509,7 +1509,7 @@ MonoBehaviour:
       name: TryTests
       fullName: Bravasoft.Functional.Tests.TryTests
       resultStatus: 1
-      duration: 0.0248612
+      duration: 0.0275814
       messages: 
       output: 'You are trying to create a MonoBehaviour using the ''new'' keyword. 
         This is not allowed.  MonoBehaviours can only be added using AddComponent().
@@ -1530,7 +1530,7 @@ MonoBehaviour:
       name: BindingExceptionAndValidYieldsInvalidResult
       fullName: Bravasoft.Functional.Tests.TryTests.BindingExceptionAndValidYieldsInvalidResult
       resultStatus: 1
-      duration: 0.0011881
+      duration: 0.0011819
       messages: 
       output: 
       stacktrace: 
@@ -1547,7 +1547,7 @@ MonoBehaviour:
       name: BindingTwoValidTriesYieldsValidResult
       fullName: Bravasoft.Functional.Tests.TryTests.BindingTwoValidTriesYieldsValidResult
       resultStatus: 1
-      duration: 0.0003416
+      duration: 0.0003327
       messages: 
       output: 
       stacktrace: 
@@ -1564,7 +1564,7 @@ MonoBehaviour:
       name: BindingValidAndExcpetionYieldInvalidResult
       fullName: Bravasoft.Functional.Tests.TryTests.BindingValidAndExcpetionYieldInvalidResult
       resultStatus: 1
-      duration: 0.000305
+      duration: 0.000483
       messages: 
       output: 
       stacktrace: 
@@ -1581,7 +1581,7 @@ MonoBehaviour:
       name: CanBindWithLinq
       fullName: Bravasoft.Functional.Tests.TryTests.CanBindWithLinq
       resultStatus: 1
-      duration: 0.0008356
+      duration: 0.0008974
       messages: 
       output: 
       stacktrace: 
@@ -1598,7 +1598,7 @@ MonoBehaviour:
       name: CanMapWithLinqSelect
       fullName: Bravasoft.Functional.Tests.TryTests.CanMapWithLinqSelect
       resultStatus: 1
-      duration: 0.0002912
+      duration: 0.0003151
       messages: 
       output: 
       stacktrace: 
@@ -1615,7 +1615,7 @@ MonoBehaviour:
       name: CanMatchExceptionState
       fullName: Bravasoft.Functional.Tests.TryTests.CanMatchExceptionState
       resultStatus: 1
-      duration: 0.0002689
+      duration: 0.0003181
       messages: 
       output: 
       stacktrace: 
@@ -1632,7 +1632,7 @@ MonoBehaviour:
       name: CanMatchValueState
       fullName: Bravasoft.Functional.Tests.TryTests.CanMatchValueState
       resultStatus: 1
-      duration: 0.000247
+      duration: 0.0002923
       messages: 
       output: 
       stacktrace: 
@@ -1649,7 +1649,7 @@ MonoBehaviour:
       name: CantInitializeWithNullFunc
       fullName: Bravasoft.Functional.Tests.TryTests.CantInitializeWithNullFunc
       resultStatus: 1
-      duration: 0.0069427
+      duration: 0.0089891
       messages: 
       output: 
       stacktrace: 
@@ -1666,7 +1666,7 @@ MonoBehaviour:
       name: CanUseOnExceptionFallback
       fullName: Bravasoft.Functional.Tests.TryTests.CanUseOnExceptionFallback
       resultStatus: 1
-      duration: 0.0002492
+      duration: 0.0002491
       messages: 
       output: 
       stacktrace: 
@@ -1683,7 +1683,7 @@ MonoBehaviour:
       name: CanWrapIntParse
       fullName: Bravasoft.Functional.Tests.TryTests.CanWrapIntParse
       resultStatus: 1
-      duration: 0.0003744
+      duration: 0.0003868
       messages: 
       output: 
       stacktrace: 
@@ -1700,7 +1700,7 @@ MonoBehaviour:
       name: CastingInvalidTryToResultYieldsFailedResult
       fullName: Bravasoft.Functional.Tests.TryTests.CastingInvalidTryToResultYieldsFailedResult
       resultStatus: 1
-      duration: 0.0008486
+      duration: 0.0009602
       messages: 
       output: 
       stacktrace: 
@@ -1717,7 +1717,7 @@ MonoBehaviour:
       name: CastingValidTryToResultYieldsnOkResult
       fullName: Bravasoft.Functional.Tests.TryTests.CastingValidTryToResultYieldsnOkResult
       resultStatus: 1
-      duration: 0.0006367
+      duration: 0.0006196
       messages: 
       output: 
       stacktrace: 
@@ -1734,7 +1734,7 @@ MonoBehaviour:
       name: IfExceptionRetyrnsValueIfValid
       fullName: Bravasoft.Functional.Tests.TryTests.IfExceptionRetyrnsValueIfValid
       resultStatus: 1
-      duration: 0.0002011
+      duration: 0.0002021
       messages: 
       output: 
       stacktrace: 
@@ -1751,7 +1751,7 @@ MonoBehaviour:
       name: MappingValidTryYiledsValidMappedValue
       fullName: Bravasoft.Functional.Tests.TryTests.MappingValidTryYiledsValidMappedValue
       resultStatus: 1
-      duration: 0.000247
+      duration: 0.0002644
       messages: 
       output: 
       stacktrace: 
@@ -1768,7 +1768,7 @@ MonoBehaviour:
       name: FunctionalTests
       fullName: FunctionalTests
       resultStatus: 1
-      duration: 0.0337565
+      duration: 0.0350716
       messages: 
       output: 
       stacktrace: 
@@ -1784,7 +1784,7 @@ MonoBehaviour:
       name: AddNat
       fullName: FunctionalTests.AddNat
       resultStatus: 1
-      duration: 0.001179
+      duration: 0.0015678
       messages: 
       output: 
       stacktrace: 
@@ -1801,7 +1801,7 @@ MonoBehaviour:
       name: ApplyTwice
       fullName: FunctionalTests.ApplyTwice
       resultStatus: 1
-      duration: 0.004563
+      duration: 0.0046336
       messages: 
       output: 
       stacktrace: 
@@ -1817,7 +1817,7 @@ MonoBehaviour:
       name: ApplyTwice(0,2)
       fullName: FunctionalTests.ApplyTwice(0,2)
       resultStatus: 1
-      duration: 0.0008129
+      duration: 0.0007778
       messages: 
       output: 
       stacktrace: 
@@ -1834,7 +1834,7 @@ MonoBehaviour:
       name: ApplyTwice(1,3)
       fullName: FunctionalTests.ApplyTwice(1,3)
       resultStatus: 1
-      duration: 0.0000704
+      duration: 0.00006
       messages: 
       output: 
       stacktrace: 
@@ -1851,7 +1851,7 @@ MonoBehaviour:
       name: ApplyTwice(2,4)
       fullName: FunctionalTests.ApplyTwice(2,4)
       resultStatus: 1
-      duration: 0.0000565
+      duration: 0.0000688
       messages: 
       output: 
       stacktrace: 
@@ -1868,7 +1868,7 @@ MonoBehaviour:
       name: ConcatWithMatch2
       fullName: FunctionalTests.ConcatWithMatch2
       resultStatus: 1
-      duration: 0.0056033
+      duration: 0.0054642
       messages: 
       output: 
       stacktrace: 
@@ -1884,7 +1884,7 @@ MonoBehaviour:
       name: ConcatWithMatch2(",",System.String[],"")
       fullName: FunctionalTests.ConcatWithMatch2(",",System.String[],"")
       resultStatus: 1
-      duration: 0.0009049
+      duration: 0.0008968
       messages: 
       output: 
       stacktrace: 
@@ -1901,7 +1901,7 @@ MonoBehaviour:
       name: ConcatWithMatch2(",",System.String[],"a")
       fullName: FunctionalTests.ConcatWithMatch2(",",System.String[],"a")
       resultStatus: 1
-      duration: 0.0007395
+      duration: 0.0008627
       messages: 
       output: 
       stacktrace: 
@@ -1918,7 +1918,7 @@ MonoBehaviour:
       name: ConcatWithMatch2(",",System.String[],"a,b")
       fullName: FunctionalTests.ConcatWithMatch2(",",System.String[],"a,b")
       resultStatus: 1
-      duration: 0.0002745
+      duration: 0.0001997
       messages: 
       output: 
       stacktrace: 
@@ -1935,7 +1935,7 @@ MonoBehaviour:
       name: ConcatWithMatch2("--",System.String[],"a--b--c")
       fullName: FunctionalTests.ConcatWithMatch2("--",System.String[],"a--b--c")
       resultStatus: 1
-      duration: 0.0000683
+      duration: 0.0000693
       messages: 
       output: 
       stacktrace: 
@@ -1952,7 +1952,7 @@ MonoBehaviour:
       name: ConcatWithMatch3
       fullName: FunctionalTests.ConcatWithMatch3
       resultStatus: 1
-      duration: 0.0044928
+      duration: 0.004571
       messages: 
       output: 
       stacktrace: 
@@ -1968,7 +1968,7 @@ MonoBehaviour:
       name: ConcatWithMatch3(",",System.String[],"")
       fullName: FunctionalTests.ConcatWithMatch3(",",System.String[],"")
       resultStatus: 1
-      duration: 0.0006067
+      duration: 0.0006856
       messages: 
       output: 
       stacktrace: 
@@ -1985,7 +1985,7 @@ MonoBehaviour:
       name: ConcatWithMatch3(",",System.String[],"a")
       fullName: FunctionalTests.ConcatWithMatch3(",",System.String[],"a")
       resultStatus: 1
-      duration: 0.0000991
+      duration: 0.0001118
       messages: 
       output: 
       stacktrace: 
@@ -2002,7 +2002,7 @@ MonoBehaviour:
       name: ConcatWithMatch3(",",System.String[],"a,b")
       fullName: FunctionalTests.ConcatWithMatch3(",",System.String[],"a,b")
       resultStatus: 1
-      duration: 0.0001327
+      duration: 0.0001383
       messages: 
       output: 
       stacktrace: 
@@ -2019,7 +2019,7 @@ MonoBehaviour:
       name: ConcatWithMatch3("--",System.String[],"a--b--c")
       fullName: FunctionalTests.ConcatWithMatch3("--",System.String[],"a--b--c")
       resultStatus: 1
-      duration: 0.0000651
+      duration: 0.0000611
       messages: 
       output: 
       stacktrace: 
@@ -2036,7 +2036,7 @@ MonoBehaviour:
       name: FindLongest
       fullName: FunctionalTests.FindLongest
       resultStatus: 1
-      duration: 0.0046564
+      duration: 0.0056687
       messages: 
       output: 
       stacktrace: 
@@ -2052,7 +2052,7 @@ MonoBehaviour:
       name: FindLongest(System.String[],None)
       fullName: FunctionalTests.FindLongest(System.String[],None)
       resultStatus: 1
-      duration: 0.0009018
+      duration: 0.001139
       messages: 
       output: 
       stacktrace: 
@@ -2069,7 +2069,7 @@ MonoBehaviour:
       name: FindLongest(System.String[],Some(abc))
       fullName: FunctionalTests.FindLongest(System.String[],Some(abc))
       resultStatus: 1
-      duration: 0.0006582
+      duration: 0.0006258
       messages: 
       output: 
       stacktrace: 
@@ -2086,7 +2086,7 @@ MonoBehaviour:
       name: PredecessorNat
       fullName: FunctionalTests.PredecessorNat
       resultStatus: 1
-      duration: 0.0009053
+      duration: 0.0008572
       messages: 
       output: 
       stacktrace: 
@@ -2103,7 +2103,7 @@ MonoBehaviour:
       name: ThenCompose
       fullName: FunctionalTests.ThenCompose
       resultStatus: 1
-      duration: 0.0038746
+      duration: 0.0037598
       messages: 
       output: 
       stacktrace: 
@@ -2119,7 +2119,7 @@ MonoBehaviour:
       name: ThenCompose(0,2)
       fullName: FunctionalTests.ThenCompose(0,2)
       resultStatus: 1
-      duration: 0.0003366
+      duration: 0.0003253
       messages: 
       output: 
       stacktrace: 
@@ -2136,7 +2136,7 @@ MonoBehaviour:
       name: ThenCompose(1,4)
       fullName: FunctionalTests.ThenCompose(1,4)
       resultStatus: 1
-      duration: 0.0000621
+      duration: 0.0000676
       messages: 
       output: 
       stacktrace: 
@@ -2153,7 +2153,7 @@ MonoBehaviour:
       name: ThenCompose(2,6)
       fullName: FunctionalTests.ThenCompose(2,6)
       resultStatus: 1
-      duration: 0.0000595
+      duration: 0.0000571
       messages: 
       output: 
       stacktrace: 
@@ -2170,7 +2170,7 @@ MonoBehaviour:
       name: TreeHeight
       fullName: FunctionalTests.TreeHeight
       resultStatus: 1
-      duration: 0.0007855
+      duration: 0.0008237
       messages: 
       output: 
       stacktrace: 
@@ -2187,7 +2187,7 @@ MonoBehaviour:
       name: TreeToList
       fullName: FunctionalTests.TreeToList
       resultStatus: 1
-      duration: 0.0017923
+      duration: 0.0019041
       messages: 
       output: 
       stacktrace: 
@@ -2204,7 +2204,7 @@ MonoBehaviour:
       name: ResultMatcherTests
       fullName: ResultMatcherTests
       resultStatus: 1
-      duration: 0.0140017
+      duration: 0.0143537
       messages: 
       output: 
       stacktrace: 
@@ -2220,7 +2220,7 @@ MonoBehaviour:
       name: CanMatchFail
       fullName: ResultMatcherTests.CanMatchFail
       resultStatus: 1
-      duration: 0.0030103
+      duration: 0.0033926
       messages: 
       output: 
       stacktrace: 
@@ -2237,7 +2237,7 @@ MonoBehaviour:
       name: CanMatchOk
       fullName: ResultMatcherTests.CanMatchOk
       resultStatus: 1
-      duration: 0.0043186
+      duration: 0.0043241
       messages: 
       output: 
       stacktrace: 
@@ -2253,7 +2253,7 @@ MonoBehaviour:
       name: CanMatchOk(1)
       fullName: ResultMatcherTests.CanMatchOk(1)
       resultStatus: 1
-      duration: 0.0008988
+      duration: 0.0009596
       messages: 
       output: 
       stacktrace: 
@@ -2270,7 +2270,7 @@ MonoBehaviour:
       name: CanMatchOk(2)
       fullName: ResultMatcherTests.CanMatchOk(2)
       resultStatus: 1
-      duration: 0.0000701
+      duration: 0.0000682
       messages: 
       output: 
       stacktrace: 
@@ -2287,7 +2287,7 @@ MonoBehaviour:
       name: CanMatchOk(3)
       fullName: ResultMatcherTests.CanMatchOk(3)
       resultStatus: 1
-      duration: 0.0000578
+      duration: 0.0000596
       messages: 
       output: 
       stacktrace: 
@@ -2304,7 +2304,7 @@ MonoBehaviour:
       name: CanMatchSpecificErrorType
       fullName: ResultMatcherTests.CanMatchSpecificErrorType
       resultStatus: 1
-      duration: 0.0008035
+      duration: 0.0009238
       messages: 
       output: 
       stacktrace: 
@@ -2321,7 +2321,7 @@ MonoBehaviour:
       name: CanReuseOkMatcher
       fullName: ResultMatcherTests.CanReuseOkMatcher
       resultStatus: 1
-      duration: 0.0002617
+      duration: 0.0002621
       messages: 
       output: 
       stacktrace: 
@@ -2338,7 +2338,7 @@ MonoBehaviour:
       name: WillMatchSpecificErrorBeforeGeneral
       fullName: ResultMatcherTests.WillMatchSpecificErrorBeforeGeneral
       resultStatus: 1
-      duration: 0.000343
+      duration: 0.0003502
       messages: 
       output: 
       stacktrace: 
@@ -2355,7 +2355,7 @@ MonoBehaviour:
       name: WillUseeFallbackIfNotMatched
       fullName: ResultMatcherTests.WillUseeFallbackIfNotMatched
       resultStatus: 1
-      duration: 0.0003279
+      duration: 0.0003198
       messages: 
       output: 
       stacktrace: 
@@ -2367,125 +2367,198 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1029
       parentUniqueId: UnityFunctional.Tests.dll/[UnityFunctional.Tests][ResultMatcherTests][suite]
-    m_ResultText: 'IterRunsForOkInstanceAsync (1,040s)
-
-      ---
-
-      Expected
-      value to be 43, but found 42 (difference of -1).
-
-      ---
-
-      at FluentAssertions.Execution.LateBoundTestFramework.Throw
-      (System.String message) [0x00065] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Execution.TestFrameworkProvider.Throw (System.String message)
-      [0x00014] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure
-      (System.String message) [0x00005] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
-      failReasonFunc) [0x0004f] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
-      failReasonFunc) [0x00014] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Execution.AssertionScope.FailWith (System.String message,
-      System.Object[] args) [0x00014] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Numeric.NumericAssertions`2[T,TAssertions].Be (T expected,
-      System.String because, System.Object[] becauseArgs) [0x0006a] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      Bravasoft.Functional.Async.Tests.AsyncResultTests.<IterRunsForOkInstanceAsync>b__3_0
-      () [0x000bc] in .\Packages\UnityFunctionalAsync\Tests\AsyncResultTests.cs:54
-
-      at
-      Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1[TResult].GetResult (System.Int16
-      token) [0x00067] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\UniTaskCompletionSource.cs:244
-
-      at
-      Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult
-      (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\CompilerServices\StateMachineRunner.cs:218
-
-      at
-      Cysharp.Threading.Tasks.UniTask+Awaiter.GetResult () [0x00015] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\UniTask.cs:312
-
-      at
-      Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.RunTask (Cysharp.Threading.Tasks.UniTask
-      task) [0x00024] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\UniTaskExtensions.cs:805
-
-      at
-      Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.MoveNext ()
-      [0x0003a] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\UniTaskExtensions.cs:836
-
-      at
-      UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0004e] in
-      .\Library\PackageCache\com.unity.test-framework@1.3.9\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44'
-    m_ResultStacktrace: 'at FluentAssertions.Execution.LateBoundTestFramework.Throw
-      (System.String message) [0x00065] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Execution.TestFrameworkProvider.Throw (System.String message)
-      [0x00014] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure
-      (System.String message) [0x00005] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
-      failReasonFunc) [0x0004f] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Execution.AssertionScope.FailWith (System.Func`1[TResult]
-      failReasonFunc) [0x00014] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Execution.AssertionScope.FailWith (System.String message,
-      System.Object[] args) [0x00014] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      FluentAssertions.Numeric.NumericAssertions`2[T,TAssertions].Be (T expected,
-      System.String because, System.Object[] becauseArgs) [0x0006a] in <0e77b11ca8da4e1cbbca0e127f1674e0>:0
-
-      at
-      Bravasoft.Functional.Async.Tests.AsyncResultTests.<IterRunsForOkInstanceAsync>b__3_0
-      () [0x000bc] in .\Packages\UnityFunctionalAsync\Tests\AsyncResultTests.cs:54
-
-      at
-      Cysharp.Threading.Tasks.UniTaskCompletionSourceCore`1[TResult].GetResult (System.Int16
-      token) [0x00067] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\UniTaskCompletionSource.cs:244
-
-      at
-      Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult
-      (System.Int16 token) [0x00002] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\CompilerServices\StateMachineRunner.cs:218
-
-      at
-      Cysharp.Threading.Tasks.UniTask+Awaiter.GetResult () [0x00015] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\UniTask.cs:312
-
-      at
-      Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.RunTask (Cysharp.Threading.Tasks.UniTask
-      task) [0x00024] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\UniTaskExtensions.cs:805
-
-      at
-      Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.MoveNext ()
-      [0x0003a] in .\Library\PackageCache\com.cysharp.unitask@f2773f585e\Runtime\UniTaskExtensions.cs:836
-
-      at
-      UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0004e] in
-      .\Library\PackageCache\com.unity.test-framework@1.3.9\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+    - id: 1120
+      uniqueId: '[UnityFunctionalAsync.Tests.dll][suite]'
+      name: UnityFunctionalAsync.Tests.dll
+      fullName: D:/Projects/Unity.Functional/Library/ScriptAssemblies/UnityFunctionalAsync.Tests.dll
+      resultStatus: 1
+      duration: 0.0753531
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[Bsoft Option][suite]'
+    - id: 1121
+      uniqueId: UnityFunctionalAsync.Tests.dll/[Bravasoft][suite]
+      name: Bravasoft
+      fullName: Bravasoft
+      resultStatus: 1
+      duration: 0.0721972
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1120
+      parentUniqueId: '[UnityFunctionalAsync.Tests.dll][suite]'
+    - id: 1122
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/[Functional][suite]
+      name: Functional
+      fullName: Bravasoft.Functional
+      resultStatus: 1
+      duration: 0.0717603
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1121
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/[Bravasoft][suite]
+    - id: 1123
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/[Async][suite]
+      name: Async
+      fullName: Bravasoft.Functional.Async
+      resultStatus: 1
+      duration: 0.0684937
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1122
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/[Functional][suite]
+    - id: 1124
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests][suite]
+      name: Tests
+      fullName: Bravasoft.Functional.Async.Tests
+      resultStatus: 1
+      duration: 0.0650074
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1123
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/[Async][suite]
+    - id: 1116
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests][suite]
+      name: AsyncResultTests
+      fullName: Bravasoft.Functional.Async.Tests.AsyncResultTests
+      resultStatus: 1
+      duration: 0.0619901
+      messages: 
+      output: 'You are trying to create a MonoBehaviour using the ''new'' keyword. 
+        This is not allowed.  MonoBehaviours can only be added using AddComponent().
+        Alternatively, your script can inherit from ScriptableObject or no base class
+        at all
 
 '
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1124
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests][suite]
+    - id: 1120
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/AsyncResultTests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests.CanAsyncForeachValidInstance]
+      name: CanAsyncForeachValidInstance
+      fullName: Bravasoft.Functional.Async.Tests.AsyncResultTests.CanAsyncForeachValidInstance
+      resultStatus: 1
+      duration: 0.0247342
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1116
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests][suite]
+    - id: 1121
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/AsyncResultTests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests.CanNotAsyncForeachValidInstance]
+      name: CanNotAsyncForeachValidInstance
+      fullName: Bravasoft.Functional.Async.Tests.AsyncResultTests.CanNotAsyncForeachValidInstance
+      resultStatus: 1
+      duration: 0.0053263
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1116
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests][suite]
+    - id: 1118
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/AsyncResultTests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests.IterRunsForOkInstance]
+      name: IterRunsForOkInstance
+      fullName: Bravasoft.Functional.Async.Tests.AsyncResultTests.IterRunsForOkInstance
+      resultStatus: 1
+      duration: 0.001251
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1116
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests][suite]
+    - id: 1119
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/AsyncResultTests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests.IterRunsForOkInstanceAsync]
+      name: IterRunsForOkInstanceAsync
+      fullName: Bravasoft.Functional.Async.Tests.AsyncResultTests.IterRunsForOkInstanceAsync
+      resultStatus: 1
+      duration: 0.0177031
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1116
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests][suite]
+    - id: 1117
+      uniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/AsyncResultTests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests.IterThrowsForDefaultInstance]
+      name: IterThrowsForDefaultInstance
+      fullName: Bravasoft.Functional.Async.Tests.AsyncResultTests.IterThrowsForDefaultInstance
+      resultStatus: 1
+      duration: 0.0072382
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1116
+      parentUniqueId: UnityFunctionalAsync.Tests.dll/Bravasoft/Functional/Async/Tests/[UnityFunctionalAsync.Tests][Bravasoft.Functional.Async.Tests.AsyncResultTests][suite]
+    m_ResultText: CanNotAsyncForeachValidInstance (0,005s)
+    m_ResultStacktrace: 
     m_TestListState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 16eed987
-      m_LastClickedID: -2015760874
+      scrollPos: {x: 0, y: 34}
+      m_SelectedIDs: 6c59ee05
+      m_LastClickedID: 99506540
       m_ExpandedIDs: a3272a8a36967f980876a1b982543ec716263dc9ec4f99d12d1958d94a4e21ecef6923ee4e30eaf03698c9f411876600adaf780757750634e776553ae71ef568fd29a46c4075dd77ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -2533,9 +2606,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1920
-    y: 434
+    y: 613
     width: 760
-    height: 677
+    height: 498
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2557,7 +2630,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/pl.bravasoft.unity.functional.async/Tests
+    - Packages/pl.bravasoft.unity.functional.async
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -2565,16 +2638,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Packages/pl.bravasoft.unity.functional.async/Tests
+  - Packages/pl.bravasoft.unity.functional.async
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Projects\Unity.Functional
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 2a4a0000
-    m_LastClickedID: 18986
-    m_ExpandedIDs: 000000001c4a00001e4a0000204a000000ca9a3bffffff7f
+    m_SelectedIDs: 1a4a0000
+    m_LastClickedID: 18970
+    m_ExpandedIDs: 00000000184a00001a4a00001c4a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2602,7 +2675,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001c4a00001e4a0000204a0000
+    m_ExpandedIDs: 00000000184a00001a4a00001c4a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2629,7 +2702,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000da550000dc550000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -2699,7 +2772,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 125
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -2728,7 +2801,7 @@ MonoBehaviour:
     x: 1920
     y: 73
     width: 329
-    height: 340
+    height: 519
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -2744,7 +2817,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 1cfbffff
+      m_ExpandedIDs: e6e9ffff6aeafffffeeeffff7eefffff92f0ffff12f1ffff22f2ffffaef2ffffc2f3ffff42f4ffff14f6ffff94f6ffffbcf7ffff48f8ffff34fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2791,7 +2864,7 @@ MonoBehaviour:
     x: 2250
     y: 73
     width: 1165
-    height: 340
+    height: 519
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -3283,9 +3356,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 2681
-    y: 434
+    y: 613
     width: 734
-    height: 677
+    height: 498
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
