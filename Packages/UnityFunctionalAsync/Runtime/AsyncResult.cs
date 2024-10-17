@@ -1,6 +1,9 @@
 ﻿using Bravasoft.Functional.Errors;
 using Cysharp.Threading.Tasks;
 using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Bravasoft.Functional.Async
 {
@@ -14,9 +17,11 @@ namespace Bravasoft.Functional.Async
         public Error Error { get; }
     }
 
-    public readonly struct AsyncResult<T>
+    public readonly struct AsyncResult<T> : IAsyncEnumerable<T>
     {
         private readonly AsyncLazy<T> _lazyTask;
+
+        public UniTask<T> Task => _lazyTask.Task;
 
         public AsyncResult(UniTask<T> task)
         {
@@ -63,7 +68,7 @@ namespace Bravasoft.Functional.Async
                         return UniTask.FromException<U>(ex);
                     }
                 })
-                .ToResultAsync();
+                .ToAsyncResult();
         }
 
         public async UniTask<U> Match<U>(Func<T, U> onOk, Func<Error, U> onError)
@@ -82,11 +87,31 @@ namespace Bravasoft.Functional.Async
 
         public UniTask Iter(Action<T> onOK)
         {
+            if (_lazyTask is null)
+                throw new InvalidOperationException("Result is not initialized");
+
             return _lazyTask.Task.ContinueWith(t =>
             {
                 try
                 {
                     onOK(t);
+                }
+                catch (Exception)
+                {
+                }
+            });
+        }
+
+        public UniTask IterAsync(Func<T, UniTask> onOK)
+        {
+            if (_lazyTask is null)
+                throw new InvalidOperationException("Result is not initialized");
+
+            return _lazyTask.Task.ContinueWith(async t =>
+            {
+                try
+                {
+                    await onOK(t);
                 }
                 catch (Exception)
                 {
@@ -129,19 +154,53 @@ namespace Bravasoft.Functional.Async
                 }
             });
         }
+
+        class AsyncEnumerator : IAsyncEnumerator<T>
+        {
+            private readonly AsyncResult<T> _result;
+            private bool _wasRead;
+            public AsyncEnumerator(AsyncResult<T> result)
+            {
+                _result = result;
+                _wasRead = false;
+            }
+            public T Current { get; private set; }
+            public ValueTask DisposeAsync() => new ValueTask();
+            public async ValueTask<bool> MoveNextAsync()
+            {
+                if (_wasRead)
+                {
+                    return false;
+                }
+
+                try
+                {
+                    Current = await _result._lazyTask.Task;
+                    _wasRead = true;
+                    return true;
+                }
+                catch (Exception)
+                {
+                    _wasRead = true;
+                    return false;
+                }
+            }
+        }
+
+        IAsyncEnumerator<T> IAsyncEnumerable<T>.GetAsyncEnumerator(CancellationToken cancellationToken) =>
+            new AsyncEnumerator(this);
     }
 
     public static class ResultAsync
     {
         public static AsyncResult<T> Ok<T>(T value) => new AsyncResult<T>(UniTask.FromResult(value));
-        //public static ResultAsync<T> Fail<T>(Error error) => new ResultAsync<T>(error);
 
-        public static AsyncResult<T> ToResultAsync<T>(this in UniTask<T> task)
+        public static AsyncResult<T> ToAsyncResult<T>(this in UniTask<T> task)
         {
             return new AsyncResult<T>(task);
         }
 
-        public static AsyncResult<T> ToResultAsync<T>(this in Result<T> result)
+        public static AsyncResult<T> ToAsyncResult<T>(this in Result<T> result)
         {
             return result.Match(AsyncResult<T>.Ok, AsyncResult<T>.Fail);
         }

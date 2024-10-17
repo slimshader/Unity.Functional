@@ -1,5 +1,5 @@
 {
-    "name": "UnityFunctionalAsync.Runtime",
+    "name": "UnityFunctionalAsync",
     "rootNamespace": "",
     "references": [
         "GUID:f24e56635959d59408515dd55659d6b4",
