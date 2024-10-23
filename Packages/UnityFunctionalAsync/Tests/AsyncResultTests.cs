@@ -1,4 +1,3 @@
-using Bravasoft.Functional.Errors;
 using Cysharp.Threading.Tasks;
 using FluentAssertions;
 using NUnit.Framework;
@@ -6,34 +5,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-
-namespace Bravasoft.Functional
-{
-    public delegate Result<T> IO<Env, T>(Env env);
-
-    public sealed class IoError : ExceptionError
-    {
-        public IoError(Exception exception) : base(exception) { }
-    }
-
-    public static class IO
-    {
-        public static IO<Env, T> Of<T, Env>(T value) =>
-            (Env _) => value;
-
-        public static Result<T> Run<Env, T>(this IO<Env, T> io, Env env)
-        {
-            try
-            {
-                return io(env);
-            }
-            catch (Exception e)
-            {
-                return Result.Fail(new IoError(e));
-            }
-        }
-    }
-}
 
 namespace Bravasoft.Functional.Async.Tests
 {
@@ -106,6 +77,118 @@ namespace Bravasoft.Functional.Async.Tests
             }
             value.Should().Be(0);
         });
+
+        [UnityTest]
+        public IEnumerator CanIterValidInceMultipleTimes() => UniTask.ToCoroutine(async () =>
+        {
+            var result = Get42Async().ToAsyncResult();
+
+            int value = 0;
+
+            await result.Iter(x => value = 1);
+            
+            value.Should().Be(1);
+            
+            await result.Iter(x => value = 2);
+            
+            value.Should().Be(2);
+        });
+
+        async UniTask<int> Throwing()
+        {
+            await UniTask.Delay(10);
+            throw new Exception("Test");
+        }
+
+        async UniTask<Result<int>> ThrowingResult()
+        {
+            await UniTask.Delay(10);
+            throw new Exception("Test");
+        }
+
+
+        [UnityTest]
+        public IEnumerator IfErrorWhenExceptionIsThrown() => UniTask.ToCoroutine(async () =>
+        {
+            var result = Throwing().ToAsyncResult();
+
+            var value = await result.IfError(_ =>  1);
+
+            value.Should().Be(1);
+        });
+
+        [UnityTest]
+        public IEnumerator IfErrorWhenExceptionIsNotThrown() => UniTask.ToCoroutine(async () =>
+        {
+            var result = Get42Async().ToAsyncResult();
+            var value = await result.IfError(_ => 1);
+            value.Should().Be(42);
+        });
+
+        [UnityTest]
+        public IEnumerator CanMatchValidValue() => UniTask.ToCoroutine(async () =>
+        {
+            var result = Get42Async().ToAsyncResult();
+
+            var value = await result.Match(x => 1, _ => 0);
+
+            value.Should().Be(1);
+        });
+
+        [UnityTest]
+        public IEnumerator CanMatchErrorValue() => UniTask.ToCoroutine(async () =>
+        {
+            var result = Throwing().ToAsyncResult();
+            var value = await result.Match(x => 1, _ => 0);
+            value.Should().Be(0);
+        });
+
+        [UnityTest]
+        public IEnumerator IfHasNoneOptionErrorWhenInitilizedFromDefaultOption() => UniTask.ToCoroutine(async () =>
+        {
+            var result = default(Option<int>).ToAsyncResult();
+
+            var value = await result.IfError(e => e switch
+            {
+                NoneOptionError _ => 1,
+                _ => 0
+            });
+
+            value.Should().Be(1);
+        });
+
+        [UnityTest]
+        public IEnumerator MatchesOkWhenInitializedFromOkResult() => UniTask.ToCoroutine(async () =>
+        {
+            var result = Result<int>.Ok(42).ToAsyncResult();
+            var value = await result.Match(x => 1, _ => 0);
+            value.Should().Be(1);
+        });
+
+        [UnityTest]
+        public IEnumerator MatchesErrorWhenInitializedFromErrorResult() => UniTask.ToCoroutine(async () =>
+        {
+            var result = Result<int>.Fail(new Error("Test")).ToAsyncResult();
+            var value = await result.Match(x => 1, _ => 0);
+            value.Should().Be(0);
+        });
+
+        [UnityTest]
+        public IEnumerator MatchesOkWhenInitializedFromOkResultTask() => UniTask.ToCoroutine(async () =>
+        {
+            var result = UniTask.FromResult(Result<int>.Ok(42)).ToAsyncResult();
+            var value = await result.Match(x => 1, _ => 0);
+            value.Should().Be(1);
+        });
+
+        [UnityTest]
+        public IEnumerator MatchesErrorWhenInitializedFromErrorResultTask() => UniTask.ToCoroutine(async () =>
+        {
+            var result = ThrowingResult().ToAsyncResult();
+            var value = await result.Match(x => 1, _ => 0);
+            value.Should().Be(0);
+        });
+
 
     }
 }

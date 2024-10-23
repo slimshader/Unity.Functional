@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace Bravasoft.Functional.Async
 {
+    public sealed class NoneOptionError : Error
+    {
+        public static readonly NoneOptionError Default = new NoneOptionError();
+
+        private NoneOptionError() : base("Option is None")
+        {
+        }
+    }
+
     public sealed class ErrorException : Exception
     {
         public ErrorException(Error error) : base(error.Message)
@@ -155,6 +164,20 @@ namespace Bravasoft.Functional.Async
             });
         }
 
+        public async UniTask<T> IfError(Func<Error, T> onError)
+        {
+            try
+            {
+                return await _lazyTask.Task;
+            }
+            catch (Exception ex)
+            {
+                if (ex is ErrorException errorExcpection)
+                    return onError(errorExcpection.Error);
+                return onError(ex.ToError());
+            }
+        }
+
         class AsyncEnumerator : IAsyncEnumerator<T>
         {
             private readonly AsyncResult<T> _result;
@@ -191,7 +214,7 @@ namespace Bravasoft.Functional.Async
             new AsyncEnumerator(this);
     }
 
-    public static class ResultAsync
+    public static class AsyncResult
     {
         public static AsyncResult<T> Ok<T>(T value) => new AsyncResult<T>(UniTask.FromResult(value));
 
@@ -204,6 +227,19 @@ namespace Bravasoft.Functional.Async
         {
             return result.Match(AsyncResult<T>.Ok, AsyncResult<T>.Fail);
         }
+
+        public static AsyncResult<T> ToAsyncResult<T>(this in UniTask<Result<T>> resultTask)
+        {            
+            return resultTask.ContinueWith(result =>
+            {
+                var (isOk, value, error) = result;
+                return isOk ? UniTask.FromResult(value) : UniTask.FromException<T>(new ErrorException(error));
+            }).ToAsyncResult();
+        }
+
+        public static AsyncResult<T> ToAsyncResult<T>(this in Option<T> option) =>
+            option.Match(Ok, () => AsyncResult<T>.Fail(NoneOptionError.Default));
+
 
         public static AsyncResult<T> Unwrap<T>(this AsyncResult<AsyncResult<T>> result)
         {
