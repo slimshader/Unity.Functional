@@ -28,13 +28,11 @@ namespace Bravasoft.Functional.Async
 
     public readonly struct AsyncResult<T> : IAsyncEnumerable<T>
     {
-        private readonly AsyncLazy<T> _lazyTask;
-
-        public UniTask<T> Task => _lazyTask.Task;
+        private readonly UniTask<T> _task;
 
         public AsyncResult(UniTask<T> task)
         {
-            _lazyTask = UniTask.Lazy(() => task);
+            _task = task.Preserve();
         }
 
         public static AsyncResult<T> Ok(T value)
@@ -65,12 +63,12 @@ namespace Bravasoft.Functional.Async
 
         public AsyncResult<U> Bind<U>(Func<T, AsyncResult<U>> bind)
         {
-            return _lazyTask.Task
+            return _task
                 .ContinueWith(t =>
                 {
                     try
                     {
-                        return bind(t)._lazyTask.Task;
+                        return bind(t)._task;
                     }
                     catch (Exception ex)
                     {
@@ -84,99 +82,86 @@ namespace Bravasoft.Functional.Async
         {
             try
             {
-                var t = await _lazyTask;
+                var t = await _task;
 
                 return onOk(t);
             }
+            catch (ErrorException error)
+            {
+                return onError(error.Error);
+            }
             catch (Exception ex)
             {
                 return onError(ex.ToError());
             }
         }
 
-        public UniTask Iter(Action<T> onOK)
-        {
-            if (_lazyTask is null)
-                throw new InvalidOperationException("Result is not initialized");
-
-            return _lazyTask.Task.ContinueWith(t =>
-            {
-                try
-                {
-                    onOK(t);
-                }
-                catch (Exception)
-                {
-                }
-            });
-        }
-
-        public UniTask IterAsync(Func<T, UniTask> onOK)
-        {
-            if (_lazyTask is null)
-                throw new InvalidOperationException("Result is not initialized");
-
-            return _lazyTask.Task.ContinueWith(async t =>
-            {
-                try
-                {
-                    await onOK(t);
-                }
-                catch (Exception)
-                {
-                }
-            });
-        }
-
-        public UniTask Iter(Func<T, UniTask> onOK)
-        {
-            return _lazyTask.Task.ContinueWith(t =>
-            {
-                try
-                {
-                    return onOK(t);
-                }
-                catch (Exception)
-                {
-                }
-
-                return UniTask.CompletedTask;
-            });
-        }
-
-
-
-        public UniTask BiIter(Action<T> onOk, Action<Error> onError)
-        {
-            return _lazyTask.Task.ContinueWith(t =>
-            {
-                try
-                {
-                    onOk(t);
-                }
-                catch (Exception ex)
-                {
-                    if (ex is ErrorException errorExcpection)
-                        onError(errorExcpection.Error);
-
-                    onError(ex.ToError());
-                }
-            });
-        }
-
-        public async UniTask<T> IfError(Func<Error, T> onError)
+        public async UniTask<U> Match<U>(Func<T, U> onOk, U onErrorValue)
         {
             try
             {
-                return await _lazyTask.Task;
+                var t = await _task;
+
+                return onOk(t);
+            }
+            catch (Exception)
+            {
+                return onErrorValue;
+            }
+        }
+
+        public UniTask<Result<T>> ToResult() =>
+            Match(Result<T>.Ok, Result<T>.Fail);
+
+        public UniTask Iter(Action<T> onOK) =>
+            BiIter(onOK, _ => { });
+
+
+        public async UniTask BiIter(Action<T> onOk, Action<Error> onError)
+        {
+            try
+            {
+                var t = await _task;
+                onOk(t);
+            }
+            catch (ErrorException errorExcpection)
+            {
+                onError(errorExcpection.Error);
             }
             catch (Exception ex)
             {
-                if (ex is ErrorException errorExcpection)
-                    return onError(errorExcpection.Error);
-                return onError(ex.ToError());
+                onError(ex.ToError());
             }
         }
+
+        public async UniTask IterError<TError>(Action<TError> onError) where TError : Error
+        {
+            try
+            {
+                var t = await _task;
+            }
+            catch (ErrorException errorExcpection)
+            {
+                if (errorExcpection.Error is TError terror)
+                {
+                    onError(terror);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.ToError() is TError terror)
+                {
+                    onError(terror);
+                }
+            }
+        }
+
+        public async UniTask<T> IfError(Func<Error, T> onError) =>
+            await Match(x => x, onError);
+
+        public async UniTask<T> IfError(T onErrorValue) =>
+            await Match(x => x, onErrorValue);
+
 
         class AsyncEnumerator : IAsyncEnumerator<T>
         {
@@ -198,7 +183,7 @@ namespace Bravasoft.Functional.Async
 
                 try
                 {
-                    Current = await _result._lazyTask.Task;
+                    Current = await _result._task;
                     _wasRead = true;
                     return true;
                 }
@@ -241,9 +226,15 @@ namespace Bravasoft.Functional.Async
             option.Match(Ok, () => AsyncResult<T>.Fail(NoneOptionError.Default));
 
 
-        public static AsyncResult<T> Unwrap<T>(this AsyncResult<AsyncResult<T>> result)
+        public static AsyncResult<T> Flatten<T>(this AsyncResult<AsyncResult<T>> result)
         {
             return result.Bind(x => x);
         }
+
+        public static AsyncResult<U> SelectMany<T, T1, U>(
+            this AsyncResult<T> result,
+            Func<T, AsyncResult<T1>> selector,
+            Func<T, T1, U> resultSelector) =>
+            result.Bind(t => selector(t).Map(t1 => resultSelector(t, t1)));
     }
 }

@@ -24,7 +24,7 @@ namespace Bravasoft.Functional
         }
     }
 
-    public readonly struct Result<T> : IEquatable<Result<T>>
+    public readonly struct Result<T> : IEquatable<Result<T>>, IEquatable<T>
     {
         private readonly (Option<T> MaybeValue, Error Error) _data;
 
@@ -147,6 +147,16 @@ namespace Bravasoft.Functional
         public static implicit operator Result<T>(in Result.ResultOk<T> ok) => Ok(ok.Value);
         public static implicit operator Result<T>(in Result.ResultFail fail) => Fail(fail.Error);
 
+        public static bool operator ==(in Result<T> result, in Result<T> other) => result.Equals(other);
+        public static bool operator !=(in Result<T> result, in Result<T> other) => !result.Equals(other);
+
+        public static bool operator ==(in Result<T> result, in T other) =>
+            result._data.MaybeValue.Equals(other);
+
+        public static bool operator !=(in Result<T> result, in T other) =>
+            !result._data.MaybeValue.Equals(other);
+
+
         public override string ToString()
         {
             if (_data.MaybeValue.TryGetValue(out var value))
@@ -158,6 +168,7 @@ namespace Bravasoft.Functional
         }
 
         public bool Equals(Result<T> other) => _data.Equals(other._data);
+        public bool Equals(T other) => _data.MaybeValue.Equals(other);
 
         private Result(T value) => _data = (Check.AssureNotNull(value, nameof(value)), default);
         private Result(Error error) => _data = (default, Check.AssureNotNull(error, nameof(error)));
