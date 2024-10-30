@@ -1,13 +1,10 @@
-﻿using Bravasoft.Functional.Json;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using System.Text.Json.Serialization;
 
 namespace Bravasoft.Functional
 {
-    [JsonConverter(typeof(OptionConverter<>))]
     public readonly struct Option<T> : IEquatable<Option<T>>, IEquatable<T>, IEnumerable<T>
     {
         private readonly (bool IsSome, T Value) _data;
