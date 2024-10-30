@@ -1,8 +1,12 @@
+using Bravasoft.Functional.Json;
 using Bravasoft.Functional.Unity;
 using FluentAssertions;
+using FluentAssertions.Numeric;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using UnityEngine;
 using static Bravasoft.Functional.Prelude;
 
@@ -261,7 +265,7 @@ namespace Bravasoft.Functional.Tests
 
             var result = d1 || d2;
 
-            result.Should().Equal(d1);
+            result.Should().Be(d1);
         }
 
         [Test]
@@ -272,7 +276,7 @@ namespace Bravasoft.Functional.Tests
 
             var result = d1 || d2;
 
-            result.Should().Equal(d2);
+            result.Should().Be(d2);
         }
 
         [Test]
@@ -283,7 +287,40 @@ namespace Bravasoft.Functional.Tests
 
             var result = d1 || d2;
 
-            result.Should().Equal(2);
+            result.Should().Be(2);
+        }
+
+        class TestClass
+        {
+            public Option<int> Value { get; set; }
+        }
+
+
+
+
+        [Test]
+        public void CanDeserializeValueFromJson()
+        {
+            var json = "{\"Value\": 1}";
+
+            var options = new JsonSerializerOptions()
+                .AddOptionConverter();
+
+            var testObject = JsonSerializer.Deserialize<TestClass>(json, options);
+
+            testObject.Value.Should().BeSome(1);
+        }
+
+        [Test]
+        public void CanDeserializeNullFromJson()
+        {
+            var json = "{\"Value\": null}";
+
+            var options = new JsonSerializerOptions()
+                .AddOptionConverter();
+
+            var testObject = JsonSerializer.Deserialize<TestClass>(json, options);
+            testObject.Value.Should().BeNone();
         }
     }
 }
